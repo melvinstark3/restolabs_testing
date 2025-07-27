@@ -10,15 +10,20 @@ public class cardDetailsInput extends browserSetup{
     public cardDetailsInput(String cardNumber){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)", "");
-        wait.until(ExpectedConditions.elementToBeClickable(By.name("cc_exp_month")));
-        driver.findElement(By.name("cc_number")).sendKeys(cardNumber);
-        WebElement monthDropDown = driver.findElement(By.name("cc_exp_month"));
-        Select expiryMonth = new Select(monthDropDown);
-        expiryMonth.selectByValue(readProperty("expiryMonth"));
-        WebElement yearDropDown = driver.findElement(By.name("cc_exp_year"));
-        Select expiryYear = new Select(yearDropDown);
-        expiryYear.selectByValue(readProperty("expiryYear"));
-        driver.findElement(By.name("cc_cvv")).sendKeys(readProperty("cvv"));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_mainPage_txt_CardNumber")));
+        String OrderIDonGatewayPage = driver.findElement(By.id("ctl00_mainPage_lbl_WelcomeText")).getText();
+        System.out.println("Entering Card Details for " + OrderIDonGatewayPage);
+
+        driver.findElement(By.id("ctl00_mainPage_txt_CardNumber")).sendKeys(cardNumber);
+
+        WebElement expMonth = driver.findElement(By.id("ctl00_mainPage_ddl_ExpirationMonth"));
+        Select expMonthDropdown = new Select(expMonth);
+        expMonthDropdown.selectByVisibleText(readProperty("expiryMonth"));
+
+        WebElement expYear = driver.findElement(By.id("ctl00_mainPage_ddl_ExpirationYear"));
+        Select expYearDropdown = new Select(expYear);
+        expYearDropdown.selectByVisibleText(readProperty("expiryYear"));
+        driver.findElement(By.id("txt_CVV")).sendKeys(readProperty("cvv"));
     }
 
 }

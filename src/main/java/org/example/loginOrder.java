@@ -41,6 +41,7 @@ public class loginOrder extends browserSetup{
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        String checkoutOrderTotal = driver.findElement(By.xpath("//h5[@data-testid=\"orderTotal\"]")).getText();
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
         driver.findElement(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]")).click();
@@ -53,13 +54,24 @@ public class loginOrder extends browserSetup{
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.print("For Logged In Order: ");
+        new matchAmount(checkoutOrderTotal,true);
         new paymentPageCancellation();
         new paymentNavigation(loggedIn);
+        System.out.println("Checking Gateway Name in Payment Page URL");
         new gatewayNameInURL();
         System.out.println("Checking Hypertext Protocol for Payment Page");
         new checkHttps();
+        new gatewayNavigation(loggedIn);
+        System.out.println("Checking Gateway Name in Gateway Page URL");
+        new gatewayNameInURL();
+        System.out.println("Checking Hypertext Protocol for Gateway Page");
+        new checkHttps();
+        // To Save Time after checking the Protocol, instead of new Order we are going back to valid URL & then Gateway
+        driver.navigate().back();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("submit-button"))).click();
+        new gatewayPageCancellation();
         new paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
+        new checkSavedOrNew(readProperty("loginNewCardNumber"));
 
         new restartOrderWithData(loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));

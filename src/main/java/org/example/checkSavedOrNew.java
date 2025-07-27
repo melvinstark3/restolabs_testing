@@ -8,12 +8,12 @@ import java.util.List;
 
 public class checkSavedOrNew extends browserSetup{
 
-    public checkSavedOrNew(String cardNumber, boolean loggedIn) throws InterruptedException {
+    public checkSavedOrNew(String cardNumber) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         try {
-            JavascriptExecutor js = (JavascriptExecutor) driver;
-            js.executeScript("window.scrollBy(0,2000)", "");;
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+            js.executeScript("window.scrollBy(0,2000)", "");
             System.out.println("Checking Saved Cards");
             List<WebElement> elements = driver.findElements(By.id("new-card"));
             if (!elements.isEmpty()) {
@@ -26,13 +26,12 @@ public class checkSavedOrNew extends browserSetup{
 
         } catch (NoSuchElementException | TimeoutException e) {
             try {
-                wait = new WebDriverWait(driver, 2);
+                wait = new WebDriverWait(driver, 5);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[normalize-space()='Add New Card']")));
                 driver.findElement(By.xpath("//label[normalize-space()='Add New Card']")).click();
             } catch (NoSuchElementException | TimeoutException t) {
                 System.out.println("Trying First Fresh Card Payment");
             }
-            wait = new WebDriverWait(driver, 30);
             new newCardPayment(cardNumber);
         }
     }

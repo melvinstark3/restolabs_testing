@@ -9,7 +9,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class checkHttps extends browserSetup{
 
     public checkHttps(){
+        try{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
+        } catch (NoSuchElementException | TimeoutException e){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("\"ctl00_mainPage_lbl_WelcomeText\"")));
+        }
         String paymentURL = driver.getCurrentUrl();
         System.out.println("Redirected Payment URL is " + paymentURL);
         //Check for http in the URL. If not, reload the URL in http and recheck if the URL reloaded in https automatically or not

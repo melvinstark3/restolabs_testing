@@ -20,6 +20,7 @@ public class createCart extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Continuing to Menu");
         }
+        js.executeScript("window.scrollBy(0,2000)", "");
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")));
         driver.findElement(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")).click();
@@ -38,6 +39,7 @@ public class createCart extends browserSetup{
         catch (NoSuchElementException | TimeoutException e){
             System.out.println("Adding non Customisable Item to the Cart.");
         }
+        Thread.sleep(3000);
         js.executeScript("window.scrollBy(0,10)", "");
         try {
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
@@ -47,7 +49,6 @@ public class createCart extends browserSetup{
             driver.findElement(By.xpath("//a[@id=\"cart-header\"]")).click();
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
             System.out.println("Proceeding to Checkout");
-
         }
         wait = new WebDriverWait(driver, 30);
         if (loggedIn) {

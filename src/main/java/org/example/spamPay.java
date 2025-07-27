@@ -8,9 +8,13 @@ import java.util.concurrent.TimeUnit;
 
 public class spamPay extends browserSetup{
     public spamPay(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Warning: Laravel Page is Not Displayed!");
+        }
         new cardDetailsInput(readProperty("guestNewCardNumber"));
-        driver.findElement(By.id("submit-button")).click();
+        driver.findElement(By.id("btn_Submit")).click();
         wait = new WebDriverWait(driver, 20);
         try {
             wait.until(ExpectedConditions.elementToBeClickable(By.id("submit-button"))).click();

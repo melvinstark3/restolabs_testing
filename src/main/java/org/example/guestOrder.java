@@ -82,8 +82,8 @@ public class guestOrder extends browserSetup {
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        new matchAmount(checkoutOrderTotal);
-        new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
+        new matchAmount(checkoutOrderTotal,false);
+        new checkSavedOrNew(readProperty("guestNewCardNumber"));
         new browserBackPostOrder();
         System.out.println("TC_12: PASS - Payment Successful by a New Card");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
@@ -92,5 +92,7 @@ public class guestOrder extends browserSetup {
         Thread.sleep(3000);
         new paymentNavigation(loggedIn);
         new sharedURLPayment();
+        new gatewayNavigation(loggedIn);
+        new sharedURLGateway();
     }
 }
