@@ -59,11 +59,12 @@ public class loginOrder extends browserSetup{
         System.out.println("Checking Hypertext Protocol for Payment Page");
         new checkHttps();
         new paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
+        new newCardPayment("card",readProperty("loginNewCardNumber"));
 
         new restartOrderWithData(loggedIn);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
+        wait = new WebDriverWait(driver, 60);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"pl-1\"]")));
+        String orderIWithHash = driver.findElement(By.xpath("//span[@class=\"pl-1\"]")).getText();
         String OrderID = orderIWithHash.replace("#", "");
         System.out.println("TC_06: PASS - Order placed by Logged In User.");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");

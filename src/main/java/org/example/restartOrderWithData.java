@@ -5,10 +5,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class restartOrderWithData extends browserSetup{
 
     public restartOrderWithData(boolean loggedIn) throws InterruptedException {
+        wait = new WebDriverWait(driver, 60);
         String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
         driver.findElement(By.xpath(restartOrderButtonXpath)).click();
@@ -38,9 +40,16 @@ public class restartOrderWithData extends browserSetup{
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        wait = new WebDriverWait(driver, 5);
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-tab=\"tab-now\"]"))).isDisplayed();
+            System.out.println("Page with Pay Now & Later Options is Displayed");
+        } catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("Page with Direct Payment Options is Displayed");
+        }
+        wait = new WebDriverWait(driver, 30);
         System.out.print("For 2nd Restart Order: ");
-        new secondNewCardPayment(readProperty("restartNewCardNumber"), loggedIn);
+        new newCardPayment("wallet","");
     }
 
 }

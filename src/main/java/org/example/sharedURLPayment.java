@@ -13,19 +13,14 @@ public class sharedURLPayment extends browserSetup{
         invokeBrowser();
         driver.get(paymentURL);
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button"))).isDisplayed();
-            if (Objects.equals(readProperty("tokenized"), "yes")){
-                new checkSavedOrNew(readProperty("guestNewCardNumber"),true);
-                try {
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-                    System.out.println("TC 57: FAIL: Payment was Successful in New Session");
-                }
-                catch (NoSuchElementException | TimeoutException e){
-                    System.out.println("TC 57: PASS: Payment was Unsuccessful in New Session");
-                }
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//img[@alt=\"Paytrail logo\"]"))).isDisplayed();
+            new newCardPayment("card",readProperty("guestNewCardNumber"));
+            try {
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
+                System.out.println("TC 57: FAIL: Payment was Successful in New Session");
             }
-            else{
-                System.out.println("TC 57: WARNING! Gateway Page Visible even with Tokenized Gateway. PLEASE CHECK MANUALLY!!");
+            catch (NoSuchElementException | TimeoutException e){
+                System.out.println("TC 57: PASS: Payment was Unsuccessful in New Session");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("TC 57: PASS: User is not able to Pay with Shared Gateway URL");

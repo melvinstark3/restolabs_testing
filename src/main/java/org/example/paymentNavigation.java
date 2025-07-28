@@ -44,7 +44,14 @@ public class paymentNavigation extends browserSetup{
             System.out.println("Pre-Saved Billing Dialog wasn't Displayed. Proceeding to Gateway");
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        wait = new WebDriverWait(driver, 5);
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-tab=\"tab-now\"]"))).isDisplayed();
+            System.out.println("Page with Pay Now & Later Options is Displayed");
+        } catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("Page with Direct Payment Options is Displayed");
+        }
+        wait = new WebDriverWait(driver, 30);
     }
 
 }
