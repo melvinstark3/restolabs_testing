@@ -60,8 +60,10 @@ public class loginOrder extends browserSetup{
         new checkHttps();
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
-
         new restartOrderWithData(loggedIn);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
+        new paymentNavigation(loggedIn);
+        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
         String OrderID = orderIWithHash.replace("#", "");
