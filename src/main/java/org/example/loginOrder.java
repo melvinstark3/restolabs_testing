@@ -53,15 +53,15 @@ public class loginOrder extends browserSetup{
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.print("For Logged In Order: ");
-        new paymentPageCancellation();
-        new paymentNavigation(loggedIn);
         new gatewayNameInURL();
         System.out.println("Checking Hypertext Protocol for Payment Page");
         new checkHttps();
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
-
         new restartOrderWithData(loggedIn);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
+        new paymentNavigation(loggedIn);
+        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
         String OrderID = orderIWithHash.replace("#", "");

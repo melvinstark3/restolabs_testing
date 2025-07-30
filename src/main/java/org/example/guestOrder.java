@@ -30,7 +30,7 @@ public class guestOrder extends browserSetup {
         js.executeScript("window.scrollBy(0,2000)", "");
         System.out.println("TC_07: For Guest Order: ");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
             if (driver.findElement(By.id("policy")).isSelected()) {
@@ -56,7 +56,7 @@ public class guestOrder extends browserSetup {
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        Thread.sleep(5000);
+        Thread.sleep(3000);
         try{
             if (driver.findElement(By.id("policy")).isSelected()) {
                 System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
@@ -78,10 +78,12 @@ public class guestOrder extends browserSetup {
         driver.findElement(By.xpath("(//input[@data-testid=\"BillLast name\"])[2]")).sendKeys(readProperty("guestBillingLastName"));
         driver.findElement(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")).sendKeys(readProperty("guestBillingPhoneNumber"));
         driver.findElement(By.xpath("//button[@data-testid=\"SubmitBillingDetails\"]")).click();
+        wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")));
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        wait = new WebDriverWait(driver, 30);
         new matchAmount(checkoutOrderTotal);
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
         new browserBackPostOrder();

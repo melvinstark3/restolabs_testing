@@ -44,7 +44,6 @@ public class paymentNavigation extends browserSetup{
             System.out.println("Pre-Saved Billing Dialog wasn't Displayed. Proceeding to Gateway");
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label=\"Payment amount\"]")));
     }
-
 }

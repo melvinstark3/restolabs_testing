@@ -9,17 +9,19 @@ public class defaultSaveCardCheckbox extends browserSetup{
 
     public defaultSaveCardCheckbox() {
         try {
-            WebElement checkbox = driver.findElement(By.id("save-card"));
-            String saveCardStatement = driver.findElement(By.xpath("//label[@for=\"save-card\"]")).getText();
+            WebElement checkbox = driver.findElement(By.name("saveCard"));
+            String saveCardStatement = driver.findElement(By.xpath("//div[@class=\"Switch_label__gc1yK\"]")).getText();
 
-            if (checkbox.isEnabled()) {
+            if (checkbox.isSelected()) {
                 System.out.println("TC_39: PASS - Save Card is Enabled by Default");
+                System.out.println("Save Card Statement is '" + saveCardStatement + "'");
                 if (saveCardStatement.equals("Save this card for future payments")) {
-
-                    System.out.println("Save Card Statement is '" + saveCardStatement + "'");
+                    System.out.println();
                 }
             } else {
                 System.out.println("TC_39: FAIL - Save Card is not Enabled By Default");
+                driver.findElement(By.xpath("//div[@class=\"Switch_label__gc1yK\"]")).click();
+                System.out.println("Enabling Saved Card Toggle");
             }
 
         } catch (NoSuchElementException | TimeoutException e) {

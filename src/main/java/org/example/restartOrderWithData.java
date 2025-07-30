@@ -38,7 +38,7 @@ public class restartOrderWithData extends browserSetup{
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label=\"Payment amount\"]")));
         System.out.print("For 2nd Restart Order: ");
         new secondNewCardPayment(readProperty("restartNewCardNumber"), loggedIn);
     }

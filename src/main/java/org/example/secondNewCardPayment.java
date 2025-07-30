@@ -10,15 +10,20 @@ import java.util.concurrent.TimeUnit;
 
 public class secondNewCardPayment extends browserSetup{
 
-    public secondNewCardPayment(String cardNumber, boolean loggedIn) {
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
-        String SecondCardPaymentOrderID = driver.findElement(By.xpath("//h4[@class=\"payment__for__id\"]")).getText();
+    public secondNewCardPayment(String cardNumber, boolean loggedIn) throws InterruptedException {
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"DesktopLeft_orderDescription__iOkAH\"]")));
+        String SecondCardPaymentOrderID = driver.findElement(By.xpath("//div[@class=\"DesktopLeft_orderDescription__iOkAH\"]")).getText();
         if (loggedIn) {
-            new deleteCard();
+            if(driver.findElement(By.xpath("//button[@aria-label=\"Select saved card\"]")).isDisplayed()){
+                new deleteCard();
+            }
         }
         System.out.println("Attempting Payment for Order ID " + SecondCardPaymentOrderID);
         new newCardPayment(cardNumber);
-        System.out.println("Proceeding Payment with Second New Card");
+        if(cardNumber.equals("5555555555555599")){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"btn-half btn-success\"]"))).click();
+            System.out.println("Proceeding Payment with Second Card with ACS Challenge");
+        }
     }
 
 }

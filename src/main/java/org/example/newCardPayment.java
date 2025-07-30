@@ -10,10 +10,10 @@ import java.util.concurrent.TimeUnit;
 public class newCardPayment extends browserSetup{
 
     public newCardPayment(String cardNumber){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label=\"Payment amount\"]")));
         new defaultSaveCardCheckbox();
         new cardDetailsInput(cardNumber);
-        driver.findElement(By.id("submit-button")).click();
+        driver.findElement(By.xpath("//div[@class=\"Button_content__e67jX\"]")).click();
         System.out.println("Proceeding Payment with New Card");
     }
 }
