@@ -12,7 +12,7 @@ public class defaultSaveCardCheckbox extends browserSetup{
             WebElement checkbox = driver.findElement(By.id("save-card"));
             String saveCardStatement = driver.findElement(By.xpath("//label[@for=\"save-card\"]")).getText();
 
-            if (checkbox.isEnabled()) {
+            if (checkbox.isSelected()) {
                 System.out.println("TC_39: PASS - Save Card is Enabled by Default");
                 if (saveCardStatement.equals("Save this card for future payments")) {
 
