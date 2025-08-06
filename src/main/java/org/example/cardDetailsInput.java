@@ -5,11 +5,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class cardDetailsInput extends browserSetup{
     public cardDetailsInput(String cardNumber){
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)", "");
+        wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@title='Secure card payment input frame']")));
         driver.findElement(By.xpath("//iframe[@title='Secure card payment input frame']")).click();
         WebElement stripeIframe = wait.until(ExpectedConditions.presenceOfElementLocated(
                 By.xpath("//iframe[contains(@name, '__privateStripeFrame')]")
