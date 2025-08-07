@@ -3,6 +3,7 @@ package org.example;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,8 +13,15 @@ public class checkHttps extends browserSetup{
         try{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
         } catch (NoSuchElementException | TimeoutException e){
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("\"ctl00_mainPage_lbl_WelcomeText\"")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("hpc--card-frame")));
+            driver.findElement(By.id("hpc--card-frame")).click();
+            WebElement gatewayIframe = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.id("hpc--card-frame")
+            ));
+            driver.switchTo().frame(gatewayIframe);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("SecurityCode")));
         }
+        driver.switchTo().defaultContent();
         String paymentURL = driver.getCurrentUrl();
         System.out.println("Redirected Payment URL is " + paymentURL);
         //Check for http in the URL. If not, reload the URL in http and recheck if the URL reloaded in https automatically or not
@@ -23,7 +31,7 @@ public class checkHttps extends browserSetup{
             String httpUrl = paymentURL.replaceAll("https://", "http://");
             driver.navigate().to(httpUrl);
             String reloadedUrl = driver.getCurrentUrl();
-            System.out.println("Relaoded URL is " + reloadedUrl);
+            System.out.println("Reloaded URL is " + reloadedUrl);
             if (reloadedUrl.contains("http://")) {
                 System.out.println("TC_01: FAIL - Order URL is loaded in http");
                 try{

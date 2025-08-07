@@ -12,17 +12,18 @@ import java.util.concurrent.TimeUnit;
 
 public class newCardPayment extends browserSetup{
 
-    public newCardPayment(String cardNumber){
+    public newCardPayment(String cardNumber) throws InterruptedException {
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
             new defaultSaveCardCheckbox();
             driver.navigate().refresh();
+            System.out.println("Laravel Page Refreshed!");
             driver.findElement(By.id("submit-button")).click();
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("Warning: Laravel Page is Not Displayed!");
         }
         new cardDetailsInput(cardNumber);
-        driver.findElement(By.id("btn_Submit")).click();
+        driver.findElement(By.id("btnPay")).click();
         System.out.println("Proceeding Payment with New Card");
         wait = new WebDriverWait(driver, 30);
     }

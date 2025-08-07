@@ -1,14 +1,11 @@
 package org.example;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class sharedURLGateway extends browserSetup {
-    public sharedURLGateway(){
+    public sharedURLGateway() throws InterruptedException{
         wait = new WebDriverWait(driver, 30);
         System.out.println("Checking URL Sharing for Gateway Page");
         String gatewayURL=driver.getCurrentUrl();
@@ -18,7 +15,14 @@ public class sharedURLGateway extends browserSetup {
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
             js.executeScript("window.scrollBy(0,2000)", "");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ctl00_mainPage_txt_CardNumber")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("hpc--card-frame")));
+            driver.findElement(By.id("hpc--card-frame")).click();
+            WebElement gatewayIframe = wait.until(ExpectedConditions.presenceOfElementLocated(
+                    By.id("hpc--card-frame")
+            ));
+            driver.switchTo().frame(gatewayIframe);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("SecurityCode")));
+            driver.switchTo().defaultContent();
             new newCardPayment(readProperty("guestNewCardNumber"));
             String postOrderURL=driver.getCurrentUrl().toLowerCase();
             System.out.println("Order Completion Redirects the User to URL: " + postOrderURL);

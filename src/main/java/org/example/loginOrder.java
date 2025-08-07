@@ -76,8 +76,8 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
+        wait = new WebDriverWait(driver, 60);
+        String orderIWithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
         String OrderID = orderIWithHash.replace("#", "");
         System.out.println("TC_06: PASS - Order placed by Logged In User.");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");

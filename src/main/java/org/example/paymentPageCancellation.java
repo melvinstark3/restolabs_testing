@@ -11,7 +11,7 @@ import java.util.Objects;
 public class paymentPageCancellation extends browserSetup{
 
     public paymentPageCancellation() throws InterruptedException {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
         driver.findElement(By.id("back-button")).click();
         try {
