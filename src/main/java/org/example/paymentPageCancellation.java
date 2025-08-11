@@ -12,8 +12,8 @@ public class paymentPageCancellation extends browserSetup{
 
     public paymentPageCancellation() throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
-        driver.findElement(By.id("back-button")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@class=\"sq-card-component\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button"))).click();
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("cart-header"))).isDisplayed();
             System.out.println("TC 3: PASS: After Payment Cancellation User is redirected to Menu");

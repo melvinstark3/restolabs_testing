@@ -62,6 +62,7 @@ public class loginOrder extends browserSetup{
         new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
         new restartOrderWithData(loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
+        wait = new WebDriverWait(driver, 60);
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
@@ -69,7 +70,6 @@ public class loginOrder extends browserSetup{
         String OrderID = orderIWithHash.replace("#", "");
         System.out.println("TC_06: PASS - Order placed by Logged In User.");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
-
         new checkTransactionID(OrderID);
     }
 

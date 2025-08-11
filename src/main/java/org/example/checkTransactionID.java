@@ -32,11 +32,12 @@ public class checkTransactionID extends browserSetup{
         //Change the Tab if needed, as per Order Status. By Default We select pending orders for new orders
         driver.findElement(By.xpath("//button[@data-tab=\"pending_orders\"]")).click();
         //driver.findElement(By.xpath("//button[@data-tab=\"confirmed_orders\"]")).click();
-        System.out.println("Opening Order on Backend" + OrderID);
+        System.out.println("Opening Order on Backend : " + OrderID);
         driver.findElement(By.linkText(OrderID)).click();
 
         //try catch block for Item Comment
         try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@tabindex='0']")));
             List<WebElement> itemPoints = driver.findElements(By.xpath("//span[@tabindex='0']"));
 
             if (!itemPoints.isEmpty()) {

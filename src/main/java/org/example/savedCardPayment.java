@@ -12,7 +12,7 @@ public class savedCardPayment extends browserSetup{
         System.out.println("Saved Card Details: Card Number Ends with : " + cardEndingNumber);
         String cardSubDetails = driver.findElement(By.xpath("//p[@class=\"expiry__date\"]")).getText();
         System.out.println("Extracted date/Card Type : " + cardSubDetails);
-
+        Thread.sleep(5000);
         //As a saved card is already selected by Default, we are just directly clicking Pay button
         driver.findElement(By.id("submit-button")).click();
         System.out.println("Attempting Payment with Saved Card");

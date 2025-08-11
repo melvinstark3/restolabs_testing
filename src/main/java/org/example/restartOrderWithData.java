@@ -5,10 +5,12 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class restartOrderWithData extends browserSetup{
 
     public restartOrderWithData(boolean loggedIn) throws InterruptedException {
+        wait = new WebDriverWait(driver, 60);
         String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
         driver.findElement(By.xpath(restartOrderButtonXpath)).click();
@@ -19,6 +21,7 @@ public class restartOrderWithData extends browserSetup{
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        wait = new WebDriverWait(driver, 30);
         Thread.sleep(5000);
         try{
             if (driver.findElement(By.id("policy")).isSelected()) {
