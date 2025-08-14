@@ -73,6 +73,7 @@ public class loginOrder extends browserSetup{
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"));
         new restartOrderWithData(loggedIn);
+        wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"));
