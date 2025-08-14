@@ -28,11 +28,19 @@ public class checkTransactionID extends browserSetup{
         driver.findElement(By.id("edit-pass")).sendKeys(readProperty("adminPassword"));
         driver.findElement(By.id("edit-submit")).click();
         System.out.println("Attempting Backend Profile Login");
+        try {
+            wait = new WebDriverWait(driver, 10);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class='cancel']"))).click();
+            System.out.println("Dismissed New Order Pop Up Notification!");
+        } catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("New Order Pop Up Notification is not Displayed.");
+        }
+        driver.navigate().refresh();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-tab=\"pending_orders\"]")));
         //Change the Tab if needed, as per Order Status. By Default We select pending orders for new orders
         driver.findElement(By.xpath("//button[@data-tab=\"pending_orders\"]")).click();
         //driver.findElement(By.xpath("//button[@data-tab=\"confirmed_orders\"]")).click();
-        System.out.println("Opening Order on Backend : " + OrderID);
+        System.out.println("Opening Order ID on Backend :" + OrderID);
         driver.findElement(By.linkText(OrderID)).click();
 
         //try catch block for Item Comment
@@ -43,7 +51,7 @@ public class checkTransactionID extends browserSetup{
             if (!itemPoints.isEmpty()) {
                 WebElement lastElement = itemPoints.get(itemPoints.size() - 1); // Get the last element
                 String lastElementText = lastElement.getText();
-                System.out.println("Item Comment: " + lastElementText);
+                System.out.println("Item Comment for Order ID " + OrderID + "is " + lastElementText);
             } else {
                 System.out.println("No Item Points");
             }
