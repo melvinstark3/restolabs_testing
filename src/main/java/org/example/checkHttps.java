@@ -23,7 +23,7 @@ public class checkHttps extends browserSetup{
             String httpUrl = paymentURL.replaceAll("https://", "http://");
             driver.navigate().to(httpUrl);
             String reloadedUrl = driver.getCurrentUrl();
-            System.out.println("Relaoded URL is " + reloadedUrl);
+            System.out.println("Reloaded URL is " + reloadedUrl);
             if (reloadedUrl.contains("http://")) {
                 System.out.println("TC_01: FAIL - Order URL is loaded in http");
                 try{
