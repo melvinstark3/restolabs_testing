@@ -32,7 +32,7 @@ public class browserSetup {
     public static String readProperty(String key) {
         Properties prop = new Properties();
         try {
-            FileInputStream fis = new FileInputStream("/Users/kartik/Desktop/restolabs_testing/src/main/resources/config.properties");
+            FileInputStream fis = new FileInputStream("/Users/kartik/Desktop/onboarding/src/main/resources/config.properties");
             prop.load(fis);
         } catch (Exception e) {
             System.out.println(e.getMessage());

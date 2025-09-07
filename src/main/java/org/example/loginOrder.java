@@ -1,78 +1,71 @@
 package org.example;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class loginOrder extends browserSetup{
+import java.sql.Time;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public loginOrder() throws InterruptedException {
+public class loginOrder extends browserSetup{
+    public loginOrder(String orderMode) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
         driver.navigate().to(readProperty("loginURL"));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("guest_user")));
-        driver.findElement(By.id("guest_user")).click();
-        driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
-        driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
-        driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
-        driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
-        System.out.println("Creating Cart");
-        new createCart(readProperty("loginLocation"),readProperty("loginOrderItem"),loggedIn);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        js.executeScript("window.scrollBy(0,2000)", "");
-        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        Thread.sleep(5000);
         try{
-            if (driver.findElement(By.id("policy")).isSelected()) {
-                System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
-            } else {
-                driver.findElement(By.id("policy")).click();
-                System.out.println("Privacy Policy and Terms & Conditions Accepted");
-            }
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("complete_space")));
+            System.out.println("User is Already Logged In!");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("User is not Logged in. Attempting Login!");
+            driver.findElement(By.id("guest_user")).click();
+            driver.findElement(By.xpath("//button[normalize-space()='Get Code by SMS']")).click();
+            driver.findElement(By.id("phone")).sendKeys(readProperty("comoLoginNumber"));
+            driver.findElement(By.xpath("//span[@class='ng-tns-c1779389301-0']")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("otp1"))).sendKeys(new getComoOTP().getOTP());
+            driver.findElement(By.xpath("//span[@class='ng-tns-c1779389301-0']")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
         }
-        catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
-        }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
-        driver.findElement(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
+        driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
+        System.out.println("Creating Cart");
+        new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"));
+        new checkout(orderMode, loggedIn);
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         try {
+            wait = new WebDriverWait(driver, 5);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"closeBillAddressDialog\"])[2]"))).click();
         }catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Pre-Saved Billing Dialog wasn't Displayed. Proceeding to Gateway");
+            System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
         }
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        System.out.print("For Logged In Order: ");
-        new paymentPageCancellation();
-        new paymentNavigation(loggedIn);
-        new gatewayNameInURL();
-        System.out.println("Checking Hypertext Protocol for Payment Page");
-        new checkHttps();
-        new paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
-        new restartOrderWithData(loggedIn);
-        wait = new WebDriverWait(driver, 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        new paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"), loggedIn);
-        wait = new WebDriverWait(driver, 60);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
-        String OrderID = orderIWithHash.replace("#", "");
-        System.out.println("TC_06: PASS - Order placed by Logged In User.");
-        System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
-
-        new checkTransactionID(OrderID);
+        wait = new WebDriverWait(driver, 30);
+        if (orderMode.equalsIgnoreCase("Dine In")){
+            System.out.println("Payment is Handled by Como Rewards Logic!");
+        }
+        else {
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+            System.out.println("Proceeding for Payment!");
+            System.out.print("For Logged In Order: ");
+            new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
+        }
+        try {
+            wait = new WebDriverWait(driver, 60);
+            String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
+            String OrderID = orderIDwithHash.replace("#", "");
+            System.out.println("Case 5: PASS: Order Placed by Logged In User Successfully. Order ID : " + OrderID);
+            if(orderMode.equalsIgnoreCase("Home Delivery")){
+                System.out.println("Case 13: PASS: Check for the Online Payment order.");
+                System.out.println("Case 18: PASS: Partial Points/Credits payment Order was placed Successfully");
+            }
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Case 5: FAIL: Order wasn't Posted in Time. Please Check the Case Manually");
+            if(orderMode.equalsIgnoreCase("Home Delivery")){
+                System.out.println("Case 13: FAIL: Online Payment order wasn't placed Successfully");
+                System.out.println("Case 18: FAIL: Partial Points/Credits payment Order wasn't placed Successfully");
+            }
+        }
     }
-
 }
