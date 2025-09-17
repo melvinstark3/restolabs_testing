@@ -13,7 +13,7 @@ public class guestOrder extends browserSetup{
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
-        new createCart(orderMode, readProperty("GuestLocation"),loggedIn,"later",readProperty("preOrderTime"));
+        new createCart(orderMode, readProperty("GuestLocation"),loggedIn,"later",readProperty("preOrderTime"),readProperty("onlineOrderItem"));
         new checkout(orderMode, loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")));
         driver.findElement(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")).sendKeys(readProperty("guestBillingFirstName"));
@@ -29,9 +29,9 @@ public class guestOrder extends browserSetup{
             wait = new WebDriverWait(driver, 60);
             String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
             String OrderID = orderIDwithHash.replace("#", "");
-            System.out.println("Case 3: PASS: Place a guest order. Order ID : " + OrderID);
+            System.out.println("Case 1: PASS: Place a guest order. Order ID : " + OrderID);
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Case 3: FAIL: Guest Order Failed. Please Check the Case Manually");
+            System.out.println("Case 1: FAIL: Guest Order Failed. Please Check the Case Manually");
         }
     }
 }

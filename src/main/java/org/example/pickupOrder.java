@@ -14,9 +14,9 @@ public class pickupOrder extends browserSetup{
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-            System.out.println("Case 7: PASS: Pick Up Order Placed Successfully");
+            System.out.println("Case 9: PASS: Pick Up Order Placed Successfully");
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Case 7: FAIL: Pick Up Order Failed");
+            System.out.println("Case 9: FAIL: Pick Up Order Failed");
         }
     }
 }

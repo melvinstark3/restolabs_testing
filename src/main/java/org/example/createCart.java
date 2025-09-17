@@ -10,7 +10,7 @@ import java.util.List;
 
 public class createCart extends browserSetup{
 
-    public createCart(String orderMode, String Location, boolean loggedIn, String orderTime, String time) throws InterruptedException {
+    public createCart(String orderMode, String Location, boolean loggedIn, String orderTime, String time, String itemName) throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, 30);
         if (orderMode.equalsIgnoreCase("Home Delivery")){
@@ -72,19 +72,10 @@ public class createCart extends browserSetup{
             System.out.println("Continue as Guest Prompt was not Displayed!");
         }
 
-        List<WebElement> priceList = driver.findElements(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
-        double minValue = Double.MAX_VALUE;
-        int minIndex = 0;
-        for (int i = 1; i < priceList.size(); i++) {
-            String text = priceList.get(i).getText().trim().substring(1); // Trim and remove first char
-            double value = Double.parseDouble(text); // Convert to number
-            if (value < minValue) {
-                minValue = value;
-                minIndex = i+1;
-            }
-        }
-        System.out.println("Adding Cheapest Item to Cart Priced at " + driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).getText());
-        driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+        //h5 is being used for Superb List View & h4 is being used for Superb
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[normalize-space()='"+itemName+"']")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h4[normalize-space()='"+itemName+"']")));
+        driver.findElement(By.xpath("//h4[normalize-space()='"+itemName+"']")).click();
 
         wait = new WebDriverWait(driver, 3);
         try {
