@@ -42,9 +42,8 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
             if(orderMode.equalsIgnoreCase("Home Delivery")){
-                new applyPartialPoints();
+                new applyCoupon();
             } else {
-                new applyComoRewards();
             }
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
             try {
