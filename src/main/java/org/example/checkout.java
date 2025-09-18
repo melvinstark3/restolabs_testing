@@ -26,8 +26,8 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
             Thread.sleep(5000);
-            wait = new WebDriverWait(driver, 10);
             try{
+                wait = new WebDriverWait(driver, 10);
                 if (driver.findElement(By.id("policy")).isSelected()) {
                     System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
                 } else {

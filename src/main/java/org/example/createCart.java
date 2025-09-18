@@ -71,9 +71,10 @@ public class createCart extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("Continue as Guest Prompt was not Displayed!");
         }
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"item__text h-full\"]")));
+        WebElement itemToOrder = driver.findElement(By.xpath("//h4[normalize-space()='\"+itemName+\"']"));
+        js.executeScript("arguments[0].scrollIntoView();", itemToOrder);
         //h5 is being used for Superb List View & h4 is being used for Superb
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[normalize-space()='"+itemName+"']")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h4[normalize-space()='"+itemName+"']")));
         driver.findElement(By.xpath("//h4[normalize-space()='"+itemName+"']")).click();
 
