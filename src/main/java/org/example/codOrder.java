@@ -41,6 +41,12 @@ public class codOrder extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println(readProperty("taxName") + " not Found in Line Items! Please Verify the Tax Name");
         }
+        try{
+            WebElement deliveryFeeLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]"));
+            System.out.println("Delivery fee is displayed in Line Items with Value " + deliveryFeeLineItem.getText());
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Delivery fee not Found in Line Items! Please Verify Manually");
+        }
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
             wait = new WebDriverWait(driver, 10);
