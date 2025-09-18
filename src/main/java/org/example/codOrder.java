@@ -35,6 +35,12 @@ public class codOrder extends browserSetup{
         Thread.sleep(5000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tip1_0"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        try{
+            WebElement taxLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"" + readProperty("taxName") + "\"]"));
+            System.out.println(readProperty("taxName") + "is displayed in Line Items with Value " + taxLineItem.getText());
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println(readProperty("taxName") + " not Found in Line Items! Please Verify the Tax Name");
+        }
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
             wait = new WebDriverWait(driver, 10);

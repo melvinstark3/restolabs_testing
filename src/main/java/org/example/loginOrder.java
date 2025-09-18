@@ -41,15 +41,10 @@ public class loginOrder extends browserSetup{
             System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
         }
         wait = new WebDriverWait(driver, 30);
-        if (orderMode.equalsIgnoreCase("Dine In")){
-            System.out.println("Payment is Handled by Como Rewards Logic!");
-        }
-        else {
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-            System.out.println("Proceeding for Payment!");
-            System.out.print("For Logged In Order: ");
-            new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        System.out.println("Proceeding for Payment!");
+        System.out.print("For Logged In Order: ");
+        new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);
             String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
