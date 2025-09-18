@@ -33,8 +33,11 @@ public class codOrder extends browserSetup{
         System.out.println("CASE 3: For Guest Order: ");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         Thread.sleep(5000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tip1_0"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
+            wait = new WebDriverWait(driver, 10);
             if (driver.findElement(By.id("policy")).isSelected()) {
                 System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
             } else {
@@ -45,6 +48,7 @@ public class codOrder extends browserSetup{
         catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
