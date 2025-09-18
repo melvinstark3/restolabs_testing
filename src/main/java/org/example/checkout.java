@@ -44,6 +44,7 @@ public class checkout extends browserSetup{
             if(orderMode.equalsIgnoreCase("Home Delivery")){
                 new applyCoupon();
             } else {
+                new applyRestoLoyalty();
             }
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
             try {
