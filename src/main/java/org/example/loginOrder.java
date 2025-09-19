@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class loginOrder extends browserSetup{
-    public loginOrder(String orderMode) throws InterruptedException {
+    public loginOrder(String orderType) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
@@ -27,10 +27,19 @@ public class loginOrder extends browserSetup{
             driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
 
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
-        driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderType +"\"]")));
+        driver.findElement(By.xpath("//button[@aria-label=\""+ orderType +"\"]")).click();
+        String orderItem;
+        String orderMode;
+        if (orderType.equalsIgnoreCase("comboOrder")){
+            orderItem = readProperty("comboOrderItem");
+            orderMode = readProperty("Dine In");
+        } else {
+            orderItem = readProperty("onlineOrderItem");
+            orderMode = orderType;
+        }
         System.out.println("Creating Cart");
-        new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"),readProperty("onlineOrderItem"));
+        new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"),orderItem);
         new checkout(orderMode, loggedIn);
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
@@ -44,22 +53,23 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.println("Proceeding for Payment!");
         System.out.print("For Logged In Order: ");
+        if(orderType.equalsIgnoreCase("comboOrder")){
+            new deleteCard();
+        }
         new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);
             String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
             String OrderID = orderIDwithHash.replace("#", "");
-            System.out.println("Case 5: PASS: Order Placed by Logged In User Successfully. Order ID : " + OrderID);
-            if(orderMode.equalsIgnoreCase("Home Delivery")){
-                System.out.println("Case 13: PASS: Check for the Online Payment order.");
-                System.out.println("Case 18: PASS: Partial Points/Credits payment Order was placed Successfully");
-            }
+            System.out.println("CASE 2: PASS: Order Placed by Logged In User Successfully. Order ID : " + OrderID);
+            System.out.println("CASE 8: PASS: Pre-Order (Later) Order was Placed Successfully.");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant/Size) Order was Placed Successfully");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant's -> Checkbox) Order was Placed Successfully");
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Case 5: FAIL: Order wasn't Posted in Time. Please Check the Case Manually");
-            if(orderMode.equalsIgnoreCase("Home Delivery")){
-                System.out.println("Case 13: FAIL: Online Payment order wasn't placed Successfully");
-                System.out.println("Case 18: FAIL: Partial Points/Credits payment Order wasn't placed Successfully");
-            }
+            System.out.println("CASE 2: FAIL: Order wasn't Posted in Time. Please Check the Case Manually");
+            System.out.println("CASE 8: PASS: Pre-Order (Later) Order wasn't Posted in Time.");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant/Size) Order wasn't Posted in Time");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant's -> Checkbox) Order wasn't Posted in Time");
         }
     }
 }
