@@ -69,13 +69,16 @@ public class codOrder extends browserSetup{
             wait = new WebDriverWait(driver, 60);
             String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
-            System.out.println("CASE 3: PASS: Guest Order was Successful");
-            System.out.println("CASE 10: PASS: Place a Pre-order");
-            System.out.println("CASE 12: PASS: Cash on Delivery Payment was Successful");
+            System.out.println("CASE 1: PASS: Guest Order was Successful");
+            System.out.println("CASE 3: PASS: Cash on Delivery Payment was Successful");
+            System.out.println("CASE 8: PASS: Place an ASAP Order");
+            System.out.println("CASE 16: PASS: Normal Item Cart Order was Successful");
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("CASE 12: FAIL: Cash on Delivery Order wasn't Posted in Time");
-            System.out.println("CASE 10: PASS: Pre-order wasn't Posted in Time");
-            System.out.println("CASE 3: PASS: Guest Order wasn't Posted in Time. Please Check the Case Manually");
+
+            System.out.println("CASE 1: FAIL: Guest Order wasn't Posted in Time. Please Check the Case Manually");
+            System.out.println("CASE 3: FAIL: Cash on Delivery Order wasn't Posted in Time");
+            System.out.println("CASE 8: FAIL: ASAP Order wasn't Posted in Time");
+            System.out.println("CASE 16: FAIL: Normal Item Cart Order wasn't Posted in Time");
         }
 
     }
