@@ -14,7 +14,7 @@ public class codOrder extends browserSetup{
         driver.navigate().to(readProperty("GuestURL"));
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
-        driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
+        driver.findElement(By.xpath("//button[@aria-label=\"Dine In\"]")).click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String Location = readProperty("GuestLocation");
         new createCart("Pick Up",Location,loggedIn, readProperty("codOrderTime"),"",readProperty("codOrderItem"));
