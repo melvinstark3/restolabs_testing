@@ -12,9 +12,9 @@ public class dineInOrder extends browserSetup{
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-            System.out.println("Case 7: PASS: Dine In Order Placed Successfully");
+            System.out.println("Case 15: PASS: Dine In Order Placed Successfully");
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Case 7: FAIL: Dine In Order Failed");
+            System.out.println("Case 15: FAIL: Dine In Order Failed");
         }
     }
 }
