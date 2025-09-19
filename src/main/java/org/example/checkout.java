@@ -44,6 +44,12 @@ public class checkout extends browserSetup{
             driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
             if(orderMode.equalsIgnoreCase("Home Delivery")){
                 new applyCoupon();
+                try{
+                    WebElement deliveryFeeLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]"));
+                    System.out.println("CASE 35: PASS: Delivery fee is displayed in Line Items with Value " + deliveryFeeLineItem.getText());
+                } catch (NoSuchElementException | TimeoutException e){
+                    System.out.println("CASE 35: FAIL: Delivery fee not Found in Line Items! Please Verify Manually");
+                }
             } else {
                 new applyRestoLoyalty();
             }
