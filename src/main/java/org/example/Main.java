@@ -7,5 +7,6 @@ public class Main extends browserSetup{
         new pickupOrder();
         new dineInOrder();
         new homeDeliveryOrder();
+        new comboOrder();
     }
 }
