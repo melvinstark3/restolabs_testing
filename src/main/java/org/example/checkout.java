@@ -21,7 +21,8 @@ public class checkout extends browserSetup{
             //Como Rewards Popup Close button
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
             js.executeScript("window.scrollBy(0,2000)", "");
-            driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
+            driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys(readProperty("orderComment"));
+            System.out.println("CASE 33: Passing Order Comment at Checkout");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this

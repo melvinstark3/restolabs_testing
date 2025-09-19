@@ -84,6 +84,7 @@ public class createCart extends browserSetup{
             js.executeScript("window.scrollBy(0,2000)", "");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))).clear();
             driver.findElement(By.id("message")).sendKeys(readProperty("itemComment"));
+            System.out.println("CASE 27: Passing Item Comment for Customizable Item");
             driver.findElement(By.xpath("//button[@data-testid=\"addToCart\"]")).click();
         }
         catch (NoSuchElementException | TimeoutException e){
