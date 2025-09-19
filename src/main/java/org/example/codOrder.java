@@ -58,8 +58,8 @@ public class codOrder extends browserSetup{
             System.out.println("CASE 12: PASS: Cash on Delivery Payment was Successful");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE 12: FAIL: Cash on Delivery Order wasn't Posted in Time");
-            System.out.println("CASE 10: PASS: Pre-order wasn't Posted in Time");
-            System.out.println("CASE 3: PASS: Guest Order wasn't Posted in Time. Please Check the Case Manually");
+            System.out.println("CASE 10: FAIL: Pre-order wasn't Posted in Time");
+            System.out.println("CASE 3: FAIL: Guest Order wasn't Posted in Time. Please Check the Case Manually");
         }
 
     }

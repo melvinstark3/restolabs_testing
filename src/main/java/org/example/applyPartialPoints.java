@@ -17,9 +17,9 @@ public class applyPartialPoints extends browserSetup{
         }
         try{
             String deliveryFee = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]")).getText();
-            System.out.println("Delivery Fee Displayed at Checkout is " + deliveryFee);
+            System.out.println("CASE 11: PASS: Delivery Fee Displayed at Checkout is " + deliveryFee);
         }catch (NoSuchElementException | TimeoutException e){
-            System.out.println("No Delivery Fee Found!");
+            System.out.println("CASE 11: FAIL: No Delivery Fee Found!");
         }
         driver.findElement(By.xpath("//button[normalize-space()='Use Points']")).click();
         System.out.println("Entering Como Points after deducting Tax Amount!");
