@@ -9,6 +9,6 @@ public class newCardPayment extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
         new cardDetailsInput(cardNumber);
         driver.findElement(By.id("submit-button")).click();
-        System.out.println("Proceeding Payment with New Card");
+        System.out.println("CASE 4: Proceeding Payment with New Card");
     }
 }

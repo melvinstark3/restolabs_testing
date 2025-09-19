@@ -28,7 +28,7 @@ public class deleteCard extends browserSetup{
             if (Objects.equals(recheckedCardNumber, maskedCardNumber) && Objects.equals(recheckedExpiry, maskedCardNumber)) {
                 System.out.println("WARNING! Matching Card Details were found after Delete Attempt");
             } else {
-                System.out.println("TC_37: Pass: Saved Card was Deleted");
+                System.out.println("CASE 6: Pass: Saved Card was Deleted");
             }
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("ERROR! No Saved Cards were found. Please Verify the Payment Flow");

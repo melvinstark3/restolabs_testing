@@ -15,7 +15,7 @@ public class savedCardPayment extends browserSetup{
 
         //As a saved card is already selected by Default, we are just directly clicking Pay button
         driver.findElement(By.id("submit-button")).click();
-        System.out.println("Attempting Payment with Saved Card");
+        System.out.println("CASE 5: Attempting Payment with Saved Card");
     }
 
 }
