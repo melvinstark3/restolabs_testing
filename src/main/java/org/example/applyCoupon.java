@@ -1,9 +1,12 @@
 package org.example;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.sql.Time;
 import java.util.List;
 
 public class applyCoupon extends browserSetup{
@@ -19,7 +22,12 @@ public class applyCoupon extends browserSetup{
                 break;
             }
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Coupon')]")));
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Coupon')]")));
+            System.out.println("CASE 32: PASS: Coupon has been Applied for the Order");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE 32: FAIL: Coupon application was Unsuccessful");
+        }
     }
 }
