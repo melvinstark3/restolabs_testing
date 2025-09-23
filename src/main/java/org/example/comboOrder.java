@@ -12,9 +12,9 @@ public class comboOrder extends browserSetup{
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-            System.out.println("Case 7: PASS: Combo Item Order Placed Successfully");
+            System.out.println("Case 28: PASS: Combo Item Order Placed Successfully");
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Case 7: FAIL: Combo Item Order Failed");
+            System.out.println("Case 28: FAIL: Combo Item Order Failed");
         }
     }
 }
