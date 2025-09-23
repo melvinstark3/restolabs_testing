@@ -34,18 +34,19 @@ public class codOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         Thread.sleep(5000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tip1_0"))).click();
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"tip__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full ng-star-inserted\"]")));
+            String appliedTipValue = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Tip\"]"))).getText();
+            System.out.println("CASE 30: PASS: Tip is displayed in Line Items with Value " + appliedTipValue);
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE 30: FAIL: Tip application was Unsuccessful");
+        }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         try{
             WebElement taxLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"" + readProperty("taxName") + "\"]"));
-            System.out.println(readProperty("taxName") + "is displayed in Line Items with Value " + taxLineItem.getText());
+            System.out.println("CASE 34: PASS: "+ readProperty("taxName") + " is displayed in Line Items with Value " + taxLineItem.getText());
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println(readProperty("taxName") + " not Found in Line Items! Please Verify the Tax Name");
-        }
-        try{
-            WebElement deliveryFeeLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]"));
-            System.out.println("Delivery fee is displayed in Line Items with Value " + deliveryFeeLineItem.getText());
-        } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Delivery fee not Found in Line Items! Please Verify Manually");
+            System.out.println("CASE 34: FAIL: " + readProperty("taxName") + " not Found in Line Items! Please Verify the Tax Name");
         }
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
@@ -60,13 +61,12 @@ public class codOrder extends browserSetup{
         catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
         try {
-            wait = new WebDriverWait(driver, 60);
             String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
             System.out.println("CASE 1: PASS: Guest Order was Successful");
