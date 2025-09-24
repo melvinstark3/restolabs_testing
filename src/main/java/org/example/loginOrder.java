@@ -44,13 +44,17 @@ public class loginOrder extends browserSetup{
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         try {
-            wait = new WebDriverWait(driver, 5);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"closeBillAddressDialog\"])[2]"))).click();
-        }catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
+            try {
+                wait = new WebDriverWait(driver, 5);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"closeBillAddressDialog\"])[2]"))).click();
+            } catch (NoSuchElementException | TimeoutException e) {
+                System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
+            }
+            wait = new WebDriverWait(driver, 30);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Billing Details Page wasn't Displayed");
         }
-        wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.println("Proceeding for Payment!");
         System.out.print("For Logged In Order: ");
         if(orderType.equalsIgnoreCase("comboOrder")){

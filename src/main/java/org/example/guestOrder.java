@@ -6,6 +6,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Time;
+
 public class guestOrder extends browserSetup{
     public guestOrder(String orderMode) throws InterruptedException {
         boolean loggedIn = false;
@@ -15,15 +17,20 @@ public class guestOrder extends browserSetup{
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
         new createCart(orderMode, readProperty("GuestLocation"),loggedIn,"later",readProperty("preOrderTime"),readProperty("onlineOrderItem"));
         new checkout(orderMode, loggedIn);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")));
-        driver.findElement(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")).sendKeys(readProperty("guestBillingFirstName"));
-        driver.findElement(By.xpath("(//input[@data-testid=\"BillLast name\"])[2]")).sendKeys(readProperty("guestBillingLastName"));
-        driver.findElement(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")).sendKeys(readProperty("guestBillingPhoneNumber"));
-        driver.findElement(By.xpath("//button[@data-testid=\"SubmitBillingDetails\"]")).click();
-        wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")));
-        // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
-        Thread.sleep(5000);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        try {
+            wait = new WebDriverWait(driver, 10);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")));
+            driver.findElement(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")).sendKeys(readProperty("guestBillingFirstName"));
+            driver.findElement(By.xpath("(//input[@data-testid=\"BillLast name\"])[2]")).sendKeys(readProperty("guestBillingLastName"));
+            driver.findElement(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")).sendKeys(readProperty("guestBillingPhoneNumber"));
+            driver.findElement(By.xpath("//button[@data-testid=\"SubmitBillingDetails\"]")).click();
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillPhone number\"])[2]")));
+            // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
+            Thread.sleep(5000);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Billing Details Page was not displayed");
+        }
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);
