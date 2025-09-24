@@ -11,20 +11,18 @@ import java.util.Map;
 
 public class loginOrder extends browserSetup{
     public loginOrder(String orderType) throws InterruptedException {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 60);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
         driver.navigate().to(readProperty("loginURL"));
         try{
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"user_login_btn rounded-md p-2 px-1 text-base text-colorTitle font-bold uppercase cursor-pointer ng-tns-c2869761534-14 ng-star-inserted\"]")));
-            System.out.println("User is Already Logged In!");
-        } catch (NoSuchElementException | TimeoutException e){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"ng-tns-c2869761534-1\"]"))).click();
             System.out.println("User is not Logged in. Attempting Login!");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"sign_in_btn bg-colorWhite rounded-md p-2 px-5 text-base text-colorTitle font-bold uppercase cursor-pointer ng-tns-c2869761534-10 ng-star-inserted\"]"))).click();
             driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
             driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
             driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
-
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("User is already Logged in! Skipping Login");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderType +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderType +"\"]")).click();
