@@ -27,17 +27,17 @@ public class loginOrder extends browserSetup{
             driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
 
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderType +"\"]")));
-        driver.findElement(By.xpath("//button[@aria-label=\""+ orderType +"\"]")).click();
         String orderItem;
         String orderMode;
         if (orderType.equalsIgnoreCase("comboOrder")){
             orderItem = readProperty("comboOrderItem");
-            orderMode = readProperty("Dine In");
+            orderMode = "Dine In";
         } else {
             orderItem = readProperty("onlineOrderItem");
             orderMode = orderType;
         }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
+        driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
         System.out.println("Creating Cart");
         new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"),orderItem);
         new checkout(orderMode, loggedIn);
