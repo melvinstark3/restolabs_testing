@@ -101,12 +101,6 @@ public class createCart extends browserSetup{
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
             System.out.println("Proceeding to Checkout");
         }
-        try {
-            driver.findElement(By.xpath("//button[@data-testid=\"ComoContinueAsGuest\"]")).click();
-            System.out.println("Login Prompt was displayed! Continuing at Guest.");
-        } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Continue as Guest Prompt was not Displayed!");
-        }
         wait = new WebDriverWait(driver, 30);
         if (loggedIn) {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@aria-label=\"Select Payment Methods\"]")));
