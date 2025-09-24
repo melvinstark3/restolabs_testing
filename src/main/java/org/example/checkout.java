@@ -47,6 +47,8 @@ public class checkout extends browserSetup{
             } else {
                 new applyRestoLoyalty();
             }
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
             try {
                 wait = new WebDriverWait(driver, 5);
@@ -86,7 +88,7 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
-            System.out.println("TC_07: For Guest Order: ");
+            System.out.println("CASE 1: For Guest Order: ");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             Thread.sleep(5000);
             wait = new WebDriverWait(driver, 10);
