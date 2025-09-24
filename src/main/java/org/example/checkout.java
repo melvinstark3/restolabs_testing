@@ -10,13 +10,41 @@ import static com.sun.corba.se.impl.util.Utility.printStackTrace;
 
 public class checkout extends browserSetup{
     public checkout(String orderMode, boolean loggedIn) throws InterruptedException {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 10);
         JavascriptExecutor js = (JavascriptExecutor) driver;
+
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
+            System.out.println("Customer Details Prompt was displayed! Filling Customer Details");
+            driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
+            driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).sendKeys(readProperty("GuestLastName"));
+            driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).clear();
+            driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).sendKeys(readProperty("GuestPhoneNumber"));
+            try {
+                WebElement customerEmailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("email")));
+                customerEmailField.clear();
+                customerEmailField.sendKeys(readProperty("GuestEmail"));
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("Skipping Email Field as it wasn't Displayed!");
+            }
+            driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
+            // Stale Element Exception if Trying Implicit Wait
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
+        }catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Customer Details Prompt wasn't Displayed! Proceeding to Checkout!");
+        }
+        wait = new WebDriverWait(driver, 30);
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys(readProperty("orderComment"));
             System.out.println("CASE 33: Passing Order Comment at Checkout");
+            try{
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
+                System.out.println("Saving Details in Save Address Popup!");
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("Skipping Save Address Popup as it wasn't displayed!");
+            }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
@@ -71,21 +99,28 @@ public class checkout extends browserSetup{
         }
         //Guest Order
         else {
-            try {
-                System.out.println("Entering Customer Details");
+            try{
+                wait = new WebDriverWait(driver, 10);
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
+                System.out.println("Customer Details Prompt was displayed! Filling Customer Details");
                 driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
                 driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).sendKeys(readProperty("GuestLastName"));
+                driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).clear();
                 driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).sendKeys(readProperty("GuestPhoneNumber"));
-                driver.findElement(By.name("email")).clear();
-                driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
+                try {
+                    WebElement customerEmailField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.name("email")));
+                    customerEmailField.clear();
+                    customerEmailField.sendKeys(readProperty("GuestEmail"));
+                } catch (NoSuchElementException | TimeoutException e){
+                    System.out.println("Skipping Email Field as it wasn't Displayed!");
+                }
                 driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
+                // Stale Element Exception if Trying Implicit Wait
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
+            }catch (NoSuchElementException | TimeoutException e){
+                System.out.println("Customer Details Prompt wasn't Displayed! Proceeding to Checkout!");
             }
-            catch (NoSuchElementException | TimeoutException e){
-                System.out.println("Customer Details are Pre-filled. Continuing with Guest Order!");
-            }
-            // Stale Element Exception if Trying Implicit Wait
-            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
+            wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
             System.out.println("CASE 1: For Guest Order: ");
