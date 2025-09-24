@@ -16,12 +16,11 @@ public class loginOrder extends browserSetup{
         boolean loggedIn = true;
         driver.navigate().to(readProperty("loginURL"));
         try{
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("complete_space")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"user_login_btn rounded-md p-2 px-1 text-base text-colorTitle font-bold uppercase cursor-pointer ng-tns-c2869761534-14 ng-star-inserted\"]")));
             System.out.println("User is Already Logged In!");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("User is not Logged in. Attempting Login!");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("guest_user")));
-            driver.findElement(By.id("guest_user")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"sign_in_btn bg-colorWhite rounded-md p-2 px-5 text-base text-colorTitle font-bold uppercase cursor-pointer ng-tns-c2869761534-10 ng-star-inserted\"]"))).click();
             driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
             driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
             driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
