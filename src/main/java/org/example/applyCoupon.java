@@ -17,8 +17,8 @@ public class applyCoupon extends browserSetup{
         List<WebElement> couponsDisplayed = driver.findElements(By.xpath(couponsXpath));
         for(WebElement e : couponsDisplayed){
             if(e.getText().equalsIgnoreCase(readProperty("couponToApply"))){
-                e.click();
                 System.out.println("Applying Coupon " + e.getText());
+                e.click();
                 break;
             }
         }
