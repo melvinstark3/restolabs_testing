@@ -60,6 +60,7 @@ public class loginOrder extends browserSetup{
         if(orderType.equalsIgnoreCase("comboOrder")){
             new deleteCard();
         }
+        Thread.sleep(3000);
         new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);

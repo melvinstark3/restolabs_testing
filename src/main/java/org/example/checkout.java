@@ -114,9 +114,9 @@ public class checkout extends browserSetup{
                 } catch (NoSuchElementException | TimeoutException e){
                     System.out.println("Skipping Email Field as it wasn't Displayed!");
                 }
-                driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]"))).click();
                 // Stale Element Exception if Trying Implicit Wait
-                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")));
             }catch (NoSuchElementException | TimeoutException e){
                 System.out.println("Customer Details Prompt wasn't Displayed! Proceeding to Checkout!");
             }
