@@ -16,7 +16,7 @@ public class applyRestoLoyalty extends browserSetup{
         try{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"tip__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full ng-star-inserted\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Loyalty Points')]")));
-            System.out.println("CASE 31: FAIL: Loyalty Points has been applied for the Order");
+            System.out.println("CASE 31: PASS: Loyalty Points has been applied for the Order");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE 31: FAIL: Loyalty Points application was Unsuccessful");
         }
