@@ -14,10 +14,19 @@ public class checkout extends browserSetup{
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-            //Toast Message Close button
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Close\"]"))).click();
-            //Wait for Select/Condition Unmet Buttons inside Como Rewards Container
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"]")));
+            try{
+                wait = new WebDriverWait(driver, 5);
+                //Toast Message Close button
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Close\"]"))).click();
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("No Toast message was displayed!");
+            }
+            try{
+                //Wait for Select/Condition Unmet Buttons inside Como Rewards Container
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"]")));
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("No Como Gifts were Displayed! Check if Como Gifts are Alloted");
+            }
             //Como Rewards Popup Close button
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
             js.executeScript("window.scrollBy(0,2000)", "");

@@ -6,6 +6,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.sql.Time;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,21 +24,24 @@ public class applyComoRewards extends browserSetup {
         driver.findElement(By.xpath("//button[normalize-space()='Show Rewards']")).click();
         System.out.println("Opening Como Rewards Container.");
         int comoGiftButtonIndex = 1;
-        String comoGiftButtonsXpath = "//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"]";
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(comoGiftButtonsXpath)));
-        List<WebElement> comoGiftButtons = driver.findElements(By.xpath(comoGiftButtonsXpath));
-        for (WebElement e: comoGiftButtons){
-            if(e.getText().equalsIgnoreCase("Select")) {
-                driver.findElement(By.xpath("(//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"])["+comoGiftButtonIndex+"]")).click();
-                driver.findElement(By.xpath("//button[@class=\"text-white font-medium rounded-xl text-sm px-4 py-2 w-full md:w-[25%] h-[50px] capitalize\"]")).click();
-                wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//button[@class=\"text-white font-medium rounded-xl text-sm px-4 py-2 w-full md:w-[25%] h-[50px] capitalize\"]")));
-                System.out.println("Selecting Valid Como Gift!");
-                Thread.sleep(3000);
-                break;
+        try {
+            String comoGiftButtonsXpath = "//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"]";
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(comoGiftButtonsXpath)));
+            List<WebElement> comoGiftButtons = driver.findElements(By.xpath(comoGiftButtonsXpath));
+            for (WebElement e : comoGiftButtons) {
+                if (e.getText().equalsIgnoreCase("Select")) {
+                    driver.findElement(By.xpath("(//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"])[" + comoGiftButtonIndex + "]")).click();
+                    driver.findElement(By.xpath("//button[@class=\"text-white font-medium rounded-xl text-sm px-4 py-2 w-full md:w-[25%] h-[50px] capitalize\"]")).click();
+                    wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//button[@class=\"text-white font-medium rounded-xl text-sm px-4 py-2 w-full md:w-[25%] h-[50px] capitalize\"]")));
+                    System.out.println("Selecting Valid Como Gift!");
+                    Thread.sleep(3000);
+                    break;
+                }
+                comoGiftButtonIndex++;
             }
-            comoGiftButtonIndex++;
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Como Rewards were not Displayed! Kindly Check Como Rewards manually!");
         }
-
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//label[@class=\"ml-3 inline-block text-sm md:text-base font-semibold text-app-gray-500\"]")));
         String orderTotal = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]"))).getText();
         Double checkoutOrderAmount = Double.parseDouble(orderTotal.substring(1));
