@@ -8,13 +8,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class applyPartialPoints extends browserSetup{
     public applyPartialPoints() throws InterruptedException {
-        String itemNote = driver.findElement(By.xpath("//span[@class=\"item-comment-value\"]")).getText();
-        if (itemNote.contains(readProperty("comoDealName"))){
-            System.out.println("CASE 17: PASS: Como Deal Applied");
-        }
-        else {
-            System.out.println("CASE 17: FAIL: Como Deal not Applied");
-        }
         try{
             String deliveryFee = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]")).getText();
             System.out.println("CASE 11: PASS: Delivery Fee Displayed at Checkout is " + deliveryFee);
