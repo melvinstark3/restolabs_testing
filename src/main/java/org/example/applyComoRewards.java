@@ -13,13 +13,16 @@ import java.util.Map;
 
 public class applyComoRewards extends browserSetup {
     public applyComoRewards() throws InterruptedException {
-        String itemNote = driver.findElement(By.xpath("//span[@class=\"item-comment-value\"]")).getText();
-        System.out.println("Item Note at Checkout is " + itemNote);
-        if (itemNote.contains(readProperty("comoDealName"))){
-            System.out.println("CASE 17: PASS: Como Deal Applied");
-        }
-        else {
-            System.out.println("CASE 17: FAIL: Como Deal not Applied");
+        try {
+            String itemNote = driver.findElement(By.xpath("//span[@class=\"item-comment-value\"]")).getText();
+            System.out.println("Item Note at Checkout is " + itemNote);
+            if (itemNote.contains(readProperty("comoDealName"))) {
+                System.out.println("CASE 17: PASS: Como Deal Applied");
+            } else {
+                System.out.println("CASE 17: FAIL: " + readProperty("comoDealName") + " Como Deal not Applied");
+            }
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE 17: FAIL: No Item Note Found at Checkout! Deal Application Failed");
         }
         driver.findElement(By.xpath("//button[normalize-space()='Show Rewards']")).click();
         System.out.println("Opening Como Rewards Container.");

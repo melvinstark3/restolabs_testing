@@ -27,6 +27,7 @@ public class checkout extends browserSetup{
             } catch (NoSuchElementException | TimeoutException e){
                 System.out.println("No Como Gifts were Displayed! Check if Como Gifts are Alloted");
             }
+            wait = new WebDriverWait(driver, 30);
             //Como Rewards Popup Close button
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
             js.executeScript("window.scrollBy(0,2000)", "");
@@ -35,8 +36,8 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
             Thread.sleep(5000);
-            wait = new WebDriverWait(driver, 10);
             try{
+                wait = new WebDriverWait(driver, 5);
                 if (driver.findElement(By.id("policy")).isSelected()) {
                     System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
                 } else {
