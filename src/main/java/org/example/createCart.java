@@ -7,6 +7,8 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.sql.Time;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class createCart extends browserSetup{
 
@@ -51,6 +53,22 @@ public class createCart extends browserSetup{
         }
         js.executeScript("window.scrollBy(0,2000)", "");
         wait = new WebDriverWait(driver, 30);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
+        double minimumOrderAmount = 0;
+        List<WebElement> restoInfo = driver.findElements(By.xpath("//div[@class=\"text-sm ng-star-inserted\"]"));
+        for(WebElement e:restoInfo ){
+            if(e.getText().contains("Minimum Order Amount")){
+                String regex = "[\\$£€₹]\\s*(\\d+(?:\\.\\d+)?)";
+
+                Pattern pattern = Pattern.compile(regex);
+                Matcher matcher = pattern.matcher(e.getText());
+                if (matcher.find()) {
+                    minimumOrderAmount = Integer.parseInt((matcher.group(1)));
+                    System.out.println("Minimum Order Amount Set For Business is " + minimumOrderAmount);
+                }
+            }
+        }
+
         if(orderTime.equalsIgnoreCase("asap")){
             driver.findElement(By.id("asapbtn")).click();
         }
@@ -62,6 +80,12 @@ public class createCart extends browserSetup{
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")));
         driver.findElement(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")).click();
+        try {
+            driver.findElement(By.xpath("//button[@data-testid=\"ComoContinueAsGuest\"]")).click();
+            System.out.println("Login Prompt was displayed! Continuing at Guest.");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Continue as Guest Prompt was not Displayed!");
+        }
         //h5 is being used for Superb List View & h4 is being used for Superb
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"item_title_html\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"item_title_html\"]")));
@@ -74,6 +98,8 @@ public class createCart extends browserSetup{
 
         List<WebElement> priceList = driver.findElements(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
         double minValue = Double.MAX_VALUE;
+        int expectedItemQuantity = 1;
+        boolean repeatItem = false;
         int minIndex = 0;
         for (int i = 1; i < priceList.size(); i++) {
             String text = priceList.get(i).getText().trim().substring(1); // Trim and remove first char
@@ -83,6 +109,14 @@ public class createCart extends browserSetup{
                 minIndex = i+1;
             }
         }
+        if(minValue<minimumOrderAmount){
+            repeatItem=true;
+            if (minimumOrderAmount%minValue !=0){
+                expectedItemQuantity = (int) (minimumOrderAmount/minValue+1);
+            } else {
+                expectedItemQuantity = (int) (minimumOrderAmount/minValue);
+            }
+        }
         System.out.println("Adding Cheapest Item to Cart Priced at " + driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).getText());
         driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
 
@@ -90,14 +124,26 @@ public class createCart extends browserSetup{
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"addToCart\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
+            if (repeatItem){
+                for (int i = 1; i < expectedItemQuantity; i++) {
+                    driver.findElement(By.xpath("//button[@class=\"hover:bg-app-gray-200 rounded-full p-[3px] flex-shrink-0\"][2]")).click();
+                }
+            }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))).clear();
             driver.findElement(By.id("message")).sendKeys(readProperty("itemComment"));
             driver.findElement(By.xpath("//button[@data-testid=\"addToCart\"]")).click();
         }
         catch (NoSuchElementException | TimeoutException e){
             System.out.println("Adding non Customisable Item to the Cart.");
+            if (repeatItem){
+                driver.findElement(By.xpath("//a[@id=\"cart-header\"]")).click();
+                for (int i = 1; i < expectedItemQuantity; i++){
+                    driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+                }
+            }
         }
         Thread.sleep(3000);
+
         js.executeScript("window.scrollBy(0,10)", "");
         try {
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
