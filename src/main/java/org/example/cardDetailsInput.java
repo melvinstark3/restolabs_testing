@@ -10,7 +10,7 @@ public class cardDetailsInput extends browserSetup {
     public cardDetailsInput(String cardNumber) {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)", "");
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//iframe[@title='Secure card payment input frame']")));
         driver.findElement(By.xpath("//iframe[@title='Secure card payment input frame']")).click();
         WebElement stripeIframe = wait.until(ExpectedConditions.presenceOfElementLocated(

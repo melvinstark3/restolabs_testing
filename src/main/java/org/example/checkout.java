@@ -37,14 +37,16 @@ public class checkout extends browserSetup{
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
-            driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys(readProperty("orderComment"));
-            System.out.println("CASE 33: Passing Order Comment at Checkout");
             try{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
                 System.out.println("Saving Details in Save Address Popup!");
             } catch (NoSuchElementException | TimeoutException e){
                 System.out.println("Skipping Save Address Popup as it wasn't displayed!");
             }
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys(readProperty("orderComment"));
+            System.out.println("CASE 33: Passing Order Comment at Checkout");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this

@@ -9,7 +9,7 @@ import java.util.List;
 public class checkSavedOrNew extends browserSetup{
 
     public checkSavedOrNew(String cardNumber, boolean loggedIn) throws InterruptedException {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 15);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
         try {
             JavascriptExecutor js = (JavascriptExecutor) driver;
