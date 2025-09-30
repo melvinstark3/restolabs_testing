@@ -46,8 +46,8 @@ public class guestOrder extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
-        driver.findElement(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]")).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
+        driver.findElement(By.xpath("//button[@data-testid=\"placeOrder\"]")).click();
         System.out.println("TC_32: Cash on Delivery Payment wih Gateway");
         new pageBackPostOrder();
         new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
@@ -71,9 +71,9 @@ public class guestOrder extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
         String checkoutOrderTotal = driver.findElement(By.xpath("//h5[@data-testid=\"orderTotal\"]")).getText();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]"))).click();
-        driver.findElement(By.xpath("(//button[@data-testid=\"placeOrder\"])[2]")).click();
-        wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
+        driver.findElement(By.xpath("//button[@data-testid=\"placeOrder\"]")).click();
+        wait = new WebDriverWait(driver, 3)
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")));
         driver.findElement(By.xpath("(//input[@data-testid=\"BillFirst name\"])[2]")).sendKeys(readProperty("guestBillingFirstName"));
         driver.findElement(By.xpath("(//input[@data-testid=\"BillLast name\"])[2]")).sendKeys(readProperty("guestBillingLastName"));
