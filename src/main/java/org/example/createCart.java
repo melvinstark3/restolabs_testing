@@ -72,7 +72,7 @@ public class createCart extends browserSetup{
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h4[normalize-space()='"+itemName+"']")));
         driver.findElement(By.xpath("//h4[normalize-space()='"+itemName+"']")).click();
 
-        wait = new WebDriverWait(driver, 3);
+        wait = new WebDriverWait(driver, 15);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"addToCart\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
