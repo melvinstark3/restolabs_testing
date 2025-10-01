@@ -20,9 +20,9 @@ public class matchAmount extends browserSetup {
             System.out.println("Page with Direct Payment Options is Displayed");
         }
         if (paynowButton) {
-            gatewayOrderTotal = driver.findElement(By.xpath("//h2[@class=\"css-1cqpfm1\"]")).getText();
+            gatewayOrderTotal = driver.findElement(By.xpath("//div[@class=\"css-1cqpfm1\"]")).getText();
         } else {
-            gatewayOrderTotal = driver.findElement(By.xpath("//h1[@class=\"css-3kuns2\"]")).getText();
+            gatewayOrderTotal = driver.findElement(By.xpath("//div[@class=\"css-3kuns2\"]")).getText();
         }
         if(Objects.equals(checkoutOrderTotal, gatewayOrderTotal)){
             System.out.println("TC 56, 30: PASS: Checkout Order Total and Currency Matches with Gateway");
