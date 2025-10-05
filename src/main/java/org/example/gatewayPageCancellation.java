@@ -22,5 +22,4 @@ public class gatewayPageCancellation extends browserSetup{
         }
         System.out.println("Cancellation of Payment takes User to the URL: " + driver.getCurrentUrl());
     }
-
 }
