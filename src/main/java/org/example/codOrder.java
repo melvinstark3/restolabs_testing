@@ -32,6 +32,7 @@ public class codOrder extends browserSetup{
         js.executeScript("window.scrollBy(0,2000)", "");
         System.out.println("CASE 3: For Guest Order: ");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         Thread.sleep(5000);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("tip1_0"))).click();
         try{
@@ -42,6 +43,7 @@ public class codOrder extends browserSetup{
             System.out.println("CASE 30: FAIL: Tip application was Unsuccessful");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         try{
             WebElement taxLineItem = driver.findElement(By.xpath("//h6[@data-testid=\"" + readProperty("taxName") + "\"]"));
             System.out.println("CASE 34: PASS: "+ readProperty("taxName") + " is displayed in Line Items with Value " + taxLineItem.getText());
@@ -63,8 +65,8 @@ public class codOrder extends browserSetup{
         }
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
-        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
         try {

@@ -323,7 +323,7 @@ public class loyaltyOrder extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("ERROR! Loyalty Points application was Unsuccessful");
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\"" + readProperty("CODPaymentMode") + "\"]")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();

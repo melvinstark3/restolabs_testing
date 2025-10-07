@@ -23,6 +23,7 @@ public class applyCoupon extends browserSetup{
             }
         }
         try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Coupon')]")));
             System.out.println("CASE 32: PASS: Coupon has been Applied for the Order");
