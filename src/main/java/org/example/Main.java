@@ -8,5 +8,9 @@ public class Main extends browserSetup{
         new dineInOrder();
         new homeDeliveryOrder();
         new comboOrder();
+        quitBrowser();
+        invokeBrowser();
+        new loyaltyOrder();
+        quitBrowser();
     }
 }
