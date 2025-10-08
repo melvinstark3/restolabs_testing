@@ -14,6 +14,7 @@ public class checkout extends browserSetup{
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             try{
                 wait = new WebDriverWait(driver, 5);
                 //Toast Message Close button
@@ -35,10 +36,11 @@ public class checkout extends browserSetup{
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Don't Prepare");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
-            Thread.sleep(5000);
+            Thread.sleep(2000);
             try{
-                wait = new WebDriverWait(driver, 5);
+                wait = new WebDriverWait(driver, 3);
                 if (driver.findElement(By.id("policy")).isSelected()) {
                     System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
                 } else {
@@ -51,6 +53,7 @@ public class checkout extends browserSetup{
             }
             wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
             if(orderMode.equalsIgnoreCase("Home Delivery")){
                 new applyPartialPoints();
@@ -95,13 +98,13 @@ public class checkout extends browserSetup{
             // Stale Element Exception if Trying Implicit Wait
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
             System.out.println("TC_07: For Guest Order: ");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-            Thread.sleep(5000);
-            wait = new WebDriverWait(driver, 10);
+            Thread.sleep(2000);
             // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
             try{
+                wait = new WebDriverWait(driver, 3);
                 if (driver.findElement(By.id("policy")).isSelected()) {
                     System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
                 } else {
@@ -114,6 +117,7 @@ public class checkout extends browserSetup{
             }
             wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
             driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
