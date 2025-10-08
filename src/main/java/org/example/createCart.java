@@ -81,21 +81,14 @@ public class createCart extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")));
         driver.findElement(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")).click();
         try {
-            driver.findElement(By.xpath("//button[@data-testid=\"ComoContinueAsGuest\"]")).click();
+            driver.findElement(By.xpath("//button[@data-testid=\"guestLogin\"]")).click();
             System.out.println("Login Prompt was displayed! Continuing at Guest.");
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Continue as Guest Prompt was not Displayed!");
+            System.out.println("Login Prompt was not Displayed! Continuing to Menu");
         }
         //h5 is being used for Superb List View & h4 is being used for Superb
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"item_title_html\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"item_title_html\"]")));
-        try {
-            driver.findElement(By.xpath("//button[@data-testid=\"ComoContinueAsGuest\"]")).click();
-            System.out.println("Login Prompt was displayed! Continuing at Guest.");
-        } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Continue as Guest Prompt was not Displayed!");
-        }
-
         List<WebElement> priceList = driver.findElements(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
         double minValue = Double.MAX_VALUE;
         int expectedItemQuantity = 1;
@@ -155,10 +148,10 @@ public class createCart extends browserSetup{
             System.out.println("Proceeding to Checkout");
         }
         try {
-            driver.findElement(By.xpath("//button[@data-testid=\"ComoContinueAsGuest\"]")).click();
+            driver.findElement(By.xpath("//button[@data-testid=\"guestLogin\"]")).click();
             System.out.println("Login Prompt was displayed! Continuing at Guest.");
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Continue as Guest Prompt was not Displayed!");
+            System.out.println("Login Prompt was not Displayed! Continuing to Checkout");
         }
         wait = new WebDriverWait(driver, 30);
         if (loggedIn) {
