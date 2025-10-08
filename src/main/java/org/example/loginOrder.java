@@ -20,13 +20,11 @@ public class loginOrder extends browserSetup{
             System.out.println("User is Already Logged In!");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("User is not Logged in. Attempting Login!");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("guest_user")));
             driver.findElement(By.id("guest_user")).click();
-            driver.findElement(By.xpath("//button[normalize-space()='Get Code by SMS']")).click();
-            driver.findElement(By.id("phone")).sendKeys(readProperty("comoLoginNumber"));
-            driver.findElement(By.xpath("//span[@class=\"ng-tns-c1779389301-1\"]")).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("otp1"))).sendKeys(new getComoOTP().getOTP());
-            driver.findElement(By.xpath("//span[@class=\"ng-tns-c1779389301-1\"]")).click();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
+            driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
+            driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
+            driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
