@@ -48,31 +48,45 @@ public class createCart extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         System.out.println("Selected Location : " + Location);
+        if(orderMode.equalsIgnoreCase("Pick Up")){
+            try{
+                driver.findElement(By.id("test")).click();
+                System.out.println("Confirming Location ");
+            } catch (NoSuchElementException | TimeoutException e){
+
+            }
+        }
         js.executeScript("window.scrollBy(0,2000)", "");
         try {
             wait = new WebDriverWait(driver, 3);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"Yes\"]")));
             //For Some reason even after Completed, We get Cart reset Popup, Handle it with Yes for now.
             driver.findElement(By.xpath("//button[@data-testid=\"Yes\"]")).click();
+            System.out.println("Checking for Minimum Order Amount");
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Continuing to Menu");
+            System.out.println("Checking for Minimum Order Amount");
         }
         js.executeScript("window.scrollBy(0,2000)", "");
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         double minimumOrderAmount = 0;
-        List<WebElement> restoInfo = driver.findElements(By.xpath("//div[@class=\"text-sm ng-star-inserted\"]"));
-        for(WebElement e:restoInfo ){
-            if(e.getText().contains("Minimum Order Amount")){
-                String regex = "[\\$£€₹]\\s*(\\d+(?:\\.\\d+)?)";
+        try {
+            List<WebElement> restoInfo = driver.findElements(By.xpath("//div[@class=\"text-sm ng-star-inserted\"]"));
+            for(WebElement e:restoInfo ){
+                if(e.getText().contains("Minimum Order Amount")){
+                    String regex = "[\\$£€₹]\\s*(\\d+(?:\\.\\d+)?)";
 
-                Pattern pattern = Pattern.compile(regex);
-                Matcher matcher = pattern.matcher(e.getText());
-                if (matcher.find()) {
-                    minimumOrderAmount = Integer.parseInt((matcher.group(1)));
-                    System.out.println("Minimum Order Amount Set For Business is " + minimumOrderAmount);
+                    Pattern pattern = Pattern.compile(regex);
+                    Matcher matcher = pattern.matcher(e.getText());
+                    if (matcher.find()) {
+                        minimumOrderAmount = Integer.parseInt((matcher.group(1)));
+                        System.out.println("Minimum Order Amount Set For Business is " + minimumOrderAmount);
+                    }
                 }
             }
+            System.out.println("Choosing " + orderMode + " Order Timing");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Choosing " + orderMode + " Order Timing");
         }
 
         if(orderTime.equalsIgnoreCase("asap")){
