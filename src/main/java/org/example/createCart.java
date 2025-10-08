@@ -5,7 +5,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -47,13 +46,24 @@ public class createCart extends browserSetup{
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
-        System.out.println("Selected Location : " + Location);
         if(orderMode.equalsIgnoreCase("Pick Up")){
             try{
-                driver.findElement(By.id("test")).click();
-                System.out.println("Confirming Location ");
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("geocoder")));
+                // EXPERIMENTAL: Right now there is no Robust or Sure way to find when the Current location has been fetched
+                // Upon Further Investigation it was found that a green Marker with image Xpath Mentioned below
+                // "//img[@src="https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png"]"
+                // is displayed when Current Location has been fetched but as there no proper way to check for its visibility Hence for now
+                // We are using 10 seconds of Sleep to Give the API time to fetch Location. We can also experiment with a JS Executor but
+                // for now we are going ahead with this Experimental Approach until Further Discussion. Till Then, It's Recommended to
+                // Not Use Pickup Map Feature when Running the Automation Suite
+                Thread.sleep(10000);
+                WebElement location = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']")));
+                js.executeScript("arguments[0].scrollIntoView();", location);
+                location.click();
+                driver.findElement(By.xpath("//button[@class=\"px-3 py-1 font-bold text-white border-2 text-xs md:text-sm rounded-md w-full select-button\"]")).click();
+                System.out.println("Confirming Location");
             } catch (NoSuchElementException | TimeoutException e){
-
+                System.out.println("Selecting Pickup Location from the List");
             }
         }
         js.executeScript("window.scrollBy(0,2000)", "");
@@ -162,8 +172,8 @@ public class createCart extends browserSetup{
                 }
             }
         }
+        wait = new WebDriverWait(driver, 30);
         Thread.sleep(3000);
-
         js.executeScript("window.scrollBy(0,10)", "");
         try {
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
