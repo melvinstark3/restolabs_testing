@@ -4,11 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 public class loginOrder extends browserSetup{
     public loginOrder(String orderMode) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
@@ -40,15 +35,10 @@ public class loginOrder extends browserSetup{
             System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
         }
         wait = new WebDriverWait(driver, 30);
-        if (orderMode.equalsIgnoreCase("Dine In")){
-            System.out.println("Payment is Handled by Como Rewards Logic!");
-        }
-        else {
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-            System.out.println("Proceeding for Payment!");
-            System.out.print("For Logged In Order: ");
-            new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
-        }
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        System.out.println("Proceeding for Payment!");
+        System.out.print("For Logged In Order: ");
+        new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);
             String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
@@ -56,13 +46,11 @@ public class loginOrder extends browserSetup{
             System.out.println("Case 5: PASS: Order Placed by Logged In User Successfully. Order ID : " + OrderID);
             if(orderMode.equalsIgnoreCase("Home Delivery")){
                 System.out.println("Case 13: PASS: Check for the Online Payment order.");
-                System.out.println("Case 18: PASS: Partial Points/Credits payment Order was placed Successfully");
             }
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("Case 5: FAIL: Order wasn't Posted in Time. Please Check the Case Manually");
             if(orderMode.equalsIgnoreCase("Home Delivery")){
                 System.out.println("Case 13: FAIL: Online Payment order wasn't placed Successfully");
-                System.out.println("Case 18: FAIL: Partial Points/Credits payment Order wasn't placed Successfully");
             }
         }
     }

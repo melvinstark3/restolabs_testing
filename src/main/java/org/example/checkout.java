@@ -4,10 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
-
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-
 public class checkout extends browserSetup{
     public checkout(String orderMode, boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
@@ -34,6 +30,14 @@ public class checkout extends browserSetup{
             }
             catch (NoSuchElementException | TimeoutException e) {
                 System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
+            }
+            if (orderMode.equalsIgnoreCase("Home Delivery")){
+                try{
+                    String deliveryFee = driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]")).getText();
+                    System.out.println("CASE 11: PASS: Delivery Fee Displayed at Checkout is " + deliveryFee);
+                }catch (NoSuchElementException | TimeoutException e){
+                    System.out.println("CASE 11: FAIL: No Delivery Fee Found!");
+                }
             }
             wait = new WebDriverWait(driver, 30);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
@@ -65,9 +69,13 @@ public class checkout extends browserSetup{
             try {
                 System.out.println("Entering Customer Details");
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
+                driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).clear();
                 driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
+                driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).clear();
                 driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).sendKeys(readProperty("GuestLastName"));
+                driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).clear();
                 driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).sendKeys(readProperty("GuestPhoneNumber"));
+                driver.findElement(By.name("email")).clear();
                 driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
                 driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
             }
