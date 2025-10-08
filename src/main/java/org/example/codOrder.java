@@ -31,10 +31,11 @@ public class codOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
         System.out.println("CASE 3: For Guest Order: ");
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        Thread.sleep(5000);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+        Thread.sleep(2000);
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{
+            wait = new WebDriverWait(driver, 3);
             if (driver.findElement(By.id("policy")).isSelected()) {
                 System.out.println("Privacy Policy and Terms & Conditions are Already Accepted");
             } else {
@@ -45,6 +46,7 @@ public class codOrder extends browserSetup{
         catch (NoSuchElementException | TimeoutException e) {
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
@@ -55,12 +57,12 @@ public class codOrder extends browserSetup{
             String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
             System.out.println("CASE 3: PASS: Guest Order was Successful");
-            System.out.println("CASE 10: PASS: Place a Pre-order");
+            System.out.println("CASE 10: PASS: Place an Order with " + readProperty("codOrderTime") + "Timing");
             System.out.println("CASE 12: PASS: Cash on Delivery Payment was Successful");
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("CASE 12: FAIL: Cash on Delivery Order wasn't Posted in Time");
-            System.out.println("CASE 10: FAIL: Pre-order wasn't Posted in Time");
             System.out.println("CASE 3: FAIL: Guest Order wasn't Posted in Time. Please Check the Case Manually");
+            System.out.println("CASE 10: FAIL: " + readProperty("codOrderTime") + " Order wasn't Posted in Time");
+            System.out.println("CASE 12: FAIL: Cash on Delivery Order wasn't Posted in Time");
         }
 
     }
