@@ -15,22 +15,6 @@ public class checkout extends browserSetup{
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
-            try{
-                wait = new WebDriverWait(driver, 5);
-                //Toast Message Close button
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Close\"]"))).click();
-            } catch (NoSuchElementException | TimeoutException e){
-                System.out.println("No Toast message was displayed!");
-            }
-            try{
-                //Wait for Select/Condition Unmet Buttons inside Como Rewards Container
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"bg-app-gray-200 text-app-gray-500 capitalize text-base font-medium text-center w-full p-2 ng-star-inserted\"]")));
-            } catch (NoSuchElementException | TimeoutException e){
-                System.out.println("No Como Gifts were Displayed! Check if Como Gifts are Alloted");
-            }
-            wait = new WebDriverWait(driver, 30);
-            //Como Rewards Popup Close button
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"inline-flex flex-shrink-0 justify-center items-center h-6 w-6 rounded-md text-gray-500 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 focus:ring-offset-2 focus:ring-offset-white transition-all text-sm dark:focus:ring-gray-700 dark:focus:ring-offset-gray-800\"]"))).click();
             js.executeScript("window.scrollBy(0,2000)", "");
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Don't Prepare");
