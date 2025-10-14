@@ -11,6 +11,52 @@ public class checkout extends browserSetup{
         if(loggedIn){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            try{
+                driver.findElement(By.xpath("//span[@class=\"cursor-pointer text-red-600 ng-star-inserted\"]")).click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]")));
+                System.out.println("Filling Necessary Checkout Details");
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"company\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"company\"]")).sendKeys(readProperty("checkoutCompany"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Company Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"street1\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"street1\"]")).sendKeys(readProperty("checkoutStreet1"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Street 1 Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"street2\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"street2\"]")).sendKeys(readProperty("checkoutStreet2"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Street 2 Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"city\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"city\"]")).sendKeys(readProperty("checkoutCity"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping City Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"postal_code\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"postal_code\"]")).sendKeys(readProperty("checkoutPostalCode"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Postal Code Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.name("email")).clear();
+                    driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Email Field as it's not Displayed");
+                }
+                driver.findElement(By.xpath("//button[@data-testid=\"continueAddAddress\"]")).click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("Checkout Details are not required!");
+            }
             js.executeScript("window.scrollBy(0,2000)", "");
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Don't Prepare");
@@ -86,6 +132,52 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            try{
+                driver.findElement(By.xpath("//span[@class=\"cursor-pointer text-red-600 ng-star-inserted\"]")).click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]")));
+                System.out.println("Filling Necessary Checkout Details");
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"company\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"company\"]")).sendKeys(readProperty("checkoutCompany"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Company Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"street1\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"street1\"]")).sendKeys(readProperty("checkoutStreet1"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Street 1 Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"street2\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"street2\"]")).sendKeys(readProperty("checkoutStreet2"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Street 2 Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"city\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"city\"]")).sendKeys(readProperty("checkoutCity"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping City Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.xpath("//input[@data-testid=\"postal_code\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"postal_code\"]")).sendKeys(readProperty("checkoutPostalCode"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Postal Code Field as it's not Displayed");
+                }
+                try{
+                    driver.findElement(By.name("email")).clear();
+                    driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
+                } catch (NoSuchElementException e){
+                    System.out.println("Skipping Email Field as it's not Displayed");
+                }
+                driver.findElement(By.xpath("//button[@data-testid=\"continueAddAddress\"]")).click();
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("Checkout Details are not required!");
+            }
             js.executeScript("window.scrollBy(0,2000)", "");
             System.out.println("TC_07: For Guest Order: ");
             Thread.sleep(2000);
