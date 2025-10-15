@@ -55,7 +55,7 @@ public class checkout extends browserSetup{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             } catch (NoSuchElementException | TimeoutException e){
-                System.out.println("Checkout Details are not required!");
+                System.out.println("Additional Checkout Details are not required!");
             }
             js.executeScript("window.scrollBy(0,2000)", "");
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
@@ -114,20 +114,37 @@ public class checkout extends browserSetup{
         else {
             try {
                 System.out.println("Entering Customer Details");
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
-                driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).clear();
-                driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
-                driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).clear();
-                driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).sendKeys(readProperty("GuestLastName"));
-                driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).clear();
-                driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).sendKeys(readProperty("GuestPhoneNumber"));
-                driver.findElement(By.name("email")).clear();
-                driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
-                driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
+                //Xpath for Modal Sheet Popup
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"modal-content max-h-full overflow-hidden flex flex-col bg-white shadow-sm rounded-t-3xl rounded-b-none md:rounded-xl\"]")));
+                try {
+                    driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
+                } catch (ElementNotInteractableException e){
+                    System.out.println("Skipping First Name Field as it was not Displayed!");
+                }
+                try {
+                    driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"last_name\"]")).sendKeys(readProperty("GuestLastName"));
+                } catch (ElementNotInteractableException e){
+                    System.out.println("Skipping Last Name Field as it was not Displayed!");
+                }
+                try {
+                    driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"phone\"]")).sendKeys(readProperty("GuestPhoneNumber"));
+                } catch (ElementNotInteractableException e){
+                    System.out.println("Skipping Phone Number Field as it was not Displayed!");
+                }
+                try {
+                    driver.findElement(By.name("email")).clear();
+                    driver.findElement(By.name("email")).sendKeys(readProperty("GuestEmail"));
+                } catch (ElementNotInteractableException e){
+                    System.out.println("Skipping Email Field as it was not Displayed!");
+                }
             }
             catch (NoSuchElementException | TimeoutException e){
                 System.out.println("Customer Details are Pre-filled. Continuing with Guest Order!");
             }
+            driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
             // Stale Element Exception if Trying Implicit Wait
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
@@ -198,7 +215,7 @@ public class checkout extends browserSetup{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
-            driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]"))).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
         }
