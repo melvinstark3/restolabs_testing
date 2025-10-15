@@ -23,8 +23,14 @@ public class createCart extends browserSetup{
             } catch (TimeoutException e){
                 System.out.println("Home Delivery Field is Empty!");
             }
-            driver.findElement(By.id("typeahead-prevent-manual-entry")).clear();
-            driver.findElement(By.id("typeahead-prevent-manual-entry")).sendKeys(readProperty("homeDeliveryAddress"));
+            String homeDeliveryTextField = "typeahead-prevent-manual-entry";
+            driver.findElement(By.id(homeDeliveryTextField)).clear();
+            driver.findElement(By.id(homeDeliveryTextField)).sendKeys(readProperty("homeDeliveryAddress"));
+            //We Need to Clear some Letters if Copy&Pasting/SendingKeys etc. to the Search Field for
+            //Location Suggestions to Show up. We can remove this logic, Once Dev team fixes this up.
+            for (int backspaceLetters=0;backspaceLetters<2;backspaceLetters++){
+                driver.findElement(By.id(homeDeliveryTextField)).sendKeys(Keys.BACK_SPACE);
+            }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ngb-typeahead-0")));
             List<WebElement> addressList = driver.findElements(By.id("ngb-typeahead-0"));
             for (WebElement e:addressList){
