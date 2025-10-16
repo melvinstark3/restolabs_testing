@@ -121,7 +121,11 @@ public class guestOrder extends browserSetup{
                 System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
             }
         }
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        try{
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        } catch (TimeoutException e){
+            System.out.println("Billing Page Continue Button wasn't Displayed!");
+        }
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);

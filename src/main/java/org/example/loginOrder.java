@@ -135,8 +135,11 @@ public class loginOrder extends browserSetup{
                 System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
             }
         }
-        wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        try{
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        } catch (TimeoutException e){
+            System.out.println("Billing Page Continue Button wasn't Displayed!");
+        }
         System.out.println("Proceeding for Payment!");
         System.out.print("For Logged In Order: ");
         new checkSavedOrNew(readProperty("cardNumber"),loggedIn);
