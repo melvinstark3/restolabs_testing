@@ -33,7 +33,7 @@ public class loginOrder extends browserSetup{
         try{
             wait = new WebDriverWait(driver, 30);
             //Add Billing Details Title of Container
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//div[@class=\"text-xl font-bold mb-4\"])[2]")));
+            wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("(//div[@class=\"text-xl font-bold mb-4\"])[2]"),"Add Billing Address"));
             System.out.println("Filling Necessary Billing Details");
             try{
                 try {
