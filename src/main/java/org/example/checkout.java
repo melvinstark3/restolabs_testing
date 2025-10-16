@@ -39,7 +39,9 @@ public class checkout extends browserSetup{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]"))).click();
             } catch (TimeoutException ignored){}
             if (orderMode.equalsIgnoreCase("Home Delivery")){
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
+                try{
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
+                } catch (TimeoutException ignored){}
             }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");

@@ -103,8 +103,5 @@ public class createCart extends browserSetup{
             System.out.println("Proceeding to Checkout");
         }
         wait = new WebDriverWait(driver, 30);
-        if (loggedIn) {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@aria-label=\"Select Payment Methods\"]")));
-        }
     }
 }
