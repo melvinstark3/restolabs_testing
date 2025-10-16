@@ -28,8 +28,9 @@ public class createCart extends browserSetup{
             driver.findElement(By.id(homeDeliveryTextField)).sendKeys(readProperty("homeDeliveryAddress"));
             //We Need to Clear some Letters if Copy&Pasting/SendingKeys etc. to the Search Field for
             //Location Suggestions to Show up. We can remove this logic, Once Dev team fixes this up.
-            for (int backspaceLetters=0;backspaceLetters<2;backspaceLetters++){
+            for (int backspaceLetters=0;backspaceLetters<4;backspaceLetters++){
                 driver.findElement(By.id(homeDeliveryTextField)).sendKeys(Keys.BACK_SPACE);
+                Thread.sleep(500);
             }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ngb-typeahead-0")));
             List<WebElement> addressList = driver.findElements(By.id("ngb-typeahead-0"));
