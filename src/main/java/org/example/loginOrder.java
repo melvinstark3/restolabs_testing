@@ -77,7 +77,7 @@ public class loginOrder extends browserSetup{
                     driver.findElement(By.xpath("//input[@data-testid=\"BillComplete address\"]")).sendKeys(readProperty("BillingCompleteAddress"));
                 }
             } catch (ElementNotInteractableException e){
-                System.out.println("Skipping Billing Complete Address Field as it's not Displayed");
+                System.out.println("Skipping Logged In Billing Complete Address Field as it's not Displayed");
             }
             try{
                 try {

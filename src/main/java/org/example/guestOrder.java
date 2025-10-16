@@ -56,14 +56,14 @@ public class guestOrder extends browserSetup{
             }
             try{
                 try {
-                    driver.findElement(By.xpath("(//input[@data-testid=\"BillComplete address\"])[2]")).clear();
-                    driver.findElement(By.xpath("(//input[@data-testid=\"BillComplete address\"])[2]")).sendKeys(readProperty("BillingCompleteAddress"));
+                    driver.findElement(By.xpath("(//input[@data-testid=\"BillCompelete Address\"])[2]")).clear();
+                    driver.findElement(By.xpath("(//input[@data-testid=\"BillCompelete Address\"])[2]")).sendKeys(readProperty("BillingCompleteAddress"));
                 } catch (ElementNotInteractableException e){
-                    driver.findElement(By.xpath("//input[@data-testid=\"BillComplete address\"]")).clear();
-                    driver.findElement(By.xpath("//input[@data-testid=\"BillComplete address\"]")).sendKeys(readProperty("BillingCompleteAddress"));
+                    driver.findElement(By.xpath("//input[@data-testid=\"BillCompelete Address\"]")).clear();
+                    driver.findElement(By.xpath("//input[@data-testid=\"BillCompelete Address\"]")).sendKeys(readProperty("BillingCompleteAddress"));
                 }
             } catch (ElementNotInteractableException e){
-                System.out.println("Skipping Billing Complete Address Field as it's not Displayed");
+                System.out.println("Skipping Guest Billing Complete Address Field as it's not Displayed");
             }
             try{
                 try {
