@@ -33,6 +33,7 @@ public class createCart extends browserSetup{
                 Thread.sleep(500);
             }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ngb-typeahead-0")));
+            Thread.sleep(5000);
             List<WebElement> addressList = driver.findElements(By.id("ngb-typeahead-0"));
             for (WebElement e:addressList){
                 //Right Now even with Same Text, it's choosing the Suggestion After Same Text but as Addresses might
