@@ -11,7 +11,7 @@ import java.util.List;
 public class codOrder extends browserSetup{
     public codOrder() throws InterruptedException {
         boolean loggedIn = false;
-        driver.navigate().to(readProperty("GuestURL"));
+        driver.navigate().to(readProperty("storeURL"));
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();

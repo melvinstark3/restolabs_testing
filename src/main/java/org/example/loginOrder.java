@@ -11,7 +11,7 @@ public class loginOrder extends browserSetup{
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
-        driver.navigate().to(readProperty("loginURL"));
+        driver.navigate().to(readProperty("storeURL"));
         try{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("complete_space")));
             System.out.println("User is Already Logged In!");

@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class guestOrder extends browserSetup{
     public guestOrder(String orderMode) throws InterruptedException {
         boolean loggedIn = false;
-        driver.navigate().to(readProperty("GuestURL"));
+        driver.navigate().to(readProperty("storeURL"));
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
