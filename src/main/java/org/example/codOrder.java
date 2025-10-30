@@ -17,7 +17,7 @@ public class codOrder extends browserSetup{
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
         JavascriptExecutor js = (JavascriptExecutor) driver;
         String Location = readProperty("GuestLocation");
-        new createCart("Pick Up",Location,loggedIn, readProperty("codOrderTime"),"");
+        new createCart("Pick Up",Location,loggedIn, readProperty("codOrderTime"),readProperty("preOrderTime"));
         wait = new WebDriverWait(driver, 30);
         System.out.println("Entering Customer Details");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
