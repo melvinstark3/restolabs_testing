@@ -65,7 +65,7 @@ public class createCart extends browserSetup{
         driver.findElement(By.xpath("//h4[normalize-space()='"+item+"']")).click();
         wait = new WebDriverWait(driver, 3);
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"addToCart\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@tooltip=\"Copy Link\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))).clear();
             driver.findElement(By.id("message")).sendKeys(readProperty("itemComment"));
