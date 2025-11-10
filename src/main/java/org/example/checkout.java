@@ -118,5 +118,6 @@ public class checkout extends browserSetup{
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        driver.findElement(By.xpath("//span[@data-testid=\"continue_order\"]")).click();
     }
 }
