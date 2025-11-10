@@ -5,6 +5,9 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.lang.reflect.Modifier;
+import java.sql.Time;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +17,6 @@ public class createCart extends browserSetup{
     public createCart(String orderMode, String Location, boolean loggedIn, String orderTime, String time, String item) throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         if(orderMode.equalsIgnoreCase("Pick Up")){
             try{
@@ -66,9 +68,53 @@ public class createCart extends browserSetup{
         wait = new WebDriverWait(driver, 3);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@tooltip=\"Copy Link\"]")));
-            js.executeScript("window.scrollBy(0,2000)", "");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message"))).clear();
-            driver.findElement(By.id("message")).sendKeys(readProperty("itemComment"));
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"addToCart\"]")));
+            } catch (NoSuchElementException | TimeoutException e) {
+                for (int recheckInteger=0;recheckInteger<2;recheckInteger++) {
+                    try {
+                        String addOnOptionValidationXpath = "(//p[@class=\"validation-fail text-xs md:text-sm mt-1 ng-star-inserted\"])";
+                        List<WebElement> addOnOptionsValidation = driver.findElements(By.xpath(addOnOptionValidationXpath));
+                        int numberOfAddOnOptionsValidation = addOnOptionsValidation.size();
+                        int minimumAddOnQuantity = 0;
+                        for (int i = 1; i <= numberOfAddOnOptionsValidation; i++) {
+                            WebElement addOnOptionWithValidation = driver.findElement(By.xpath("(//p[@class=\"validation-fail text-xs md:text-sm mt-1 ng-star-inserted\"]/../div//p[@class=\"font-semibold text-sm md:text-base text-app-gray-900 mb-1\"])[" + i + "]"));
+                            js.executeScript("arguments[0].scrollIntoView(true);", addOnOptionWithValidation);
+                            String addOnTitle = addOnOptionWithValidation.getText().trim();
+                            WebElement validationTextElement = driver.findElement(By.xpath(addOnOptionValidationXpath + "[" + i + "]"));
+                            Pattern pattern = Pattern.compile("(\\d+)$");
+                            Matcher matcher = pattern.matcher(validationTextElement.getText().trim());
+                            if (matcher.find()) {
+                                minimumAddOnQuantity = Integer.parseInt((matcher.group(1)));
+                            }
+                            int preSelectValue = Integer.parseInt(driver.findElement(By.xpath("//button[@data-testid=\"" + addOnTitle + "\"]/../input")).getAttribute("value"));
+                            int quantityToBeAdded = minimumAddOnQuantity - preSelectValue;
+
+                            int numberOfAvailableButtons = driver.findElements(By.xpath("//button[@data-testid=\"" + addOnTitle + "\"]")).size();
+                            List<Integer> addOnIncrementButtons = new ArrayList<>();
+                            for (int incrementButton = 2; incrementButton <= numberOfAvailableButtons; incrementButton += 2) {
+                                addOnIncrementButtons.add(incrementButton);
+                            }
+
+                            for (int clickIndex : addOnIncrementButtons) {
+                                for (int c = 0; c < quantityToBeAdded; c++) {
+                                    String incrementAddOnClickXpath = "(//button[@data-testid=\"" + addOnTitle + "\"])[" + clickIndex + "]";
+                                    WebElement incrementAddOnClickElement = driver.findElement(By.xpath(incrementAddOnClickXpath));
+                                    js.executeScript("arguments[0].scrollIntoView(true);", incrementAddOnClickElement);
+                                    wait.until(ExpectedConditions.elementToBeClickable(incrementAddOnClickElement)).click();
+                                }
+                            }
+                        }
+                        Thread.sleep(2000);
+                    } catch(NoSuchElementException addOnValidationNotFound){
+                        System.out.println("No Add-On Level Validations Found!");
+                    }
+                }
+            }
+            WebElement itemCommentField = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("message")));
+            js.executeScript("arguments[0].scrollIntoView(true);", itemCommentField);
+            itemCommentField.clear();
+            itemCommentField.sendKeys(readProperty("itemComment"));
             driver.findElement(By.xpath("//button[@data-testid=\"addToCart\"]")).click();
         }
         catch (NoSuchElementException | TimeoutException e){
