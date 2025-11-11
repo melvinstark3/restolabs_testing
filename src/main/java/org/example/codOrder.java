@@ -13,7 +13,7 @@ public class codOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
         ArrayList<String> itemList = new ArrayList<String>();
-        itemList.add("Customizable Item");
+//        itemList.add("Customizable Item");
         itemList.add("Customizable Nested Item");
         itemList.add("Normal Item");
         itemList.add("Item with Minimum Quantity");

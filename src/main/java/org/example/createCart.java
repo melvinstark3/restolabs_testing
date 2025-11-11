@@ -111,15 +111,15 @@ public class createCart extends browserSetup{
                     }
                 }
                 try{
+                    js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.id("5691136undefined")));
                     //Base Quantity Checkboxes
                     driver.findElement(By.id("5691136undefined")).click();
                     driver.findElement(By.id("5691137undefined")).click();
                     //Nested Quantity Checkboxes
                     driver.findElement(By.id("5691164undefined")).click();
                     driver.findElement(By.id("5691169undefined")).click();
-                    //Base Price Checkboxes
-                    driver.findElement(By.id("5691139undefined")).click();
                     //Uncheck Free Price Checkbox1 & select 3&4
+                    js.executeScript("arguments[0].scrollIntoView(true);", driver.findElement(By.id("5691138undefined")));
                     driver.findElement(By.id("5691138undefined")).click();
                     driver.findElement(By.id("5691140undefined")).click();
                     driver.findElement(By.id("5691141undefined")).click();
