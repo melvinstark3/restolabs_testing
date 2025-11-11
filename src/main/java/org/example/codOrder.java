@@ -13,7 +13,7 @@ public class codOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
         ArrayList<String> itemList = new ArrayList<String>();
-//        itemList.add("Customizable Item");
+        itemList.add("Customizable Item");
         itemList.add("Customizable Nested Item");
         itemList.add("Normal Item");
         itemList.add("Item with Minimum Quantity");
@@ -30,7 +30,7 @@ public class codOrder extends browserSetup{
             try {
                 wait = new WebDriverWait(driver, 60);
                 String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath))).click();
                 System.out.println("CASE 3: PASS: Guest Order was Successful");
                 System.out.println("CASE 10: PASS: Place an Order with " + readProperty("codOrderTime") + " Timing");
                 System.out.println("CASE 12: PASS: Cash on Delivery Payment was Successful");
