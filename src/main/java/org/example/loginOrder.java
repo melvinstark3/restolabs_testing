@@ -14,8 +14,7 @@ public class loginOrder extends browserSetup{
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
         driver.navigate().to(readProperty("loginURL"));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("guest_user")));
-        driver.findElement(By.id("guest_user")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]"))).click();
         driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
         driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
         driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
