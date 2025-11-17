@@ -4,10 +4,6 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.sql.Time;
-
-import static com.sun.corba.se.impl.util.Utility.printStackTrace;
-
 public class checkout extends browserSetup{
     public checkout(String orderMode, boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 10);
