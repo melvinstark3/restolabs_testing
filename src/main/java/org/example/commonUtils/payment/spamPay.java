@@ -2,6 +2,7 @@ package org.example.commonUtils.payment;
 
 import org.example.core.browserSetup;
 
+import org.example.core.moduleSelector;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -9,11 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class spamPay extends browserSetup{
     public static void checkSubmitButtonClick(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
-        if (System.getProperty("module").equalsIgnoreCase("stripe")){
-            cardDetailsInput.stripeEnterCardDetails("guestNewCardNumber");
-        } else if (System.getProperty("module").equalsIgnoreCase("authorize")){
-            cardDetailsInput.authEnterCardDetails("guestNewCardNumber");
-        }
+        moduleSelector getModule = new moduleSelector();
+        paymentsHelper gateway = getModule.currentModuleClass("cardDetailsInput");
+        gateway.cardDetailsInput(readProperty("guestNewCardNumber"));
         driver.findElement(By.id("submit-button")).click();
         wait = new WebDriverWait(driver, 20);
         try {

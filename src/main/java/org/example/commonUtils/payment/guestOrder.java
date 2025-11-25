@@ -87,7 +87,7 @@ public class guestOrder extends browserSetup {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         matchAmount.verifyOrderTotal(checkoutOrderTotal);
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
-        browserBackPostOrder.checkRestartButtonAppearance();
+        new browserBackPostOrder();
         System.out.println("TC_12: PASS - Payment Successful by a New Card");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
         paymentNavigation.navigateToGatewayPage(loggedIn);
