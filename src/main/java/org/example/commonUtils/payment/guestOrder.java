@@ -79,9 +79,16 @@ public class guestOrder extends browserSetup {
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         new matchAmount(checkoutOrderTotal);
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
+        try {
+            wait = new WebDriverWait(driver, 60);
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
+            System.out.println("TC_12: PASS - Payment Successful by a New Card");
+            System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
+        } catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("TC_12: FAIL - Payment Failed by a New Card");
+            System.out.println("TC_20: FAIL - Payment Gateway Not working for a Single Location");
+        }
         new browserBackPostOrder();
-        System.out.println("TC_12: PASS - Payment Successful by a New Card");
-        System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
         new paymentNavigation(loggedIn);
         new spamPay();
         Thread.sleep(3000);
