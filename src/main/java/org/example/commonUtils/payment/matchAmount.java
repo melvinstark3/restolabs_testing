@@ -9,7 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Objects;
 
 public class matchAmount extends browserSetup {
-    public static void verifyOrderTotal(String checkoutOrderTotal) {
+    public matchAmount(String checkoutOrderTotal) {
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"total__amount\"]")));
         String gatewayOrderTotal = driver.findElement(By.xpath("//h4[@class=\"total__amount\"]")).getText();

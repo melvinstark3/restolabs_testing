@@ -16,14 +16,12 @@ public class moduleSelector {
     public <T> T currentModuleClass(String className) {
         try {
             String module = System.getProperty("module");
-            if (module == null) throw new RuntimeException("Module not set!");
             String fullPath = "org.example.modules." + module + "." + className;
-            System.out.println("FULL PATH DEFINED IS " + fullPath);
             Class<?> clazz = Class.forName(fullPath);
             return (T) clazz.getDeclaredConstructor().newInstance();
         } catch (Exception e) {
             e.printStackTrace();
-            throw new RuntimeException("Could not create class: " + className);
+            throw new RuntimeException("Could Not Create Class: " + className);
         }
     }
 }

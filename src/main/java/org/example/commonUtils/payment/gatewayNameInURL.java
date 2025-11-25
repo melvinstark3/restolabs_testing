@@ -6,7 +6,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class gatewayNameInURL extends browserSetup{
 
-    public static void checkStringInGatewayURL() {
+    public gatewayNameInURL() {
         wait = new WebDriverWait(driver, 30);
         String OriginalPaymentURL = driver.getCurrentUrl();
         String paymentURL = OriginalPaymentURL.toLowerCase();

@@ -16,7 +16,7 @@ public class guestOrder extends browserSetup {
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
-        createCart.navigateToCheckout(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
+        new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
         wait = new WebDriverWait(driver, 30);
         System.out.println("Entering Customer Details");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\"first_name\"]")));
@@ -46,16 +46,16 @@ public class guestOrder extends browserSetup {
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
-//        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-//        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-//        System.out.println("TC_32: Cash on Delivery Payment wih Gateway");
-//        pageBackPostOrder.clickStatusPageBackButton();
-//        createCart.navigateToCheckout(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
-//        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-//        js.executeScript("window.scrollBy(0,2000)", "");
-//        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
+        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        System.out.println("TC_32: Cash on Delivery Payment wih Gateway");
+        new pageBackPostOrder();
+        new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
+        js.executeScript("window.scrollBy(0,2000)", "");
+        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         Thread.sleep(5000);
@@ -85,15 +85,15 @@ public class guestOrder extends browserSetup {
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        matchAmount.verifyOrderTotal(checkoutOrderTotal);
+        new matchAmount(checkoutOrderTotal);
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
         new browserBackPostOrder();
         System.out.println("TC_12: PASS - Payment Successful by a New Card");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
-        paymentNavigation.navigateToGatewayPage(loggedIn);
-        spamPay.checkSubmitButtonClick();
+        new paymentNavigation(loggedIn);
+        new spamPay();
         Thread.sleep(3000);
-        paymentNavigation.navigateToGatewayPage(loggedIn);
-        sharedURLPayment.payByCopiedURL();
+        new paymentNavigation(loggedIn);
+        new sharedURLPayment();
     }
 }

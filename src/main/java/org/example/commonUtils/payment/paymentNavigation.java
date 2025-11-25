@@ -11,12 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class paymentNavigation extends browserSetup{
 
-    public static void navigateToGatewayPage(boolean loggedIn) throws InterruptedException {
+    public paymentNavigation(boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.navigate().to(readProperty("paymentNavigationURL"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]"))).click();
-        createCart.navigateToCheckout(readProperty("loginLocation"),readProperty("loginSecondItem"),loggedIn);
+        new createCart(readProperty("loginLocation"),readProperty("loginSecondItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");

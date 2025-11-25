@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class createCart extends browserSetup{
-    public static void navigateToCheckout(String Location, String itemName, boolean loggedIn) throws InterruptedException {
+    public createCart(String Location, String itemName, boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();

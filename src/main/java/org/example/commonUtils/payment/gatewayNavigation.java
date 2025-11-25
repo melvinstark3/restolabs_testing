@@ -12,7 +12,7 @@ import java.util.List;
 public class gatewayNavigation extends browserSetup{
 
     public gatewayNavigation(boolean loggedIn) throws InterruptedException {
-        paymentNavigation.navigateToGatewayPage(loggedIn);
+        new paymentNavigation(loggedIn);
         try {
             List<WebElement> elements = driver.findElements(By.id("new-card"));
             if (!elements.isEmpty()) {

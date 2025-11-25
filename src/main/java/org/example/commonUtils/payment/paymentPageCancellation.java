@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class paymentPageCancellation extends browserSetup{
 
-    public static void clickGatewayBackButton() throws InterruptedException {
+    public paymentPageCancellation() throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
         driver.findElement(By.id("back-button")).click();

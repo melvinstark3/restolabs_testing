@@ -14,7 +14,7 @@ public class restartOrderWithData extends browserSetup{
         String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
         driver.findElement(By.xpath(restartOrderButtonXpath)).click();
-        createCart.navigateToCheckout(readProperty("restartOrderLocation"),readProperty("restartOrderItem"),loggedIn);
+        new createCart(readProperty("restartOrderLocation"),readProperty("restartOrderItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)", "");

@@ -23,7 +23,7 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
         System.out.println("Creating Cart");
-        createCart.navigateToCheckout(readProperty("loginLocation"),readProperty("loginOrderItem"),loggedIn);
+        new createCart(readProperty("loginLocation"),readProperty("loginOrderItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
@@ -55,17 +55,17 @@ public class loginOrder extends browserSetup{
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.print("For Logged In Order: ");
-        paymentPageCancellation.clickGatewayBackButton();
-        paymentNavigation.navigateToGatewayPage(loggedIn);
-        gatewayNameInURL.checkStringInGatewayURL();
+        new paymentPageCancellation();
+        new paymentNavigation(loggedIn);
+        new gatewayNameInURL();
         System.out.println("Checking Hypertext Protocol for Payment Page");
-        checkHttps.checkGatewayURLProtocol();
-        paymentNavigation.navigateToGatewayPage(loggedIn);
+        new checkHttps();
+        new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         restartOrderWithData.clickRestartOrderButton(loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        paymentNavigation.navigateToGatewayPage(loggedIn);
+        new paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));

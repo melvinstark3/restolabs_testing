@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class savedCardPayment extends browserSetup{
 
-    public static void payBySavedCard() {
+    public savedCardPayment() {
         String SavedCardPaymentOrderID = driver.findElement(By.xpath("//h4[@class=\"payment__for__id\"]")).getText();
         System.out.println("Attempting Payment for Order ID " + SavedCardPaymentOrderID);
         String maskedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();

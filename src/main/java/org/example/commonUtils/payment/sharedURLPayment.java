@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.util.Objects;
 
 public class sharedURLPayment extends browserSetup{
-    public static void payByCopiedURL(){
+    public sharedURLPayment(){
         String paymentURL=driver.getCurrentUrl();
         invokeBrowser();
         driver.get(paymentURL);

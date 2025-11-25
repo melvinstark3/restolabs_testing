@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.Objects;
 
 public class pageBackPostOrder extends browserSetup{
-    public static void clickStatusPageBackButton() {
+    public pageBackPostOrder() {
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@aria-label=\"Back To Home\"]")));
         driver.findElement(By.xpath("//a[@aria-label=\"Back To Home\"]")).click();

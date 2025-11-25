@@ -17,7 +17,7 @@ public class checkSavedOrNew extends browserSetup{
             System.out.println("Checking Saved Cards");
             List<WebElement> elements = driver.findElements(By.id("new-card"));
             if (!elements.isEmpty()) {
-                savedCardPayment.payBySavedCard();
+                new savedCardPayment();
             } else {
                 new newCardPayment(cardNumber,loggedIn);
             }

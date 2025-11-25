@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class spamPay extends browserSetup{
-    public static void checkSubmitButtonClick(){
+    public spamPay(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
         moduleSelector getModule = new moduleSelector();
         paymentsHelper gateway = getModule.currentModuleClass("cardDetailsInput");

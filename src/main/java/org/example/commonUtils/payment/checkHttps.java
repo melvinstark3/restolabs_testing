@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class checkHttps extends browserSetup {
-    public static void checkGatewayURLProtocol(){
+    public checkHttps(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
         String paymentURL = driver.getCurrentUrl();
         System.out.println("Redirected Payment URL is " + paymentURL);
