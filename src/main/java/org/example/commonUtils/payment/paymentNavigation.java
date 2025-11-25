@@ -14,7 +14,7 @@ public class paymentNavigation extends browserSetup{
     public paymentNavigation(boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        driver.navigate().to(readProperty("paymentNavigationURL"));
+        driver.navigate().to(readProperty("storeURL"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]"))).click();
         new createCart(readProperty("loginLocation"),readProperty("loginSecondItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));

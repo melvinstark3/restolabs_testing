@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class guestOrder extends browserSetup {
     public guestOrder() throws InterruptedException {
         boolean loggedIn = false;
-        driver.navigate().to(readProperty("GuestURL"));
+        driver.navigate().to(readProperty("storeURL"));
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
@@ -55,7 +55,7 @@ public class guestOrder extends browserSetup {
         new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
-        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@placeholder='Note here...']"))).sendKeys(readProperty("guestOrderComment"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         Thread.sleep(5000);

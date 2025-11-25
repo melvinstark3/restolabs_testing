@@ -12,7 +12,7 @@ import java.util.Objects;
 
 public class pageBackPostOrder extends browserSetup{
     public pageBackPostOrder() {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//a[@aria-label=\"Back To Home\"]")));
         driver.findElement(By.xpath("//a[@aria-label=\"Back To Home\"]")).click();
         try {
