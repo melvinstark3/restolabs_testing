@@ -46,14 +46,6 @@ public class guestOrder extends browserSetup {
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
-        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-        System.out.println("TC_32: Cash on Delivery Payment wih Gateway");
-        new pageBackPostOrder();
-        new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//textarea[@placeholder='Note here...']"))).sendKeys(readProperty("guestOrderComment"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
@@ -93,6 +85,7 @@ public class guestOrder extends browserSetup {
         new paymentNavigation(loggedIn);
         new spamPay();
         Thread.sleep(3000);
+        new pageBackPostOrder();
         new paymentNavigation(loggedIn);
         new sharedURLPayment();
     }
