@@ -3,13 +3,15 @@ package org.example;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
+import java.io.UnsupportedEncodingException;
 
 public class emailReport {
     private static final String SENDER_EMAIL = "";
     private static final String SENDER_PASSWORD = "";
-    private static final String RECIPIENT_EMAIL = "";
+    private static final String RECIPIENT_LIST = "";
 
     public static void send(String status, String logs) {
+	String senderName = "Kartik's Automation Bot";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -24,15 +26,16 @@ public class emailReport {
 
         try {
             Message message = new MimeMessage(session);
-            message.setFrom(new InternetAddress(SENDER_EMAIL));
-            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT_EMAIL));
+            message.setFrom(new InternetAddress(SENDER_EMAIL, senderName));
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT_LIST));
             message.setSubject("[" + status + "] Basic Cases Automation Report");
             message.setText("Basic Cases Tests Completed.\n\n" +
                     "--------------------------------------\n" +
                     "LOGS:\n" + logs);
             Transport.send(message);
-        } catch (MessagingException e) {
+        } catch (MessagingException | UnsupportedEncodingException e) {
             System.err.println(" Logs Email Failed: " + e.getMessage());
+	    e.printStackTrace();
         }
     }
 }
