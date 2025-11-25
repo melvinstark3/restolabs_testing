@@ -1,5 +1,6 @@
 package org.example.core;
 import org.example.modules.authorize.runAuthorize;
+import org.example.modules.cod.runCOD;
 import org.example.modules.stripe.runStripe;
 
 public class moduleSelector {
@@ -8,6 +9,8 @@ public class moduleSelector {
             new runAuthorize();
         } else if (currentModule.equalsIgnoreCase("stripe")) {
             new runStripe();
+        } else if (currentModule.equalsIgnoreCase("cod")) {
+            new runCOD();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
