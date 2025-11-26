@@ -1,6 +1,7 @@
 package org.example.core;
 import org.example.modules.authorize.runAuthorize;
 import org.example.modules.cod.runCOD;
+import org.example.modules.qms.runQMS;
 import org.example.modules.stripe.runStripe;
 
 public class moduleSelector {
@@ -11,6 +12,8 @@ public class moduleSelector {
             new runStripe();
         } else if (currentModule.equalsIgnoreCase("cod")) {
             new runCOD();
+        } else if (currentModule.equalsIgnoreCase("qms")) {
+            new runQMS();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
