@@ -53,5 +53,6 @@ public class browserSetup {
     public static void quitBrowser() {
         driver.close();
         driver.quit();
+        System.out.println("Nuking ChromeDriver Instance");
     }
 }
