@@ -86,11 +86,10 @@ public class loyaltyOrder extends browserSetup{
         driver.navigate().to(readProperty("loginURL"));
         try{
             System.out.println("User is not Logged in. Attempting Login!");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("guest_user")));
-            driver.findElement(By.id("guest_user")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]//span"))).click();
             driver.findElement(By.id("email")).sendKeys(readProperty("loyaltyUserEmail"));
             driver.findElement(By.id("password")).sendKeys(readProperty("loyaltyUserPassword"));
-            driver.findElement(By.xpath("//button[@aria-label=\"Login\"]//span")).click();
+            driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
         } catch (NoSuchElementException | TimeoutException e){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'user_login_btn rounded-md px-1 text-base text-colorTitle font-bold uppercase cursor-pointer')]")));
             System.out.println("User is Already Logged In!");
