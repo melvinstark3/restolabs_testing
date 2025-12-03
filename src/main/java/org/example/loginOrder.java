@@ -16,7 +16,7 @@ public class loginOrder extends browserSetup{
         boolean loggedIn = true;
         driver.navigate().to(readProperty("loginURL"));
         try{
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"user_login_btn rounded-md p-2 px-1 text-base text-colorTitle font-bold uppercase cursor-pointer ng-tns-c3657118987-7 ng-star-inserted\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'user_login_btn rounded-md px-1 text-base text-colorTitle font-bold uppercase cursor-pointer')]")));
             System.out.println("User is Already Logged In!");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("User is not Logged in. Attempting Login!");

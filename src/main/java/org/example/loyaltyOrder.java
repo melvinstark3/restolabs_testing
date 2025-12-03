@@ -92,7 +92,7 @@ public class loyaltyOrder extends browserSetup{
             driver.findElement(By.id("password")).sendKeys(readProperty("loyaltyUserPassword"));
             driver.findElement(By.xpath("//button[@aria-label=\"Login\"]//span")).click();
         } catch (NoSuchElementException | TimeoutException e){
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("complete_space")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'user_login_btn rounded-md px-1 text-base text-colorTitle font-bold uppercase cursor-pointer')]")));
             System.out.println("User is Already Logged In!");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label='Dine In']")));
