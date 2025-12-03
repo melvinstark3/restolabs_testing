@@ -69,6 +69,12 @@ public class loyaltyOrder extends browserSetup{
         Thread.sleep(5000);
         js.executeScript("window.scrollBy(0,10)", "");
         try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'close inline-flex flex-shrink-0 justify-center items-center h-8 w-8 p-2 text-white shadow-md rounded-full')]"))).click();
+            System.out.println("Closed Promotional Banner");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("No Promotional Banner was Displayed!");
+        }
+        try {
             driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).click();
             System.out.println("Cart Popup Appeared Automatically. Proceeding to Checkout");
         }
