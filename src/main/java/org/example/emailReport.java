@@ -10,7 +10,7 @@ public class emailReport {
     private static final String SENDER_PASSWORD = "";
     private static final String RECIPIENT_LIST = "";
 
-    public static void send(String status, String logs) {
+    public static void send(String logs) {
 	String senderName = "Kartik's Automation Bot";
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -28,7 +28,7 @@ public class emailReport {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER_EMAIL, senderName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT_LIST));
-            message.setSubject("[" + status + "] Basic Cases Automation Report");
+            message.setSubject("Basic Cases Automation Report");
             message.setText("Basic Cases Tests Completed.\n\n" +
                     "--------------------------------------\n" +
                     "LOGS:\n" + logs);

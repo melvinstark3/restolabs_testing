@@ -2,15 +2,9 @@ package org.example;
 
 public class Main extends browserSetup{
 
-    static StringBuilder buildLogs = new StringBuilder();
-
-    public static void log(String message) {
-        System.out.println(message);
-        buildLogs.append(message).append("\n");
-    }
-
     public static void main(String[] args) throws InterruptedException {
-        String status = "INCOMPLETE";
+        consoleCapturer capturer = new consoleCapturer(System.out);
+        System.setOut(capturer);
         try{
            invokeBrowser();
            new codOrder();
@@ -22,19 +16,12 @@ public class Main extends browserSetup{
            invokeBrowser();
            new loyaltyOrder();
            quitBrowser();
-           status = "PASS";
        } catch (Exception e) {
-           status = "FAIL";
-           log("\nError Occurred: \n" + e.getMessage());
-           // Add stack trace to logs
-           for (StackTraceElement ste : e.getStackTrace()) {
-               buildLogs.append(ste.toString()).append("\n");
-           }
+            System.out.println("\nAutomation Stopped Due to an Error");
+            System.out.println("Error Message: " + e.getMessage());
+            e.printStackTrace();
        } finally {
-           emailReport.send(status, buildLogs.toString());
+           emailReport.send(capturer.getCapturedLogs());
        }
-
-
-
     }
 }
