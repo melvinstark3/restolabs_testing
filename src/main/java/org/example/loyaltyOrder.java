@@ -90,7 +90,7 @@ public class loyaltyOrder extends browserSetup{
             driver.findElement(By.id("guest_user")).click();
             driver.findElement(By.id("email")).sendKeys(readProperty("loyaltyUserEmail"));
             driver.findElement(By.id("password")).sendKeys(readProperty("loyaltyUserPassword"));
-            driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
+            driver.findElement(By.xpath("//button[@aria-label=\"Login\"]//span")).click();
         } catch (NoSuchElementException | TimeoutException e){
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("complete_space")));
             System.out.println("User is Already Logged In!");

@@ -20,7 +20,7 @@ public class loginOrder extends browserSetup{
             System.out.println("User is Already Logged In!");
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("User is not Logged in. Attempting Login!");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]"))).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]//span"))).click();
             driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
             driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
             driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
