@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class restartOrderWithData extends browserSetup{
 
-    public static void clickRestartOrderButton(boolean loggedIn) throws InterruptedException {
+    public restartOrderWithData(boolean loggedIn) throws InterruptedException {
         String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath)));
         driver.findElement(By.xpath(restartOrderButtonXpath)).click();
