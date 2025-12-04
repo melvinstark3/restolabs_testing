@@ -35,5 +35,6 @@ public class deleteCard extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("ERROR! No Saved Cards were found. Please Verify the Payment Flow");
         }
+        driver.switchTo().defaultContent();
     }
 }

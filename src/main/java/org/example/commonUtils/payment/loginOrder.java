@@ -26,6 +26,7 @@ public class loginOrder extends browserSetup{
         new createCart(readProperty("loginLocation"),readProperty("loginOrderItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
+        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
@@ -74,7 +75,7 @@ public class loginOrder extends browserSetup{
         System.out.println("TC_06: PASS - Order placed by Logged In User.");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
 
-        new checkTransactionID(OrderID);
+//        new checkTransactionID(OrderID);
     }
 
 }

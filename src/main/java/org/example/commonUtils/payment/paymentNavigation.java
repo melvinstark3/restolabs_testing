@@ -19,6 +19,7 @@ public class paymentNavigation extends browserSetup{
         new createCart(readProperty("loginLocation"),readProperty("loginSecondItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
+        driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
         driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).sendKeys("Test Order Comment");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));

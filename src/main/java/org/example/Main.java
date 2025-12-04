@@ -6,7 +6,7 @@ public class Main extends browserSetup {
 
     public static void main(String[] args) throws InterruptedException {
         if (args.length == 0) {
-            System.err.println("Error: Please provide a module name (stripe / authorize)");
+            System.err.println("Error: Please provide a module name");
             System.exit(1);
         }
         String currentModule = args[0];

@@ -5,7 +5,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class newCardPayment extends browserSetup{
-    public newCardPayment(String cardNumber, boolean loggedIn){
+    public newCardPayment(String cardNumber, boolean loggedIn) throws InterruptedException {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
         if (loggedIn) {
             new defaultSaveCardCheckbox();

@@ -1,5 +1,6 @@
 package org.example.core;
 import org.example.modules.authorize.runAuthorize;
+import org.example.modules.cardconnect.runCardconnect;
 import org.example.modules.cod.runCOD;
 import org.example.modules.qms.runQMS;
 import org.example.modules.stripe.runStripe;
@@ -14,6 +15,8 @@ public class moduleSelector {
             new runCOD();
         } else if (currentModule.equalsIgnoreCase("qms")) {
             new runQMS();
+        } else if (currentModule.equalsIgnoreCase("cardconnect")) {
+            new runCardconnect();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
