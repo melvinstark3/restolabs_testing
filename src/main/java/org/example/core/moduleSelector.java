@@ -3,6 +3,7 @@ import org.example.modules.authorize.runAuthorize;
 import org.example.modules.cardconnect.runCardconnect;
 import org.example.modules.cod.runCOD;
 import org.example.modules.qms.runQMS;
+import org.example.modules.square.runSquare;
 import org.example.modules.stripe.runStripe;
 
 public class moduleSelector {
@@ -17,6 +18,8 @@ public class moduleSelector {
             new runQMS();
         } else if (currentModule.equalsIgnoreCase("cardconnect")) {
             new runCardconnect();
+        } else if (currentModule.equalsIgnoreCase("square")){
+            new runSquare();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
