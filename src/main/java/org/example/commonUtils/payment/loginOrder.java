@@ -1,7 +1,6 @@
 package org.example.commonUtils.payment;
 
 import org.example.core.browserSetup;
-import org.example.core.moduleSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -58,19 +57,21 @@ public class loginOrder extends browserSetup{
         }
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.print("For Logged In Order: ");
-        new paymentPageCancellation();
+        paymentPageCancellation paymentPageCancellation = getModule.currentModuleClass("paymentPageCancellation", org.example.commonUtils.payment.paymentPageCancellation.class);
+        paymentPageCancellation.paymentPageCancellation();
         paymentNavigation paymentNavigation = getModule.currentModuleClass("paymentNavigation", org.example.commonUtils.payment.paymentNavigation.class);
         paymentNavigation.paymentNavigation(loggedIn);
         new gatewayNameInURL();
         System.out.println("Checking Hypertext Protocol for Payment Page");
-        new checkHttps();
+        checkHttps checkHttps = getModule.currentModuleClass("checkHttps", org.example.commonUtils.payment.checkHttps.class);
+        checkHttps.checkHttps();
         if (Objects.equals(readProperty("tokenized"),"no")){
             gatewayNavigation gatewayNavigation = getModule.currentModuleClass("gatewayNavigation", org.example.commonUtils.payment.gatewayNavigation.class);
             gatewayNavigation.gatewayNavigation(loggedIn);
             System.out.println("Checking Gateway Name in Gateway Page URL");
             new gatewayNameInURL();
             System.out.println("Checking Hypertext Protocol for Gateway Page");
-            new checkHttps();
+            checkHttps.checkHttps();
             // To Save Time after checking the Protocol, instead of new Order we are going back to valid URL & then Gateway
             driver.navigate().back();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("submit-button"))).click();

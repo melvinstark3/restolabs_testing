@@ -1,15 +1,22 @@
-package org.example.commonUtils.payment;
+package org.example.modules.checkoutfi;
 
-import org.example.core.browserSetup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class checkHttps extends browserSetup {
+public class checkHttps extends org.example.commonUtils.payment.checkHttps{
+
     public void checkHttps(){
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
+        wait = new WebDriverWait(driver, 5);
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-tab=\"tab-now\"]"))).isDisplayed();
+            System.out.println("Page with Pay Now & Later Options is Displayed");
+        } catch (NoSuchElementException | TimeoutException e) {
+            System.out.println("Page with Direct Payment Options is Displayed");
+        }
+        wait = new WebDriverWait(driver, 30);
         String paymentURL = driver.getCurrentUrl();
         System.out.println("Redirected Payment URL is " + paymentURL);
         //Check for http in the URL. If not, reload the URL in http and recheck if the URL reloaded in https automatically or not

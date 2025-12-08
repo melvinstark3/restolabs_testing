@@ -38,13 +38,14 @@ public class restartOrderWithData extends browserSetup{
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-        //driver.findElement(By.xpath("//button[@data-testid=\"placeOrder\"]")).click();
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
-        System.out.print("For 2nd Restart Order: ");
-        new secondNewCardPayment(readProperty("restartNewCardNumber"), loggedIn);
+        try {
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button")));
+        } catch (TimeoutException ignored){}
+        secondNewCardPayment secondNewCardPayment = getModule.currentModuleClass("secondNewCardPayment",org.example.commonUtils.payment.secondNewCardPayment.class);
+        secondNewCardPayment.secondNewCardPayment(readProperty("restartNewCardNumber"),loggedIn);
     }
 
 }

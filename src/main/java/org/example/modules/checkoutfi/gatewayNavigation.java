@@ -1,7 +1,6 @@
-package org.example.commonUtils.payment;
+package org.example.modules.checkoutfi;
 
-import org.example.core.browserSetup;
-
+import org.example.commonUtils.payment.paymentNavigation;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -9,7 +8,7 @@ import org.openqa.selenium.WebElement;
 
 import java.util.List;
 
-public class gatewayNavigation extends browserSetup{
+public class gatewayNavigation extends org.example.commonUtils.payment.gatewayNavigation{
 
     public void gatewayNavigation(boolean loggedIn) throws InterruptedException {
         paymentNavigation paymentNavigation = getModule.currentModuleClass("paymentNavigation", org.example.commonUtils.payment.paymentNavigation.class);
@@ -25,8 +24,7 @@ public class gatewayNavigation extends browserSetup{
             driver.findElement(By.id("submit-button")).click();
         }
         System.out.println("Checking Hypertext Protocol for Gateway Page");
-        checkHttps checkHttps = getModule.currentModuleClass("checkHttps", org.example.commonUtils.payment.checkHttps.class);
-        checkHttps.checkHttps();
+        new checkHttps();
     }
 
 }

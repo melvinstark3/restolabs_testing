@@ -99,7 +99,8 @@ public class guestOrder extends browserSetup {
         Thread.sleep(3000);
         new pageBackPostOrder();
         paymentNavigation.paymentNavigation(loggedIn);
-        new sharedURLPayment();
+        sharedURLPayment sharedURLPayment = getModule.currentModuleClass("sharedURLPayment", org.example.commonUtils.payment.sharedURLPayment.class);
+        sharedURLPayment.sharedURLPayment();
         if (Objects.equals(readProperty("tokenized"),"no")) {
             gatewayNavigation gatewayNavigation = getModule.currentModuleClass("gatewayNavigation", org.example.commonUtils.payment.gatewayNavigation.class);
             gatewayNavigation.gatewayNavigation(loggedIn);

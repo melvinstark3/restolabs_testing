@@ -2,6 +2,7 @@ package org.example.core;
 import org.example.commonUtils.payment.matchAmount;
 import org.example.modules.authorize.runAuthorize;
 import org.example.modules.cardconnect.runCardconnect;
+import org.example.modules.checkoutfi.runCheckoutfi;
 import org.example.modules.cod.runCOD;
 import org.example.modules.freedompay.runFreedompay;
 import org.example.modules.qms.runQMS;
@@ -27,6 +28,8 @@ public class moduleSelector {
             new runFreedompay();
         } else if (currentModule.equalsIgnoreCase("worldpayexp")){
             new runWorldPayExp();
+        } else if (currentModule.equalsIgnoreCase("checkoutfi")) {
+            new runCheckoutfi();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }

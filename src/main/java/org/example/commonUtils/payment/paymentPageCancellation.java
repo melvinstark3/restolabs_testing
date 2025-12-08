@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class paymentPageCancellation extends browserSetup{
 
-    public paymentPageCancellation() throws InterruptedException {
+    public void paymentPageCancellation() throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         try {
