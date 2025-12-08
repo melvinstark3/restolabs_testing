@@ -19,6 +19,8 @@ public class browserSetup {
 
     private static Properties properties = new Properties();
 
+    public static moduleSelector getModule = new moduleSelector();
+
     public static String readProperty(String key) {
         try {
             if (properties.isEmpty()) {

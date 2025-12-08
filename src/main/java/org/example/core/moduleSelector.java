@@ -1,7 +1,9 @@
 package org.example.core;
+import org.example.commonUtils.payment.matchAmount;
 import org.example.modules.authorize.runAuthorize;
 import org.example.modules.cardconnect.runCardconnect;
 import org.example.modules.cod.runCOD;
+import org.example.modules.freedompay.runFreedompay;
 import org.example.modules.qms.runQMS;
 import org.example.modules.square.runSquare;
 import org.example.modules.stripe.runStripe;
@@ -20,20 +22,40 @@ public class moduleSelector {
             new runCardconnect();
         } else if (currentModule.equalsIgnoreCase("square")){
             new runSquare();
+        } else if (currentModule.equalsIgnoreCase("freedompay")){
+            new runFreedompay();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
     }
 
-    public <T> T currentModuleClass(String className) {
-        try {
+//    public <T> T currentModuleClass(String className) {
+//        try {
+//            String module = System.getProperty("module");
+//            String fullPath = "org.example.modules." + module + "." + className;
+//            Class<?> clazz = Class.forName(fullPath);
+//            return (T) clazz.getDeclaredConstructor().newInstance();
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            throw new RuntimeException("Could Not Create Class: " + className);
+//        }
+//    }
+        public static <T> T currentModuleClass(String className, Class<T> defaultClass) {
             String module = System.getProperty("module");
             String fullPath = "org.example.modules." + module + "." + className;
-            Class<?> clazz = Class.forName(fullPath);
-            return (T) clazz.getDeclaredConstructor().newInstance();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new RuntimeException("Could Not Create Class: " + className);
+            try {
+                Class<?> clazz = Class.forName(fullPath);
+                return (T) clazz.getDeclaredConstructor().newInstance();
+
+            } catch (ClassNotFoundException e) {
+                System.out.println(">> Override not found for " + className + ". Using Default.");
+                try {
+                    return defaultClass.getDeclaredConstructor().newInstance();
+                } catch (Exception ex) {
+                    throw new RuntimeException("Fatal: Could not create Default Class: " + defaultClass.getName(), ex);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException("Error loading module class: " + fullPath, e);
+            }
         }
     }
-}

@@ -1,7 +1,6 @@
-package org.example.commonUtils.payment;
+package org.example.modules.freedompay;
 
 import org.example.core.browserSetup;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -9,7 +8,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Objects;
 
-public class deleteCard extends browserSetup{
+public class deleteCard extends org.example.commonUtils.payment.deleteCard {
     public void deleteCard(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class=\"card__number\"]")));
         String maskedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();
@@ -35,6 +34,5 @@ public class deleteCard extends browserSetup{
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("ERROR! No Saved Cards were found. Please Verify the Payment Flow");
         }
-        driver.switchTo().defaultContent();
     }
 }

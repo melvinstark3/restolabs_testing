@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class paymentNavigation extends browserSetup{
 
-    public paymentNavigation(boolean loggedIn) throws InterruptedException {
+    public void paymentNavigation(boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         driver.navigate().to(readProperty("storeURL"));

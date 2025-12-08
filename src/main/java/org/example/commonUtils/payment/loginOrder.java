@@ -1,13 +1,15 @@
 package org.example.commonUtils.payment;
 
 import org.example.core.browserSetup;
-
+import org.example.core.moduleSelector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.Objects;
 
 public class loginOrder extends browserSetup{
 
@@ -45,8 +47,8 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
         driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        String checkoutOrderTotal = driver.findElement(By.xpath("//h5[@data-testid=\"orderTotal\"]")).getText();
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         try {
@@ -57,21 +59,35 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
         System.out.print("For Logged In Order: ");
         new paymentPageCancellation();
-        new paymentNavigation(loggedIn);
+        paymentNavigation paymentNavigation = getModule.currentModuleClass("paymentNavigation", org.example.commonUtils.payment.paymentNavigation.class);
+        paymentNavigation.paymentNavigation(loggedIn);
         new gatewayNameInURL();
         System.out.println("Checking Hypertext Protocol for Payment Page");
         new checkHttps();
-        new paymentNavigation(loggedIn);
+        if (Objects.equals(readProperty("tokenized"),"no")){
+            gatewayNavigation gatewayNavigation = getModule.currentModuleClass("gatewayNavigation", org.example.commonUtils.payment.gatewayNavigation.class);
+            gatewayNavigation.gatewayNavigation(loggedIn);
+            System.out.println("Checking Gateway Name in Gateway Page URL");
+            new gatewayNameInURL();
+            System.out.println("Checking Hypertext Protocol for Gateway Page");
+            new checkHttps();
+            // To Save Time after checking the Protocol, instead of new Order we are going back to valid URL & then Gateway
+            driver.navigate().back();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("submit-button"))).click();
+            paymentsHelper gatewayPageCancellation = getModule.currentModuleClass("gatewayPageCancellation", paymentsHelper.class);
+            gatewayPageCancellation.gatewayPageCancellation();
+        }
+        paymentNavigation.paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         new restartOrderWithData(loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        new paymentNavigation(loggedIn);
+        paymentNavigation.paymentNavigation(loggedIn);
         new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-        String orderIWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
-        String OrderID = orderIWithHash.replace("#", "");
+        String orderIDWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();
+        String OrderID = orderIDWithHash.replace("#", "");
         System.out.println("TC_06: PASS - Order placed by Logged In User.");
         System.out.println("TC_20: PASS - Payment Gateway is working for a Single Location");
 

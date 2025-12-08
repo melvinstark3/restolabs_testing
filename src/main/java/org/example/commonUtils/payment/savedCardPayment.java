@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class savedCardPayment extends browserSetup{
 
-    public savedCardPayment() {
+    public void savedCardPayment() throws InterruptedException {
         String SavedCardPaymentOrderID = driver.findElement(By.xpath("//h4[@class=\"payment__for__id\"]")).getText();
         System.out.println("Attempting Payment for Order ID " + SavedCardPaymentOrderID);
         String maskedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();
@@ -18,6 +18,7 @@ public class savedCardPayment extends browserSetup{
         //As a saved card is already selected by Default, we are just directly clicking Pay button
         driver.findElement(By.id("submit-button")).click();
         System.out.println("Attempting Payment with Saved Card");
+
     }
 
 }

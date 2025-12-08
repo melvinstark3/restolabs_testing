@@ -9,6 +9,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.Objects;
+
 public class guestOrder extends browserSetup {
     public guestOrder() throws InterruptedException {
         boolean loggedIn = false;
@@ -77,7 +79,8 @@ public class guestOrder extends browserSetup {
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
-        new matchAmount(checkoutOrderTotal);
+        matchAmount matchAmount = getModule.currentModuleClass("matchAmount",org.example.commonUtils.payment.matchAmount.class);
+        matchAmount.matchAmount(checkoutOrderTotal);
         new checkSavedOrNew(readProperty("guestNewCardNumber"),loggedIn);
         try {
             wait = new WebDriverWait(driver, 60);
@@ -89,11 +92,19 @@ public class guestOrder extends browserSetup {
             System.out.println("TC_20: FAIL - Payment Gateway Not working for a Single Location");
         }
         new browserBackPostOrder();
-        new paymentNavigation(loggedIn);
-        new spamPay();
+        paymentNavigation paymentNavigation = getModule.currentModuleClass("paymentNavigation", org.example.commonUtils.payment.paymentNavigation.class);
+        paymentNavigation.paymentNavigation(loggedIn);
+        spamPay spamPay = getModule.currentModuleClass("spamPay", org.example.commonUtils.payment.spamPay.class);
+        spamPay.spamPay();
         Thread.sleep(3000);
         new pageBackPostOrder();
-        new paymentNavigation(loggedIn);
+        paymentNavigation.paymentNavigation(loggedIn);
         new sharedURLPayment();
+        if (Objects.equals(readProperty("tokenized"),"no")) {
+            gatewayNavigation gatewayNavigation = getModule.currentModuleClass("gatewayNavigation", org.example.commonUtils.payment.gatewayNavigation.class);
+            gatewayNavigation.gatewayNavigation(loggedIn);
+            paymentsHelper sharedURLGateway = getModule.currentModuleClass("sharedURLGateway", paymentsHelper.class);
+            sharedURLGateway.sharedURLGateway(loggedIn);
+        }
     }
 }
