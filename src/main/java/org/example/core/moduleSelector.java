@@ -7,6 +7,7 @@ import org.example.modules.freedompay.runFreedompay;
 import org.example.modules.qms.runQMS;
 import org.example.modules.square.runSquare;
 import org.example.modules.stripe.runStripe;
+import org.example.modules.worldpayexp.runWorldPayExp;
 
 public class moduleSelector {
     public void defineModule(String currentModule) throws InterruptedException {
@@ -24,22 +25,13 @@ public class moduleSelector {
             new runSquare();
         } else if (currentModule.equalsIgnoreCase("freedompay")){
             new runFreedompay();
+        } else if (currentModule.equalsIgnoreCase("worldpayexp")){
+            new runWorldPayExp();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
     }
 
-//    public <T> T currentModuleClass(String className) {
-//        try {
-//            String module = System.getProperty("module");
-//            String fullPath = "org.example.modules." + module + "." + className;
-//            Class<?> clazz = Class.forName(fullPath);
-//            return (T) clazz.getDeclaredConstructor().newInstance();
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//            throw new RuntimeException("Could Not Create Class: " + className);
-//        }
-//    }
         public static <T> T currentModuleClass(String className, Class<T> defaultClass) {
             String module = System.getProperty("module");
             String fullPath = "org.example.modules." + module + "." + className;

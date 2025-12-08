@@ -1,11 +1,11 @@
-package org.example.modules.freedompay;
+package org.example.modules.worldpayexp;
 
 import org.example.commonUtils.payment.createCart;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class paymentNavigation extends org.example.commonUtils.payment.paymentNavigation {
+public class paymentNavigation extends org.example.commonUtils.payment.paymentNavigation{
 
     public void paymentNavigation(boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
