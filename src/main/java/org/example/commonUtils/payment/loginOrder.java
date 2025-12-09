@@ -79,12 +79,13 @@ public class loginOrder extends browserSetup{
             gatewayPageCancellation.gatewayPageCancellation();
         }
         paymentNavigation.paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
+        checkSavedOrNew checkSavedOrNew = getModule.currentModuleClass("checkSavedOrNew",org.example.commonUtils.payment.checkSavedOrNew.class);
+        checkSavedOrNew.checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         new restartOrderWithData(loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         paymentNavigation.paymentNavigation(loggedIn);
-        new checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
+        checkSavedOrNew.checkSavedOrNew(readProperty("loginNewCardNumber"),loggedIn);
         wait = new WebDriverWait(driver, 60);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
         String orderIDWithHash = driver.findElement(By.xpath("//span[@class='pl-1']")).getText();

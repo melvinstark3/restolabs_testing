@@ -14,7 +14,8 @@ public class newCardPayment extends org.example.commonUtils.payment.newCardPayme
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[@class=\"payment__for__id\"]")));
             if (loggedIn) {
-                new defaultSaveCardCheckbox();
+                defaultSaveCardCheckbox defaultSaveCardCheckbox = getModule.currentModuleClass("defaultSaveCardCheckbox",org.example.commonUtils.payment.defaultSaveCardCheckbox.class);
+                defaultSaveCardCheckbox.defaultSaveCardCheckbox();
             }
             driver.navigate().refresh();
             System.out.println("Laravel Page Refreshed!");

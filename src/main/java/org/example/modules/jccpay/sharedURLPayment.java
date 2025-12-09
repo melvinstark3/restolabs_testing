@@ -1,7 +1,6 @@
-package org.example.commonUtils.payment;
+package org.example.modules.jccpay;
 
-import org.example.core.browserSetup;
-
+import org.example.commonUtils.payment.checkSavedOrNew;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
@@ -9,14 +8,14 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Objects;
 
-public class sharedURLPayment extends browserSetup{
-    public void sharedURLPayment(){
+public class sharedURLPayment extends org.example.commonUtils.payment.sharedURLPayment{
+    public void sharedURLPayment() {
         String paymentURL=driver.getCurrentUrl();
         invokeBrowser();
         driver.get(paymentURL);
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("back-button"))).isDisplayed();
-            if (Objects.equals(readProperty("tokenized"), "yes")){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@aria-label=\"Payment amount\"]")));
+            if (Objects.equals(readProperty("tokenized"), "no")){
                 checkSavedOrNew checkSavedOrNew = getModule.currentModuleClass("checkSavedOrNew",org.example.commonUtils.payment.checkSavedOrNew.class);
                 checkSavedOrNew.checkSavedOrNew(readProperty("guestNewCardNumber"),false);
                 try {
