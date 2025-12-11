@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
 
 public class createCart extends browserSetup{
 
-    public createCart(String orderMode, String Location, boolean loggedIn, String orderTime, String time) throws InterruptedException {
+    public createCart(String orderMode, String Location, String orderTime) throws InterruptedException {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         wait = new WebDriverWait(driver, 30);
         if (orderMode.equalsIgnoreCase("Home Delivery")){
@@ -45,9 +45,13 @@ public class createCart extends browserSetup{
                     break;
                 }
             }
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+//        try{
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
+//            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+//        } catch (TimeoutException ignored){}
         if(orderMode.equalsIgnoreCase("Pick Up")){
             try{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("geocoder")));
@@ -68,6 +72,8 @@ public class createCart extends browserSetup{
                 System.out.println("Selecting Pickup Location from the List");
             }
         }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         js.executeScript("window.scrollBy(0,2000)", "");
         try {
             wait = new WebDriverWait(driver, 3);
@@ -108,7 +114,9 @@ public class createCart extends browserSetup{
             driver.findElement(By.id("laterbtn")).click();
             WebElement selectorTime = driver.findElement(By.xpath("//select[@aria-label=\"Select Time\"]"));
             Select selectorTimeDropDown = new Select(selectorTime);
-            selectorTimeDropDown.selectByValue(time);
+            List<WebElement> timeslots = selectorTimeDropDown.getOptions();
+            int lastTimeSlotIndex = timeslots.size() - 1;
+            selectorTimeDropDown.selectByIndex(lastTimeSlotIndex);
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")));
         driver.findElement(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")).click();

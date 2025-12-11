@@ -7,7 +7,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.sql.Time;
 
 public class loginOrder extends browserSetup{
-    public loginOrder(String orderMode) throws InterruptedException {
+    public loginOrder(String orderMode, String orderLocation, String orderTime) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
@@ -26,7 +26,7 @@ public class loginOrder extends browserSetup{
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
         System.out.println("Creating Cart");
-        new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"));
+        new createCart(orderMode, orderLocation,orderTime);
         new checkout(orderMode, loggedIn);
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);

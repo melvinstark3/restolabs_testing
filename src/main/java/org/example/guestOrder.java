@@ -8,13 +8,13 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class guestOrder extends browserSetup{
-    public guestOrder(String orderMode) throws InterruptedException {
+    public guestOrder(String orderMode, String orderLocation, String orderTime) throws InterruptedException {
         boolean loggedIn = false;
         driver.navigate().to(readProperty("storeURL"));
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
         driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
-        new createCart(orderMode, readProperty("GuestLocation"),loggedIn,"later",readProperty("preOrderTime"));
+        new createCart(orderMode, orderLocation,orderTime);
         new checkout(orderMode, loggedIn);
         try{
             wait = new WebDriverWait(driver, 30);

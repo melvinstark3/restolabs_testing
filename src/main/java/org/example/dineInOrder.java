@@ -8,7 +8,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class dineInOrder extends browserSetup{
     public dineInOrder() throws InterruptedException {
-        new loginOrder("Dine In");
+        String orderMode = "Dine In";
+        String dineInOrderTime = "later";
+        new loginOrder(orderMode, readProperty("dineInPickupLocation"),dineInOrderTime);
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
