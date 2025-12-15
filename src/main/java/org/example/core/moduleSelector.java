@@ -1,6 +1,7 @@
 package org.example.core;
 import org.example.commonUtils.payment.matchAmount;
 import org.example.modules.authorize.runAuthorize;
+import org.example.modules.basic.runBasic;
 import org.example.modules.cardconnect.runCardconnect;
 import org.example.modules.checkoutfi.runCheckoutfi;
 import org.example.modules.cod.runCOD;
@@ -33,6 +34,8 @@ public class moduleSelector {
             new runCheckoutfi();
         } else if (currentModule.equalsIgnoreCase("jccpay")) {
             new runJccpay();
+        } else if (currentModule.equalsIgnoreCase("basic")) {
+            new runBasic();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }

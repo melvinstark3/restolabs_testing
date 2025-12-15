@@ -6,9 +6,9 @@ import org.example.core.browserSetup;
 
 public class runCardconnect extends browserSetup {
     public runCardconnect() throws InterruptedException {
-//        invokeBrowser();
-//        new guestOrder();
-//        quitBrowser();
+        invokeBrowser();
+        new guestOrder();
+        quitBrowser();
         invokeBrowser();
         new loginOrder();
         quitBrowser();

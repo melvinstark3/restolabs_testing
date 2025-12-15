@@ -1,7 +1,6 @@
 package org.example.commonUtils.payment;
 
 import org.example.core.browserSetup;
-
 import org.openqa.selenium.By;
 
 public class savedCardPayment extends browserSetup{
