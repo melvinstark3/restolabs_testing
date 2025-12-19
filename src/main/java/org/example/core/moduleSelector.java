@@ -1,5 +1,4 @@
 package org.example.core;
-import org.example.commonUtils.payment.matchAmount;
 import org.example.modules.authorize.runAuthorize;
 import org.example.modules.basic.runBasic;
 import org.example.modules.cardconnect.runCardconnect;
@@ -8,6 +7,7 @@ import org.example.modules.cod.runCOD;
 import org.example.modules.freedompay.runFreedompay;
 import org.example.modules.jccpay.runJccpay;
 import org.example.modules.qms.runQMS;
+import org.example.modules.restoclient.runRestoclient;
 import org.example.modules.square.runSquare;
 import org.example.modules.stripe.runStripe;
 import org.example.modules.worldpayexp.runWorldPayExp;
@@ -36,6 +36,8 @@ public class moduleSelector {
             new runJccpay();
         } else if (currentModule.equalsIgnoreCase("basic")) {
             new runBasic();
+        } else if (currentModule.equalsIgnoreCase("restoclient")) {
+            new runRestoclient();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
