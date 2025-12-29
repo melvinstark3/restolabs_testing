@@ -6,9 +6,9 @@ import javax.mail.internet.*;
 import java.io.UnsupportedEncodingException;
 
 public class emailReport {
-    private static final String SENDER_EMAIL = "kartik3162@gmail.com";
+    private static final String SENDER_EMAIL = "";
     private static final String SENDER_PASSWORD = "ipwj pjam iptl lkpn";
-    private static final String RECIPIENT_LIST = "kartik@restolabs.com";
+    private static final String RECIPIENT_LIST = "";
 
     public static void send(String logs) {
         String module = System.getProperty("module");

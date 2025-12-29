@@ -27,6 +27,7 @@ public class createCart extends browserSetup {
             }
             String homeDeliveryTextField = "typeahead-prevent-manual-entry";
             driver.findElement(By.id(homeDeliveryTextField)).clear();
+            Thread.sleep(3000);
             driver.findElement(By.id(homeDeliveryTextField)).sendKeys(readProperty("homeDeliveryAddress"));
             //We Need to Clear some Letters if Copy&Pasting/SendingKeys etc. to the Search Field for
             //Location Suggestions to Show up. We can remove this logic, Once Dev team fixes this up.
