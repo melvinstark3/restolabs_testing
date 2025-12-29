@@ -11,6 +11,7 @@ public class createCart extends browserSetup{
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         System.out.println("Selected Location : " + Location);
         js.executeScript("window.scrollBy(0,2000)", "");
         try {
