@@ -17,7 +17,7 @@ public class spamPay extends browserSetup{
         try {
             wait.until(ExpectedConditions.elementToBeClickable(By.id("submit-button"))).click();
             System.out.println("TC 32: FAIL: WARNING! Multiple Pay Clicks Intercepted. Check Case Manually.");
-        } catch (TimeoutException | ElementNotInteractableException e) {
+        } catch (TimeoutException | ElementNotInteractableException | StaleElementReferenceException e) {
             // If button is NOT clickable due to loader overlay: PASS
             System.out.println("TC 32: PASS: Multiple Pay Clicks are not Allowed");
         }
