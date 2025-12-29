@@ -10,9 +10,9 @@ public class codCheckout extends browserSetup {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         try {
-            System.out.println("Entering Customer Details");
             //Xpath for Modal Sheet Popup
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"modal-content max-h-full overflow-hidden flex flex-col bg-white shadow-sm rounded-t-3xl rounded-b-none md:rounded-xl\"]")));
+            System.out.println("Entering Customer Details");
             try {
                 driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).clear();
                 driver.findElement(By.xpath("//input[@data-testid=\"first_name\"]")).sendKeys(readProperty("GuestFirstName"));
@@ -117,8 +117,5 @@ public class codCheckout extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@data-testid=\""+readProperty("CODPaymentMode")+"\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
-        driver.findElement(By.xpath("//span[@data-testid=\"continue_order\"]")).click();
     }
 }

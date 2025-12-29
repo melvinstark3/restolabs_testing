@@ -20,6 +20,9 @@ public class runCOD extends browserSetup {
         driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
         new createCart(readProperty("GuestLocation"),readProperty("guestOrderItem"),loggedIn);
         new codCheckout();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        driver.findElement(By.xpath("//span[@data-testid=\"continue_order\"]")).click();
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
