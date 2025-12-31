@@ -10,6 +10,7 @@ import java.util.List;
 public class gatewayPageCancellation extends paymentsHelper {
 
     public void gatewayPageCancellation() {
+        wait = new WebDriverWait(driver, 60);
         System.out.println("Attempting Cancellation on WorldPay Gateway Page");
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0,2000)", "");
