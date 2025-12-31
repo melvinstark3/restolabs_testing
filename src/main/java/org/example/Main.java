@@ -9,6 +9,7 @@ public class Main extends browserSetup {
     public static void main(String[] args) {
         consoleCapturer capturer = new consoleCapturer(System.out);
         System.setOut(capturer);
+        String screenshotPath = null;
         try {
             if (args.length == 0) {
                 System.err.println("Error: Please provide a module name");
@@ -21,9 +22,10 @@ public class Main extends browserSetup {
         } catch (Exception e) {
         System.out.println("\nAutomation Stopped Due to an Error");
         System.out.println("Error Message: " + e.getMessage());
+        screenshotPath = takeScreenshot();
         e.printStackTrace();
     } finally {
-        emailReport.send(capturer.getCapturedLogs());
+        emailReport.send(capturer.getCapturedLogs(),screenshotPath);
     }
     }
 }

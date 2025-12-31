@@ -1,12 +1,18 @@
 package org.example.core;
 
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.FileInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -36,6 +42,28 @@ public class browserSetup {
             System.out.println(e.getMessage());
         }
         return properties.getProperty(key);
+    }
+
+    public static String takeScreenshot() {
+        if (driver == null) {
+            System.out.println("Driver is null, cannot take screenshot.");
+            return null;
+        }
+
+        String dateName = new SimpleDateFormat("yyyyMMddhhmmss").format(new Date());
+        TakesScreenshot ts = (TakesScreenshot) driver;
+        File source = ts.getScreenshotAs(OutputType.FILE);
+        String destination = System.getProperty("user.dir") + "/screenshots/" + dateName + ".png";
+        File finalDestination = new File(destination);
+
+        try {
+            FileUtils.copyFile(source, finalDestination);
+            System.out.println("Screenshot taken: " + destination);
+            return destination;
+        } catch (IOException e) {
+            System.out.println("Failed to capture screenshot: " + e.getMessage());
+            return null;
+        }
     }
 
     public static void invokeBrowser() {
