@@ -10,7 +10,8 @@ public class createCart extends browserSetup{
     public createCart(String Location, String itemName, boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']")));
+        Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         System.out.println("Selected Location : " + Location);
         js.executeScript("window.scrollBy(0,2000)", "");

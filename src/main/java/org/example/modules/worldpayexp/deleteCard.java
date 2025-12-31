@@ -3,12 +3,24 @@ package org.example.modules.worldpayexp;
 import org.example.core.browserSetup;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.Objects;
 
 public class deleteCard extends org.example.commonUtils.payment.deleteCard {
+
+    public void verifyDeletion(String maskedCardNumber){
+        String recheckedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();
+        String recheckedExpiry = driver.findElement(By.xpath("//p[@class=\"expiry__date\"]")).getText();
+        if (Objects.equals(recheckedCardNumber, maskedCardNumber) && Objects.equals(recheckedExpiry, maskedCardNumber)) {
+            System.out.println("WARNING! Matching Card Details were found after Delete Attempt");
+        } else {
+            System.out.println("TC_37: Pass: Saved Card was Deleted");
+        }
+    }
+
     public void deleteCard(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//p[@class=\"card__number\"]")));
         String maskedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();
@@ -24,15 +36,12 @@ public class deleteCard extends org.example.commonUtils.payment.deleteCard {
         System.out.println("Accepting the Alert!");
         driver.switchTo().alert().accept();
         try {
-            String recheckedCardNumber = driver.findElement(By.xpath("//p[@class=\"card__number\"]")).getText();
-            String recheckedExpiry = driver.findElement(By.xpath("//p[@class=\"expiry__date\"]")).getText();
-            if (Objects.equals(recheckedCardNumber, maskedCardNumber) && Objects.equals(recheckedExpiry, maskedCardNumber)) {
-                System.out.println("WARNING! Matching Card Details were found after Delete Attempt");
-            } else {
-                System.out.println("TC_37: Pass: Saved Card was Deleted");
-            }
+            verifyDeletion(maskedCardNumber);
         } catch (NoSuchElementException | TimeoutException e) {
             System.out.println("ERROR! No Saved Cards were found. Please Verify the Payment Flow");
+        } catch (StaleElementReferenceException e){
+            driver.navigate().refresh();
+            verifyDeletion(maskedCardNumber);
         }
     }
 }
