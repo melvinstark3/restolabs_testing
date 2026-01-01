@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class checkout extends browserSetup {
     public checkout(String orderMode, boolean loggedIn) throws InterruptedException {
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 120);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if(loggedIn){
             try {

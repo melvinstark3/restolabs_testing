@@ -6,10 +6,13 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 
 public class applyCoupon extends browserSetup {
     public applyCoupon(){
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
         String couponsXpath = "//span[@class=\"flex-shrink-0 py-2 px-4 text-sm text-black font-semibold rounded-xl truncate max-w-[150px]\"]";
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(couponsXpath)));

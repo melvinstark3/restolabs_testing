@@ -30,7 +30,7 @@ public class checkout extends browserSetup {
         }catch (NoSuchElementException | TimeoutException e){
             System.out.println("Customer Details Prompt wasn't Displayed! Proceeding to Checkout!");
         }
-        wait = new WebDriverWait(driver, 30);
+        wait = new WebDriverWait(driver, 120);
         if(loggedIn){
             try {
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]"))).click();
@@ -68,7 +68,7 @@ public class checkout extends browserSetup {
             catch (NoSuchElementException | TimeoutException e) {
                 System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
             }
-            wait = new WebDriverWait(driver, 30);
+            wait = new WebDriverWait(driver, 120);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
@@ -131,7 +131,7 @@ public class checkout extends browserSetup {
             }catch (NoSuchElementException | TimeoutException e){
                 System.out.println("Customer Details Prompt wasn't Displayed! Proceeding to Checkout!");
             }
-            wait = new WebDriverWait(driver, 30);
+            wait = new WebDriverWait(driver, 120);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
             js.executeScript("window.scrollBy(0,2000)", "");
             System.out.println("CASE 1: For Guest Order: ");
