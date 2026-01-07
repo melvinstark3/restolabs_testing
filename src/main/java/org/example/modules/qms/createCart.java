@@ -6,6 +6,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -56,13 +57,23 @@ public class createCart extends browserSetup {
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("Login Prompt was not Displayed! Continuing to Menu");
         }
-        //h5 is being used for Superb List View & h4 is being used for Superb
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"item_title_html\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"item_title_html\"]")));
+
+        String themeTag;
         //h5 is being used for Superb List View & h4 is being used for Superb
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[normalize-space()='"+item+"']")));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h4[normalize-space()='"+item+"']")));
-        driver.findElement(By.xpath("//h4[normalize-space()='"+item+"']")).click();
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[normalize-space()='"+item+"']")));
+            themeTag="h4";
+        } catch (TimeoutException e){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='"+item+"']")));
+            themeTag="h5";
+        }
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//"+themeTag+"[normalize-space()='"+item+"']")));
+        driver.findElement(By.xpath("//"+themeTag+"[normalize-space()='"+item+"']")).click();
+
         wait = new WebDriverWait(driver, 3);
         try {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@tooltip=\"Copy Link\"]")));

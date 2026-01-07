@@ -69,15 +69,22 @@ public class createCart extends browserSetup {
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")));
         driver.findElement(By.xpath("(//button[@data-testid=\"chooserContinue\"])[2]")).click();
-        //h5 is being used for Superb List View & h4 is being used for Superb
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"item_title_html\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"item_title_html\"]")));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class=\"item__text h-full\"]")));
-        WebElement itemToOrder = driver.findElement(By.xpath("//h4[normalize-space()='"+itemName+"']"));
-        js.executeScript("arguments[0].scrollIntoView();", itemToOrder);
+
+        String themeTag;
         //h5 is being used for Superb List View & h4 is being used for Superb
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h4[normalize-space()='"+itemName+"']")));
-        driver.findElement(By.xpath("//h4[normalize-space()='"+itemName+"']")).click();
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h4[normalize-space()='"+itemName+"']")));
+            themeTag="h4";
+        } catch (TimeoutException e){
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='"+itemName+"']")));
+            themeTag="h5";
+        }
+
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//"+themeTag+"[normalize-space()='"+itemName+"']")));
+        driver.findElement(By.xpath("//"+themeTag+"[normalize-space()='"+itemName+"']")).click();
 
         wait = new WebDriverWait(driver, 15);
         try {
