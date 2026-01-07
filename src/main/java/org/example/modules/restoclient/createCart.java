@@ -131,11 +131,27 @@ public class createCart extends browserSetup {
         //h5 is being used for Superb List View & h4 is being used for Superb
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class=\"item_title_html\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@class=\"item_title_html\"]")));
-        List<WebElement> priceList = driver.findElements(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
+        List<WebElement> priceList;
+        //Theme101 is Superb Theme V3
+        boolean theme101;
+        System.out.println("Checking Applied Theme");
+        try{
+            driver.findElement(By.xpath("//h6[@class=\"text-sm font-bold md:text-base text-app-gray-900 ng-star-inserted\"]"));
+            theme101=true;
+        } catch (NoSuchElementException e) {
+            driver.findElement(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
+            theme101 = false;
+        }
+
+        if (theme101) {
+            priceList = driver.findElements(By.xpath("//h6[@class=\"text-sm font-bold md:text-base text-app-gray-900 ng-star-inserted\"]"));
+        } else {
+            priceList = driver.findElements(By.xpath("//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"]"));
+        }
         double minValue = Double.MAX_VALUE;
         int expectedItemQuantity = 1;
         boolean repeatItem = false;
-        int minIndex = 0;
+        int minIndex = 1;
         for (int i = 1; i < priceList.size(); i++) {
             String text = priceList.get(i).getText().trim().substring(1); // Trim and remove first char
             double value = Double.parseDouble(text); // Convert to number
@@ -152,8 +168,18 @@ public class createCart extends browserSetup {
                 expectedItemQuantity = (int) (minimumOrderAmount/minValue);
             }
         }
-        System.out.println("Adding Cheapest Item to Cart Priced at " + driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).getText());
-        driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+
+        String cheapestItem;
+        if (theme101){
+            cheapestItem = driver.findElement(By.xpath("(//h6[@class=\"text-sm font-bold md:text-base text-app-gray-900 ng-star-inserted\"])[" + minIndex + "]")).getText();
+            System.out.println("Adding Cheapest Item to Cart Priced at " + cheapestItem);
+            driver.findElement(By.xpath("(//h6[@class=\"text-sm font-bold md:text-base text-app-gray-900 ng-star-inserted\"])[" + minIndex + "]")).click();
+        } else {
+            cheapestItem = driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).getText();
+            System.out.println("Adding Cheapest Item to Cart Priced at " + cheapestItem);
+            driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+        }
+
 
         wait = new WebDriverWait(driver, 3);
         try {
@@ -173,7 +199,11 @@ public class createCart extends browserSetup {
             if (repeatItem){
                 driver.findElement(By.xpath("//a[@id=\"cart-header\"]")).click();
                 for (int i = 1; i < expectedItemQuantity; i++){
-                    driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+                    if (theme101){
+                        driver.findElement(By.xpath("(//h6[@class=\"text-sm font-bold md:text-base text-app-gray-900 ng-star-inserted\"])[" + minIndex + "]")).click();
+                    } else {
+                        driver.findElement(By.xpath("(//h5[@class=\"item__price bg-app-gray-100 w-[65px] text-center rounded-full text-base font-bold ng-star-inserted\"])[" + minIndex + "]")).click();
+                    }
                 }
             }
         }
