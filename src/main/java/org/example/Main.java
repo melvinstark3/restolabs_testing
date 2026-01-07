@@ -10,6 +10,7 @@ public class Main extends browserSetup {
         consoleCapturer capturer = new consoleCapturer(System.out);
         System.setOut(capturer);
         String screenshotPath = null;
+        String automationStatus = "PENDING";
         try {
             if (args.length == 0) {
                 System.err.println("Error: Please provide a module name");
@@ -19,13 +20,15 @@ public class Main extends browserSetup {
             System.setProperty("module", currentModule);
             moduleSelector module = new moduleSelector();
             module.defineModule(currentModule);
+            automationStatus = "PASS";
         } catch (Exception e) {
         System.out.println("\nAutomation Stopped Due to an Error");
         System.out.println("Error Message: " + e.getMessage());
+        automationStatus = "FAIL";
         screenshotPath = takeScreenshot();
         e.printStackTrace();
     } finally {
-        emailReport.send(capturer.getCapturedLogs(),screenshotPath);
+        emailReport.send(automationStatus, capturer.getCapturedLogs(),screenshotPath);
     }
     }
 }

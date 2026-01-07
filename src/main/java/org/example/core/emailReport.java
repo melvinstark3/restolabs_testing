@@ -13,7 +13,7 @@ public class emailReport {
     private static final String SENDER_PASSWORD = "";
     private static final String RECIPIENT_LIST = "kartik@restolabs.com, shivam@restolabs.com";
 
-    public static void send(String logs, String attachmentPath) {
+    public static void send(String automationStatus, String logs, String attachmentPath) {
         String module = System.getProperty("module");
 	    String senderName = "Automation Bot";
         Properties props = new Properties();
@@ -32,7 +32,7 @@ public class emailReport {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER_EMAIL, senderName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT_LIST));
-            message.setSubject("Automation Report " + module + " Module");
+            message.setSubject("[" + automationStatus + "] Automation Report " + module + " Module");
 
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText("Module: " + module + " Tests Completed.\n\n" +
