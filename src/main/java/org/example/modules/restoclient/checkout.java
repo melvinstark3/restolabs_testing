@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class checkout extends browserSetup {
     public checkout(String orderMode, boolean loggedIn) throws InterruptedException {
-        wait = new WebDriverWait(driver, 120);
+        wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         if(loggedIn){
             try {
@@ -70,6 +70,7 @@ public class checkout extends browserSetup {
                 System.out.println("Additional Checkout Details are not required!");
             }
             js.executeScript("window.scrollBy(0,2000)", "");
+            wait = new WebDriverWait(driver, 120);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
             driver.findElement(By.xpath("//textarea[@placeholder='Note here...']")).clear();
@@ -207,6 +208,11 @@ public class checkout extends browserSetup {
                 driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
                 wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")));
             } catch (NoSuchElementException | TimeoutException ignored){}
+            if (orderMode.equalsIgnoreCase("Home Delivery")){
+                try{
+                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
+                } catch (TimeoutException ignored){}
+            }
             // Stale Element Exception if Trying Implicit Wait
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));

@@ -23,9 +23,9 @@ public class homeDeliveryOrder extends browserSetup {
         try {
             wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']")));
-            System.out.println("PASS: Guest Home Delivery Order Placed Successfully");
+            System.out.println("PASS: Login Home Delivery Order Placed Successfully");
         } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("FAIL: Guest Home Delivery Order Failed");
+            System.out.println("FAIL: Login Home Delivery Order Failed");
         }
     }
 }
