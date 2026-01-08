@@ -90,7 +90,7 @@ public class loyaltyOrder extends browserSetup {
 
     public int collectPointsOrder() throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
-        driver.navigate().to(readProperty("storeURL"));
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         try{
             System.out.println("User is not Logged in. Attempting Login!");
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]//span"))).click();

@@ -43,6 +43,18 @@ public class moduleSelector {
         }
     }
 
+    public void useServer(String server){
+        if (server.equalsIgnoreCase("qa")) {
+            System.setProperty("server", "qa-order.online");
+        } else if (server.equalsIgnoreCase("prod")) {
+            System.setProperty("server", "onlineordering.io");
+        } else {
+            System.err.println("Invalid Server: " + server + ". Available Servers: QA, Prod");
+            System.exit(1);
+        }
+        System.out.println("Server Set is " + System.getProperty("server"));
+    }
+
         public static <T> T currentModuleClass(String className, Class<T> defaultClass) {
             String module = System.getProperty("module");
             String fullPath = "org.example.modules." + module + "." + className;

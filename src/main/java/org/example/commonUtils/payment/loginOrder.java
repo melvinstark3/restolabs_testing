@@ -16,7 +16,7 @@ public class loginOrder extends browserSetup{
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
-        driver.navigate().to(readProperty("storeURL"));
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]"))).click();
         driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
         driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));

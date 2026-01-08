@@ -14,7 +14,7 @@ public class runRestoclient extends browserSetup {
         boolean homeDeliveryMode=false;
         boolean dineInMode=false;
         wait = new WebDriverWait(driver, 30);
-        driver.navigate().to(readProperty("storeURL"));
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         try{
             pickupMode = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]"))).isDisplayed();
         } catch (TimeoutException e){

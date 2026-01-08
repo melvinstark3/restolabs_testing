@@ -11,7 +11,7 @@ public class loginOrder extends browserSetup {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         boolean loggedIn = true;
-        driver.navigate().to(readProperty("storeURL"));
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         try{
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("//button[contains(@class, 'user_login_btn rounded-md px-1')]")));
             System.out.println("User is Already Logged In!");

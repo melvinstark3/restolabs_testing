@@ -13,7 +13,7 @@ public class paymentNavigation extends org.example.commonUtils.payment.paymentNa
     public void paymentNavigation(boolean loggedIn) throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        driver.navigate().to(readProperty("storeURL"));
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]"))).click();
         new createCart(readProperty("loginLocation"),readProperty("loginSecondItem"),loggedIn);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
