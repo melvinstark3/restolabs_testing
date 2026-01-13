@@ -333,6 +333,25 @@ public class checkout extends browserSetup {
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]"))).click();
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+
+            try {
+                wait = new WebDriverWait(driver, 5);
+                WebElement farAddressValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@class=\"warning-info font-bold text-lg text-app-gray-500 text-center ng-star-inserted\"]")));
+                System.out.println("Validation Displayed : \"" + farAddressValidation.getText() + "\"");
+                driver.findElement(By.xpath("//button[@data-testid=\"Yes\"]")).click();
+                System.out.println("\nContinuing Order with Validation Prompt!");
+            } catch (NoSuchElementException | TimeoutException e){
+                System.out.println("No Validation Prompt was Displayed!");
+            }
+            // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
+            Thread.sleep(5000);
+            try{
+                wait = new WebDriverWait(driver, 30);
+                String validation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@data-pc-section=\"summary\"]"))).getText();
+                System.out.println("ERROR: Order Stopped with Validation : " + validation);
+            } catch (Exception e){
+                System.out.println("Proceeding with Order!");
+            }
         }
     }
 }
