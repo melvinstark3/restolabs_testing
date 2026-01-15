@@ -1,5 +1,6 @@
 package org.example.modules.restoclient;
 
+import org.example.commonUtils.checkPreAppliedCoupon;
 import org.example.core.browserSetup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -107,22 +108,7 @@ public class checkout extends browserSetup {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
             if(Objects.equals(readProperty("useCoupon"),"yes")){
-                try{
-                    boolean couponPreApplied = driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).isDisplayed();
-                    if (couponPreApplied){
-                        System.out.println(driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).getAttribute("data-testid") + " is Already Applied.");
-                        driver.findElement(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")).click();
-                        System.out.println("Removing Pre-Applied Coupon!");
-                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
-                        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
-                        try{
-                            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Coupon')]")));
-                            System.out.println("ERROR! Unable to Remove Pre-Applied Coupon");
-                        } catch (NoSuchElementException | TimeoutException e){
-                            System.out.println("Pre-Applied Coupon was Removed! Proceeding!");
-                        }
-                    }
-                } catch (NoSuchElementException ignored){}
+                new checkPreAppliedCoupon();
 
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
                 String couponsXpath = "//span[@class=\"flex-shrink-0 py-2 px-4 text-sm text-black font-semibold rounded-xl truncate max-w-[150px]\"]";
@@ -287,22 +273,7 @@ public class checkout extends browserSetup {
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
 
             if(Objects.equals(readProperty("useCoupon"),"yes")){
-                try{
-                    boolean couponPreApplied = driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).isDisplayed();
-                    if (couponPreApplied){
-                        System.out.println(driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).getAttribute("data-testid") + " is Already Applied.");
-                        driver.findElement(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")).click();
-                        System.out.println("Removing Pre-Applied Coupon!");
-                        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
-                        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
-                        try{
-                            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid, 'Coupon')]")));
-                            System.out.println("ERROR! Unable to Remove Pre-Applied Coupon");
-                        } catch (NoSuchElementException | TimeoutException e){
-                            System.out.println("Pre-Applied Coupon was Removed! Proceeding!");
-                        }
-                    }
-                } catch (NoSuchElementException ignored){}
+                new checkPreAppliedCoupon();
 
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
                 String couponsXpath = "//span[@class=\"flex-shrink-0 py-2 px-4 text-sm text-black font-semibold rounded-xl truncate max-w-[150px]\"]";

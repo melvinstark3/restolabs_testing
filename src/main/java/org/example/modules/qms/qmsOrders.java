@@ -1,6 +1,6 @@
 package org.example.modules.qms;
 
-import org.example.commonUtils.codCheckout;
+import org.example.commonUtils.guestCheckout;
 import org.example.core.browserSetup;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -29,7 +29,7 @@ public class qmsOrders extends browserSetup {
         for (String item : itemList) {
             try {
                 new createCart("Pick Up", readProperty("GuestLocation"), loggedIn, readProperty("codOrderTime"), readProperty("preOrderTime"), item);
-                new codCheckout();
+                new guestCheckout();
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
                 wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
                 driver.findElement(By.xpath("//span[@data-testid=\"continue_order\"]")).click();

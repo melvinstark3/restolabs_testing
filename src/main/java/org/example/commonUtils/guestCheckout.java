@@ -5,8 +5,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class codCheckout extends browserSetup {
-    public codCheckout() throws InterruptedException {
+public class guestCheckout extends browserSetup {
+    public guestCheckout() throws InterruptedException {
         wait = new WebDriverWait(driver, 30);
         JavascriptExecutor js = (JavascriptExecutor) driver;
         try {
