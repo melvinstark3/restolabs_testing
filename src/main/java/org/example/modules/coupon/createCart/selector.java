@@ -70,8 +70,8 @@ public class selector extends browserSetup {
                 System.out.println("Selecting Pickup Location from the List");
             }
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
         try {
             wait = new WebDriverWait(driver, 3);

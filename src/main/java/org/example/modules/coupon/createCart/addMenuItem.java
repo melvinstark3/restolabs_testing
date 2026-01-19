@@ -40,5 +40,10 @@ public class addMenuItem extends browserSetup {
         }
         Thread.sleep(3000);
         js.executeScript("window.scrollBy(0,10)", "");
+        //Close the Cart Header, to handle new item Addition when required, We Will click it again if Needed
+        try {
+            driver.findElement(By.xpath("//button[@data-testid=\"goToCheckout_desktop\"]")).isDisplayed();
+            driver.findElement(By.xpath("//a[@id=\"cart-header\"]")).click();
+        } catch (NoSuchElementException | TimeoutException ignored){}
     }
 }
