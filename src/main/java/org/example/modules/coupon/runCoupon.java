@@ -30,5 +30,7 @@ public class runCoupon extends browserSetup {
         new allMatchingProductsMaxDiscountAmountMOQ().checkValidation();
         new allMatchingProductsMaxDiscountAmountMOQ().verifyCoupon();
 
+        new mostExpensiveMaximumProductsToDiscount();
+
     }
 }
