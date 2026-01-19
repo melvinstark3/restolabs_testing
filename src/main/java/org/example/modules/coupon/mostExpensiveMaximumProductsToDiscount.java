@@ -33,6 +33,11 @@ public class mostExpensiveMaximumProductsToDiscount extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
 
         try{
+            try {
+                wait = new WebDriverWait(driver, 10);
+                String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
+                System.out.println("Validation Displayed : " + couponValidation);
+            } catch (NoSuchElementException | TimeoutException ignored){}
             String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
             System.out.println("Applied Coupon Name is " + appliedCouponName);
             if (appliedCouponName.equalsIgnoreCase("Coupon - MostExpensive, Maximum Products To Discount")){
@@ -74,15 +79,9 @@ public class mostExpensiveMaximumProductsToDiscount extends browserSetup {
             } catch (NoSuchElementException | TimeoutException e) {
                 System.out.println("Order with Coupon FAILED!");
             }
-
-
-
-
-
-
-
-
-        } catch (NoSuchElementException | TimeoutException ignored){}
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("ERROR: Something Went Wrong with Coupon Application!");
+        }
     }
 
 }
