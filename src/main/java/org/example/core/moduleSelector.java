@@ -4,6 +4,7 @@ import org.example.modules.basic.runBasic;
 import org.example.modules.cardconnect.runCardconnect;
 import org.example.modules.checkoutfi.runCheckoutfi;
 import org.example.modules.cod.runCOD;
+import org.example.modules.coupon.runCoupon;
 import org.example.modules.freedompay.runFreedompay;
 import org.example.modules.jccpay.runJccpay;
 import org.example.modules.qms.runQMS;
@@ -38,6 +39,8 @@ public class moduleSelector {
             new runBasic();
         } else if (currentModule.equalsIgnoreCase("restoclient")) {
             new runRestoclient();
+        } else if (currentModule.equalsIgnoreCase("coupon")) {
+            new runCoupon();
         } else {
             System.out.println("No Such Module Exists! Re-try with Correct Module name!");
         }
