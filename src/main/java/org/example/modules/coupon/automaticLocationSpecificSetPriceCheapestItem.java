@@ -54,7 +54,7 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
 
     public void verifyCoupon() throws InterruptedException {
         new orderMode("Dine In");
-        new selector(readProperty("couponLocation"));
+        new selector(readProperty("automaticCouponLocation"));
         new addMenuItem("Cheap Item 1");
         new addMenuItem("Cheap Item 2");
         new addMenuItem("Cheap Item 3");
