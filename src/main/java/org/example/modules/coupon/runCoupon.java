@@ -22,5 +22,7 @@ public class runCoupon extends browserSetup {
         new percentModeSpecificTaxExemptDeliveryFees().checkValidation();
         new percentModeSpecificTaxExemptDeliveryFees().verifyCoupon();
 
+        new deliveryFeesOnly();
+
     }
 }

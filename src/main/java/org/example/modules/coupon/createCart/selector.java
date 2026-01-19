@@ -78,7 +78,7 @@ public class selector extends browserSetup {
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"Yes\"]")));
             //For Some reason even after Completed, We get Cart reset Popup, Handle it with Yes for now.
             driver.findElement(By.xpath("//button[@data-testid=\"Yes\"]")).click();
-        } catch (NoSuchElementException | TimeoutException e) {}
+        } catch (NoSuchElementException | TimeoutException ignored) {}
         js.executeScript("window.scrollBy(0,2000)", "");
         wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
