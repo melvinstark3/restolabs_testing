@@ -95,6 +95,8 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
 
         double totalExpectedDiscount = discountedItemPrice1+discountedItemPrice2;
         double displayedDiscount = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
+        System.out.println("Expected Discount : " + totalExpectedDiscount);
+        System.out.println("Displayed Discount : " + displayedDiscount);
         if (totalExpectedDiscount==displayedDiscount){
             System.out.println("CASE Passed: Set Price Coupon on 2 Cheapest Items Calculated Successfully");
         } else {

@@ -26,6 +26,8 @@ public class fixedDiscountTimeSpecific extends browserSetup {
         String expectedDiscountAmount = "10.00";
         try{
             String discountAmount = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getText().substring(2);
+            System.out.println("Expected Discount : " + expectedDiscountAmount);
+            System.out.println("Displayed Discount : " + discountAmount);
             if (discountAmount.equalsIgnoreCase(expectedDiscountAmount)){
                 System.out.println("CASE: Fixed Discount and Time Specific Coupon was Applied Successfully");
             } else {

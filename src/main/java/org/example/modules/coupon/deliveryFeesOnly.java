@@ -24,8 +24,6 @@ public class deliveryFeesOnly extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"DELIVERYFEEONLY\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
 
-
-
         try {
             String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
             System.out.println("Applied Coupon Name is " + appliedCouponName);
@@ -41,6 +39,8 @@ public class deliveryFeesOnly extends browserSetup {
             }
             double expectedDiscountValue = deliveryFees*expectedDiscountRate;
             double dispalyedDiscountValue = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
+            System.out.println("Expected Discount : " + expectedDiscountValue);
+            System.out.println("Displayed Discount : " + dispalyedDiscountValue);
             if (expectedDiscountValue==dispalyedDiscountValue){
                 System.out.println("CASE PASSED: Discount Calculated for Delivery Fees Only was Calculated Correctly");
             } else {

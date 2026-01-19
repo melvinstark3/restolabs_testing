@@ -72,6 +72,8 @@ public class percentModeSpecificTaxExemptDeliveryFees extends browserSetup {
             }
             double expectedDiscountValue = (subtotal + deliveryFees)*expectedDiscountRate;
             double dispalyedDiscountValue = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
+            System.out.println("Expected Discount : " + expectedDiscountValue);
+            System.out.println("Displayed Discount : " + dispalyedDiscountValue);
             if (expectedDiscountValue==dispalyedDiscountValue){
                 System.out.println("CASE PASSED: Discount Calculated for Percent including Delivery Fees was Calculated Correctly");
             } else {
