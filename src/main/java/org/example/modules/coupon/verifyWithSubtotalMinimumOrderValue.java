@@ -1,8 +1,11 @@
-package org.example.modules.coupon.createCart;
+package org.example.modules.coupon;
 
 import org.example.commonUtils.checkPreAppliedCoupon;
 import org.example.commonUtils.guestCheckout;
 import org.example.core.browserSetup;
+import org.example.modules.coupon.createCart.addMenuItem;
+import org.example.modules.coupon.createCart.cartHeader;
+import org.example.modules.coupon.createCart.selector;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.TimeoutException;
