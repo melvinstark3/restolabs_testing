@@ -1,6 +1,7 @@
 package org.example.modules.coupon;
 
 import org.example.core.browserSetup;
+import org.example.modules.coupon.createCart.verifyWithSubtotalMinimumOrderValue;
 
 public class runCoupon extends browserSetup {
     public runCoupon() throws InterruptedException {
@@ -23,6 +24,9 @@ public class runCoupon extends browserSetup {
         new allMatchingProductsMaxDiscountAmountOnlyCountApplicableMOQ().verifyCoupon();
 
         new mostExpensiveMaximumProductsToDiscount();
+
+        new verifyWithSubtotalMinimumOrderValue().checkValidation();
+        new verifyWithSubtotalMinimumOrderValue().verifyCoupon();
 
     }
 }
