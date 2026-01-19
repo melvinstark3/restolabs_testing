@@ -1,6 +1,7 @@
 package org.example.modules.coupon;
 
 import org.example.core.browserSetup;
+import org.example.modules.coupon.createCart.verifyWithOrderTotalMinimumOrderValue;
 import org.example.modules.coupon.createCart.verifyWithSubtotalMinimumOrderValue;
 
 public class runCoupon extends browserSetup {
@@ -27,6 +28,9 @@ public class runCoupon extends browserSetup {
 
         new verifyWithSubtotalMinimumOrderValue().checkValidation();
         new verifyWithSubtotalMinimumOrderValue().verifyCoupon();
+
+        new verifyWithOrderTotalMinimumOrderValue().checkValidation();
+        new verifyWithOrderTotalMinimumOrderValue().verifyCoupon();
 
     }
 }

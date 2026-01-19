@@ -9,7 +9,8 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class verifyWithSubtotalMinimumOrderValue extends browserSetup {
+public class verifyWithOrderTotalMinimumOrderValue extends browserSetup {
+
     public void checkValidation() throws InterruptedException {
         new selector("Dine In", readProperty("couponLocation"));
         new addMenuItem("Cheap Item 1");
@@ -18,21 +19,21 @@ public class verifyWithSubtotalMinimumOrderValue extends browserSetup {
         new checkPreAppliedCoupon();
         System.out.println("Applying Coupon");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"VERIFYWITHSUBTOTALMINIMUMORDERVALUE\"]"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"VERIFYWITHORDERTOTALMINIMUMORDERVALUE\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         try {
             wait = new WebDriverWait(driver, 10);
             String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
             System.out.println("Validation Displayed : " + couponValidation);
             if (couponValidation.contains("You have not reached the minimum order total for this coupon.")){
-                System.out.println("CASE PASS: Coupon was not Applied without reaching Set Subtotal");
+                System.out.println("CASE PASS: Coupon was not Applied without reaching Set Order total");
             }
         } catch (NoSuchElementException | TimeoutException e){
             try{
                 String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
                 System.out.println("Applied Coupon Name is " + appliedCouponName);
-                if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Subtotal, Minimum Order Value")){
-                    System.out.println("CASE Fail: Coupon was Applied even without reaching Set Subtotal");
+                if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Order total, Minimum Order Value")){
+                    System.out.println("CASE Fail: Coupon was Applied even without reaching Set Order total");
                 }
             } catch (NoSuchElementException | TimeoutException ignored){}
         }
@@ -47,13 +48,13 @@ public class verifyWithSubtotalMinimumOrderValue extends browserSetup {
         System.out.println("Applying Coupon");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"VERIFYWITHSUBTOTALMINIMUMORDERVALUE\"]"))).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"VERIFYWITHORDERTOTALMINIMUMORDERVALUE\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         try{
             String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
             System.out.println("Applied Coupon Name is " + appliedCouponName);
-            if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Subtotal, Minimum Order Value")){
-                System.out.println("CASE PASS: Coupon was Applied with Subtotal Over Set Minimum Order Value");
+            if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Order total, Minimum Order Value")){
+                System.out.println("CASE PASS: Coupon was Applied with Order Total Over Set Minimum Order Value");
             }
         } catch (NoSuchElementException | TimeoutException ignored){}
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
@@ -66,4 +67,5 @@ public class verifyWithSubtotalMinimumOrderValue extends browserSetup {
             System.out.println("Order with Coupon FAILED!");
         }
     }
+
 }
