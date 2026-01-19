@@ -24,7 +24,6 @@ public class oneMinuteCoupon extends browserSetup {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"ONEMINUTECOUPON\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
-
         try {
             wait = new WebDriverWait(driver, 10);
             String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
@@ -32,7 +31,6 @@ public class oneMinuteCoupon extends browserSetup {
             if (couponValidation.contains("This coupon is unavailable at current time.")){
                 System.out.println("CASE PASS: User is unable to Apply Coupon Outside Allowed Timings");
             }
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label=\"Close Coupon Popup\"]"))).click();
         } catch (NoSuchElementException | TimeoutException ignored){}
     }
 }

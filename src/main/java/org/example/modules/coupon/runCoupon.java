@@ -36,5 +36,9 @@ public class runCoupon extends browserSetup {
 
         new oneMinuteCoupon();
 
+        new whitelistedUserCoupon();
+
+        quitBrowser();
+
     }
 }
