@@ -34,5 +34,7 @@ public class runCoupon extends browserSetup {
 
         new exceptWednesdayRestrictedCoupon();
 
+        new oneMinuteCoupon();
+
     }
 }
