@@ -37,6 +37,7 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
         try {
             wait = new WebDriverWait(driver, 10);
             String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
+            System.out.println("Validation Displayed : " + couponValidation);
             if (couponValidation.contains("This coupon code is invalid or has expired.")){
                 System.out.println("CASE PASS: Location Specific Coupon was not Applied on a Separate Location Manually");
             }
