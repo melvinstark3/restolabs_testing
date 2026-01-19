@@ -19,7 +19,7 @@ import java.util.List;
 public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup {
 
     public void checkValidation() throws InterruptedException {
-        new selector(readProperty("couponLocation"));
+        new selector("Dine In",readProperty("couponLocation"));
         new addMenuItem("Cheap Item 1");
         new cartHeader();
         new guestCheckout();
@@ -54,7 +54,7 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
 
     public void verifyCoupon() throws InterruptedException {
         new orderMode("Dine In");
-        new selector(readProperty("automaticCouponLocation"));
+        new selector("Dine In", readProperty("automaticCouponLocation"));
         new addMenuItem("Cheap Item 1");
         new addMenuItem("Cheap Item 2");
         new addMenuItem("Cheap Item 3");

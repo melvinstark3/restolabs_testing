@@ -14,7 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class fixedDiscountTimeSpecific extends browserSetup {
     public fixedDiscountTimeSpecific() throws InterruptedException {
-        new selector(readProperty("couponLocation"));
+        new selector("Dine In", readProperty("couponLocation"));
         new addMenuItem("Cheap Item 1");
         new cartHeader();
         new guestCheckout();
