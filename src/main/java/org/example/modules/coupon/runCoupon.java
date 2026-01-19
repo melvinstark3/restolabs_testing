@@ -15,14 +15,12 @@ public class runCoupon extends browserSetup {
         invokeBrowser();
         new orderMode("Dine In");
         new fixedDiscountTimeSpecific();
+
         new automaticLocationSpecificSetPriceCheapestItem().checkValidation();
         new automaticLocationSpecificSetPriceCheapestItem().verifyCoupon();
 
-
-
-
-
-
+        new percentModeSpecificTaxExemptDeliveryFees().checkValidation();
+        new percentModeSpecificTaxExemptDeliveryFees().verifyCoupon();
 
     }
 }

@@ -19,6 +19,7 @@ public class fixedDiscountTimeSpecific extends browserSetup {
         new cartHeader();
         new guestCheckout();
         new checkPreAppliedCoupon();
+        System.out.println("Applying Coupon");
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"FIXED DISCOUNT TIME SPECIFIC\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
