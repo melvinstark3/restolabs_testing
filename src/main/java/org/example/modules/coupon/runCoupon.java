@@ -1,14 +1,6 @@
 package org.example.modules.coupon;
 
-import org.example.commonUtils.checkPreAppliedCoupon;
-import org.example.commonUtils.guestCheckout;
-import org.example.commonUtils.payment.createCart;
 import org.example.core.browserSetup;
-import org.openqa.selenium.By;
-import org.openqa.selenium.NoSuchElementException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class runCoupon extends browserSetup {
     public runCoupon() throws InterruptedException {
@@ -27,8 +19,8 @@ public class runCoupon extends browserSetup {
         new totalOfMatchingRequireAllProductsToMatchWhitelistItems().checkValidation();
         new totalOfMatchingRequireAllProductsToMatchWhitelistItems().verifyCoupon();
 
-        new allMatchingProductsMaxDiscountAmountMOQ().checkValidation();
-        new allMatchingProductsMaxDiscountAmountMOQ().verifyCoupon();
+        new allMatchingProductsMaxDiscountAmountOnlyCountApplicableMOQ().checkValidation();
+        new allMatchingProductsMaxDiscountAmountOnlyCountApplicableMOQ().verifyCoupon();
 
         new mostExpensiveMaximumProductsToDiscount();
 

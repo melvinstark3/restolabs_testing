@@ -12,7 +12,7 @@ import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class allMatchingProductsMaxDiscountAmountMOQ extends browserSetup {
+public class allMatchingProductsMaxDiscountAmountOnlyCountApplicableMOQ extends browserSetup {
 
     public void checkValidation() throws InterruptedException {
         new selector("Dine In", readProperty("couponLocation"));
