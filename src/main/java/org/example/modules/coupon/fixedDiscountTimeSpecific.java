@@ -30,7 +30,7 @@ public class fixedDiscountTimeSpecific extends browserSetup {
             } else {
                 System.out.println("CASE FAIL: Time Specific Coupon worked but Fixed Discount Value did not Match");
             }
-        } catch (NoSuchElementException e){
+        } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE FAILED: Fixed Discount and Time Specific Coupon was not Applied");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();

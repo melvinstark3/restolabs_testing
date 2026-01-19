@@ -9,6 +9,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 public class checkPreAppliedCoupon extends browserSetup {
     public checkPreAppliedCoupon(){
         try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
             boolean couponPreApplied = driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).isDisplayed();
             if (couponPreApplied){
                 System.out.println(driver.findElement(By.xpath("//h6[contains(@data-testid, 'Coupon')]")).getAttribute("data-testid") + " is Already Applied.");

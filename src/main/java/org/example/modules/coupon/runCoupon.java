@@ -13,12 +13,10 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class runCoupon extends browserSetup {
     public runCoupon() throws InterruptedException {
         invokeBrowser();
-        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
-        wait = new WebDriverWait(driver, 30);
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Pick Up\"]")));
-        driver.findElement(By.xpath("//button[@aria-label=\"Pick Up\"]")).click();
-
+        new orderMode("Dine In");
         new fixedDiscountTimeSpecific();
+        new automaticLocationSpecificSetPriceCheapestItem().checkValidation();
+        new automaticLocationSpecificSetPriceCheapestItem().verifyCoupon();
 
 
 
