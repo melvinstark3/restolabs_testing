@@ -71,30 +71,30 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
 
         List<WebElement> cartItemPrices = driver.findElements(By.xpath("//p[@class=\"hidden md:block ml-4 text-sm font-semibold text-app-gray-500\"]"));
 
-        List<Integer> cartItemsPrices = new ArrayList<>();
+        List<Double> cartItemsPrices = new ArrayList<>();
 
         for (WebElement items : cartItemPrices) {
-            int price = Integer.parseInt(items.getText().trim().substring(1));
+            double price = Double.parseDouble(items.getText().trim().substring(1));
             cartItemsPrices.add(price);
         }
         Collections.sort(cartItemsPrices);
 
-        int cheapestItemPrice1 = cartItemsPrices.get(0);
-        int cheapestItemPrice2 = cartItemsPrices.get(1);
+        double cheapestItemPrice1 = cartItemsPrices.get(0);
+        double cheapestItemPrice2 = cartItemsPrices.get(1);
 
-        int expectedPriceAfterDiscount = 9;
+        double expectedPriceAfterDiscount = 9.00;
 
-        int discountedItemPrice1 = cheapestItemPrice1 - expectedPriceAfterDiscount;
+        double discountedItemPrice1 = cheapestItemPrice1 - expectedPriceAfterDiscount;
         if(discountedItemPrice1 <= 0){
             discountedItemPrice1=cheapestItemPrice1;
         }
-        int discountedItemPrice2 = cheapestItemPrice2 - expectedPriceAfterDiscount;
+        double discountedItemPrice2 = cheapestItemPrice2 - expectedPriceAfterDiscount;
         if(discountedItemPrice2 <= 0){
             discountedItemPrice2=cheapestItemPrice1;
         }
 
-        int totalExpectedDiscount = discountedItemPrice1+discountedItemPrice2;
-        int displayedDiscount = Integer.parseInt(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
+        double totalExpectedDiscount = discountedItemPrice1+discountedItemPrice2;
+        double displayedDiscount = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
         if (totalExpectedDiscount==displayedDiscount){
             System.out.println("CASE Passed: Set Price Coupon on 2 Cheapest Items Calculated Successfully");
         } else {
