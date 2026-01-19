@@ -30,5 +30,9 @@ public class runCoupon extends browserSetup {
         new verifyWithOrderTotalMinimumOrderValue().checkValidation();
         new verifyWithOrderTotalMinimumOrderValue().verifyCoupon();
 
+        new wednesdayOnlyCoupon();
+
+        new exceptWednesdayRestrictedCoupon();
+
     }
 }
