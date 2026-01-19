@@ -24,5 +24,11 @@ public class runCoupon extends browserSetup {
 
         new deliveryFeesOnly();
 
+        new totalOfMatchingRequireAllProductsToMatchWhitelistItems().checkValidation();
+        new totalOfMatchingRequireAllProductsToMatchWhitelistItems().verifyCoupon();
+
+        new allMatchingProductsMaxDiscountAmountMOQ().checkValidation();
+        new allMatchingProductsMaxDiscountAmountMOQ().verifyCoupon();
+
     }
 }
