@@ -27,7 +27,6 @@ public class whitelistedUserCoupon extends browserSetup {
             if (appliedCouponName.equalsIgnoreCase("Coupon - Blacklist User Coupon")){
                 System.out.println("CASE PASS: Non-Blacklisted User is able to Apply the Coupon");
             }
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
             new placeOrder();
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE FAILED: Non-Blacklisted User is also Unable to Apply the Coupon");
