@@ -64,10 +64,10 @@ public class percentModeSpecificTaxExemptDeliveryFees extends browserSetup {
                 System.out.println("CASE PASS: Percent, Mode Specific, Tax Exempt, Delivery Fees Coupon was Applied!");
             }
             double expectedDiscountRate = 0.10;
-            double subtotal = Double.parseDouble(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Subtotal\"]"))).getText());
+            double subtotal = Double.parseDouble(wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Subtotal\"]"))).getText().substring(1));
             double deliveryFees = 0;
             try {
-                deliveryFees = Double.parseDouble(driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]")).getText());
+                deliveryFees = Double.parseDouble(driver.findElement(By.xpath("//h6[@data-testid=\"Delivery Fee\"]")).getText().substring(2));
             } catch (NoSuchElementException e) {
                 System.out.println("WARNING! Can't Verify Delivery Fees as it was not Displayed at Checkout");
             }
