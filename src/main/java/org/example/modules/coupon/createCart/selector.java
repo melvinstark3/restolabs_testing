@@ -32,9 +32,9 @@ public class selector extends browserSetup {
                 Thread.sleep(500);
             }
             wait = new WebDriverWait(driver, 60);
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ngb-typeahead-0")));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ngb-typeahead-window[@class=\"dropdown-menu show ng-star-inserted\"]")));
             Thread.sleep(5000);
-            List<WebElement> addressList = driver.findElements(By.id("ngb-typeahead-0"));
+            List<WebElement> addressList = driver.findElements(By.xpath("//ngb-typeahead-window[@class=\"dropdown-menu show ng-star-inserted\"]"));
             for (WebElement e:addressList){
                 //Right Now even with Same Text, it's choosing the Suggestion After Same Text but as Addresses might
                 // Differ from Suggestion List we are choosing the Contains method as leaving it as it is.
