@@ -44,8 +44,10 @@ public class selector extends browserSetup {
                 }
             }
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']")));
-            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+            try {
+                js.executeScript("arguments[0].scrollIntoView();", wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))));
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
+            } catch (NoSuchElementException | TimeoutException ignored){}
         }
 //        try{
 //            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
