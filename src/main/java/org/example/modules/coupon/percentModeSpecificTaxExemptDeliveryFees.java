@@ -46,7 +46,7 @@ public class percentModeSpecificTaxExemptDeliveryFees extends browserSetup {
 
     public void verifyCoupon() throws InterruptedException {
         new orderMode("Home Delivery");
-        new selector("Home Delivery", readProperty("First Location"));
+        new selector("Home Delivery", readProperty("couponLocation"));
         new addMenuItem("Cheap Item 1");
         new addMenuItem("Cheap Item 2");
         new addMenuItem("Cheap Item 3");
