@@ -46,6 +46,12 @@ public class guestCheckout extends browserSetup {
             driver.findElement(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")).click();
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//button[@class=\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\"]")));
         } catch (NoSuchElementException | TimeoutException ignored){}
+        Thread.sleep(2000);
+        //Home Delivery Address Save Container Check!
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"continueAddAddress\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"continueAddAddress\"]"))).click();
+        } catch (TimeoutException ignored){}
         // Stale Element Exception if Trying Implicit Wait
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("\"//button[@class=\\\"primary_button w-full text-base font-semibold p-3 px-5 mr-3 rounded-2xl border capitalize text-white ng-star-inserted\\\"]\"")));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
@@ -97,7 +103,6 @@ public class guestCheckout extends browserSetup {
             System.out.println("Checkout Details are not required!");
         }
         js.executeScript("window.scrollBy(0,2000)", "");
-        System.out.println("TC_07: For Guest Order: ");
         Thread.sleep(2000);
         // The System automatically selects back the PaymentMode0 regardless of click, We can remove sleep once dev team fixes this
         try{

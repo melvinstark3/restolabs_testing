@@ -33,15 +33,7 @@ public class exceptWednesdayRestrictedCoupon extends browserSetup {
             try{
                 String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
                 System.out.println("Applied Coupon Name is " + appliedCouponName);
-                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
-                try {
-                    wait = new WebDriverWait(driver, 60);
-                    String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
-                    wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath))).click();
-                    System.out.println("Order with Coupon Placed Successfully");
-                } catch (NoSuchElementException | TimeoutException t) {
-                    System.out.println("Order with Coupon FAILED!");
-                }
+                new placeOrder();
             } catch (NoSuchElementException | TimeoutException ignored){}
         }
     }

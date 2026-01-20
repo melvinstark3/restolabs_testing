@@ -36,14 +36,6 @@ public class fixedDiscountTimeSpecific extends browserSetup {
         } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE FAILED: Fixed Discount and Time Specific Coupon was not Applied");
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
-        try {
-            wait = new WebDriverWait(driver, 60);
-            String restartOrderButtonXpath = "//div[@class='bg-white rounded-xl border border-app-gray-300']//span[@class='border-dashed text-sm font-semibold border px-2 py-0.5 rounded-lg cursor-pointer ml-2'][normalize-space()='Click here to start order again']";
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(restartOrderButtonXpath))).click();
-            System.out.println("Order with Coupon Placed Successfully");
-        } catch (NoSuchElementException | TimeoutException e) {
-            System.out.println("Order with Coupon FAILED!");
-        }
+        new placeOrder();
     }
 }
