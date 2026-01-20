@@ -15,7 +15,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class percentModeSpecificTaxExemptDeliveryFees extends browserSetup {
 
     public void checkValidation() throws InterruptedException {
-        new selector("Dine In", readProperty("Third Location"));
+        new selector("Dine In", readProperty("couponLocation"));
         new addMenuItem("Normal Item");
         new cartHeader();
         new guestCheckout();
