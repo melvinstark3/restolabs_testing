@@ -36,7 +36,7 @@ public class addMenuItem extends browserSetup {
             driver.findElement(By.xpath("//button[@data-testid=\"addToCart\"]")).click();
         }
         catch (NoSuchElementException | TimeoutException e){
-            System.out.println("Adding non Customisable Item to the Cart.");
+            System.out.println("Adding Item " + itemName + " to the Cart.");
         }
         Thread.sleep(3000);
         js.executeScript("window.scrollBy(0,10)", "");

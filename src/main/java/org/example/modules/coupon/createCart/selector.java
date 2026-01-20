@@ -31,6 +31,7 @@ public class selector extends browserSetup {
                 driver.findElement(By.id(homeDeliveryTextField)).sendKeys(Keys.BACK_SPACE);
                 Thread.sleep(500);
             }
+            wait = new WebDriverWait(driver, 60);
             wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("ngb-typeahead-0")));
             Thread.sleep(5000);
             List<WebElement> addressList = driver.findElements(By.id("ngb-typeahead-0"));
