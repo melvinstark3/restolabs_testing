@@ -31,6 +31,7 @@ public class oneMinuteCoupon extends browserSetup {
             if (couponValidation.contains("This coupon is unavailable at current time.")){
                 System.out.println("CASE PASS: User is unable to Apply Coupon Outside Allowed Timings");
             }
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"failure__popup fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ng-star-inserted\"]")));
         } catch (NoSuchElementException | TimeoutException ignored){}
     }
 }

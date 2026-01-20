@@ -6,6 +6,7 @@ public class runCoupon extends browserSetup {
     public runCoupon() throws InterruptedException {
         invokeBrowser();
         new orderMode("Dine In");
+        new orderMode("Home Delivery");
         new fixedDiscountTimeSpecific();
 
         new automaticLocationSpecificSetPriceCheapestItem().checkValidation();

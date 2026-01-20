@@ -17,6 +17,7 @@ public class whitelistedUserCoupon extends browserSetup {
             if (couponValidation.contains("Your user ID is not allowed to use this coupon.")){
                 System.out.println("CASE PASS: Non-Whitelisted User is Unable to Use alloted Coupon");
             }
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"failure__popup fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ng-star-inserted\"]")));
         } catch (NoSuchElementException | TimeoutException ignored){}
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"BLACKLISTUSERCOUPON\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));

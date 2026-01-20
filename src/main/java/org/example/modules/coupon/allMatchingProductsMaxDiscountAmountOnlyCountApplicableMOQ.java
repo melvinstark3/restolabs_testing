@@ -31,6 +31,8 @@ public class allMatchingProductsMaxDiscountAmountOnlyCountApplicableMOQ extends 
             if (couponValidation.contains("You do not have minimum number of items in your cart.")){
                 System.out.println("CASE PASS: Coupon was not Applied without minimum number of Products in Cart");
             }
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"failure__popup fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ng-star-inserted\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label=\"Close Coupon Popup\"]"))).click();
         } catch (NoSuchElementException | TimeoutException e){
             try{
                 String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");

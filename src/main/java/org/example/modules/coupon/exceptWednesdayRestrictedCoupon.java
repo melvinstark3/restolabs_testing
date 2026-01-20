@@ -28,6 +28,7 @@ public class exceptWednesdayRestrictedCoupon extends browserSetup {
             wait = new WebDriverWait(driver, 10);
             String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
             System.out.println("Validation Displayed : " + couponValidation);
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"failure__popup fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ng-star-inserted\"]")));
             wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@aria-label=\"Close Coupon Popup\"]"))).click();
         } catch (NoSuchElementException | TimeoutException e){
             try{
