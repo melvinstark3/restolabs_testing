@@ -68,41 +68,70 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
             if (appliedCouponName.equalsIgnoreCase("Coupon - Automatic LocationSpecific SetPrice CheapestItem")){
                 System.out.println("CASE PASS: Location Specific Coupon was Applied Automatically");
             }
-        } catch (NoSuchElementException | TimeoutException ignored){}
+            System.out.println("Trying to Remove Automatically Applied Coupon!");
+            driver.findElement(By.xpath("//button[@class=\"coupon__remove text-xs font-semibold text-red-600 bg-red-100 py-0.5 px-2 hover:bg-app-gray-100 transition-all duration-300 rounded-full\"]")).click();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
 
-        List<WebElement> cartItemPrices = driver.findElements(By.xpath("//p[@class=\"hidden md:block ml-4 text-sm font-semibold text-app-gray-500\"]"));
+            try{
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Subtotal\"]")));
+                String postRemovalCoupon = driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText();
+                System.out.println("CASE FAIL: Coupon " + postRemovalCoupon + " was Displayed After Removing Automatic Coupon");
+            } catch (NoSuchElementException e){
+                System.out.println("CASE PASS: Automatic Coupon was Removed Successfully");
+            }
 
-        List<Double> cartItemsPrices = new ArrayList<>();
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]")));
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
+            driver.findElement(By.xpath("//input[@data-testid=\"couponInput\"]")).sendKeys(readProperty("automaticCouponCode"));
+            driver.findElement(By.xpath("//button[@data-testid=\"applyCoupon\"]")).click();
 
-        for (WebElement items : cartItemPrices) {
-            double price = Double.parseDouble(items.getText().trim().substring(1));
-            cartItemsPrices.add(price);
+            try{
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Subtotal\"]")));
+                String reAppliedCoupon = driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText();
+                System.out.println("CASE PASS: " + reAppliedCoupon + " was Re-Applied Manually");
+            } catch (NoSuchElementException e){
+                System.out.println("CASE FAIL: Automatic Coupon was NOT Re-Applied!");
+            }
+
+            List<WebElement> cartItemPrices = driver.findElements(By.xpath("//p[@class=\"hidden md:block ml-4 text-sm font-semibold text-app-gray-500\"]"));
+
+            List<Double> cartItemsPrices = new ArrayList<>();
+
+            for (WebElement items : cartItemPrices) {
+                double price = Double.parseDouble(items.getText().trim().substring(1));
+                cartItemsPrices.add(price);
+            }
+            Collections.sort(cartItemsPrices);
+
+            double cheapestItemPrice1 = cartItemsPrices.get(0);
+            double cheapestItemPrice2 = cartItemsPrices.get(1);
+
+            double expectedPriceAfterDiscount = 9.00;
+
+            double discountedItemPrice1 = cheapestItemPrice1 - expectedPriceAfterDiscount;
+            if(discountedItemPrice1 <= 0){
+                discountedItemPrice1=cheapestItemPrice1;
+            }
+            double discountedItemPrice2 = cheapestItemPrice2 - expectedPriceAfterDiscount;
+            if(discountedItemPrice2 <= 0){
+                discountedItemPrice2=cheapestItemPrice1;
+            }
+
+            double totalExpectedDiscount = discountedItemPrice1+discountedItemPrice2;
+            double displayedDiscount = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
+            System.out.println("Expected Discount : " + totalExpectedDiscount);
+            System.out.println("Displayed Discount : " + displayedDiscount);
+            if (totalExpectedDiscount==displayedDiscount){
+                System.out.println("CASE Passed: Set Price Coupon on 2 Cheapest Items Calculated Successfully");
+            } else {
+                System.out.println("CASE Failed: Set Price Coupon on 2 Cheapest Items was not Calculated Successfully");
+            }
+            new placeOrder();
+        } catch (NoSuchElementException | TimeoutException ignored){
+            System.out.println("CASE FAIL: Automatic Coupon Was Not Applied Automatically!");
         }
-        Collections.sort(cartItemsPrices);
-
-        double cheapestItemPrice1 = cartItemsPrices.get(0);
-        double cheapestItemPrice2 = cartItemsPrices.get(1);
-
-        double expectedPriceAfterDiscount = 9.00;
-
-        double discountedItemPrice1 = cheapestItemPrice1 - expectedPriceAfterDiscount;
-        if(discountedItemPrice1 <= 0){
-            discountedItemPrice1=cheapestItemPrice1;
-        }
-        double discountedItemPrice2 = cheapestItemPrice2 - expectedPriceAfterDiscount;
-        if(discountedItemPrice2 <= 0){
-            discountedItemPrice2=cheapestItemPrice1;
-        }
-
-        double totalExpectedDiscount = discountedItemPrice1+discountedItemPrice2;
-        double displayedDiscount = Double.parseDouble(driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText().substring(2));
-        System.out.println("Expected Discount : " + totalExpectedDiscount);
-        System.out.println("Displayed Discount : " + displayedDiscount);
-        if (totalExpectedDiscount==displayedDiscount){
-            System.out.println("CASE Passed: Set Price Coupon on 2 Cheapest Items Calculated Successfully");
-        } else {
-            System.out.println("CASE Failed: Set Price Coupon on 2 Cheapest Items was not Calculated Successfully");
-        }
-        new placeOrder();
     }
 }
