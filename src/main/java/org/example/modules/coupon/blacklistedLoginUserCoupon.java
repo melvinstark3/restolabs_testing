@@ -17,8 +17,6 @@ public class blacklistedLoginUserCoupon extends browserSetup {
     public blacklistedLoginUserCoupon() throws InterruptedException {
         driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         JavascriptExecutor js = (JavascriptExecutor) driver;
-        boolean loggedIn = true;
-        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]"))).click();
         driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
         driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
@@ -30,11 +28,8 @@ public class blacklistedLoginUserCoupon extends browserSetup {
         new cartHeader();
         new guestCheckout();
         new checkPreAppliedCoupon();
-
-
-
-
-
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"viewCoupons\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"BLACKLISTUSERCOUPON\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         try {
