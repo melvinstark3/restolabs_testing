@@ -38,6 +38,8 @@ public class runCoupon extends browserSetup {
 
         new whitelistedUserCoupon();
 
+        new hiddenDateSpecificCoupon();
+
         quitBrowser();
 
     }
