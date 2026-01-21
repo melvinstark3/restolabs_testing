@@ -61,8 +61,10 @@ public class verifyWithOrderTotalMinimumOrderValue extends browserSetup {
             if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Order total, Minimum Order Value")){
                 System.out.println("CASE PASS: Coupon was Applied with Order Total Over Set Minimum Order Value");
             }
-        } catch (NoSuchElementException | TimeoutException ignored){}
-        new placeOrder();
+            new placeOrder();
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE FAIL: Coupon was NOT Applied even with Order total Over Set Minimum Order Value");
+        }
     }
 
 }

@@ -60,7 +60,9 @@ public class verifyWithSubtotalMinimumOrderValue extends browserSetup {
             if (appliedCouponName.equalsIgnoreCase("Coupon - Verify With Subtotal, Minimum Order Value")){
                 System.out.println("CASE PASS: Coupon was Applied with Subtotal Over Set Minimum Order Value");
             }
-        } catch (NoSuchElementException | TimeoutException ignored){}
-        new placeOrder();
+            new placeOrder();
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE FAIL: Coupon was NOT Applied even with Subtotal Over Set Minimum Order Value");
+        }
     }
 }
