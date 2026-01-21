@@ -15,10 +15,20 @@ public class whitelistedUserCoupon extends browserSetup {
             String couponValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h3[@class=\"text-center text-lg font-bold text-app-gray-900 first-letter:capitalize lowercase px-4\"]"))).getText();
             System.out.println("Validation Displayed : " + couponValidation);
             if (couponValidation.contains("Your user ID is not allowed to use this coupon.")){
-                System.out.println("CASE PASS: Non-Whitelisted User is Unable to Use alloted Coupon");
+                System.out.println("CASE PASS: Non-Whitelisted User is Unable to Use allotted Coupon");
             }
             wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[@class=\"failure__popup fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 ng-star-inserted\"]")));
-        } catch (NoSuchElementException | TimeoutException ignored){}
+        } catch (NoSuchElementException | TimeoutException e){
+            try{
+                String appliedCouponName = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
+                System.out.println("Applied Coupon Name is " + appliedCouponName);
+                if (appliedCouponName.equalsIgnoreCase("Coupon - Whitelist User Coupon")){
+                    System.out.println("CASE FAIL: Non-Whitelisted User is able to Apply the Coupon");
+                }
+                new placeOrder();
+            } catch (NoSuchElementException | TimeoutException ignored){}
+        }
+        wait = new WebDriverWait(driver, 30);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"BLACKLISTUSERCOUPON\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         try{
@@ -29,7 +39,7 @@ public class whitelistedUserCoupon extends browserSetup {
             }
             new placeOrder();
         } catch (NoSuchElementException | TimeoutException e){
-            System.out.println("CASE FAILED: Non-Blacklisted User is also Unable to Apply the Coupon");
+            System.out.println("CASE FAILED: Non-Blacklisted User is Unable to Apply the Coupon");
         }
     }
 }
