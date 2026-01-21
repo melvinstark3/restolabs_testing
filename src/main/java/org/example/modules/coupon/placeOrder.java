@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class placeOrder extends browserSetup {
     public placeOrder(){
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@data-testid=\"placeOrder\"]"))).click();
-
         try {
             wait = new WebDriverWait(driver, 5);
             WebElement farAddressValidation = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@class=\"warning-info font-bold text-lg text-app-gray-500 text-center ng-star-inserted\"]")));
