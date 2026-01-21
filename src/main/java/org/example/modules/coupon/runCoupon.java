@@ -42,6 +42,8 @@ public class runCoupon extends browserSetup {
 
         new hiddenDateSpecificCoupon();
 
+        new combinableCoupon();
+        
         quitBrowser();
 
     }
