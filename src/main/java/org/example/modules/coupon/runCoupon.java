@@ -45,7 +45,7 @@ public class runCoupon extends browserSetup {
         new combinableCoupon();
 
         new combinableExceptCoupon();
-        
+
         quitBrowser();
 
     }

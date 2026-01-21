@@ -2,6 +2,8 @@ package org.example.core;
 
 import java.util.Properties;
 import javax.mail.*;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javax.mail.internet.*;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -29,10 +31,13 @@ public class emailReport {
         });
 
         try {
+            LocalTime currentTime = LocalTime.now();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("hh:mm:ss a");
+            String formattedTime = currentTime.format(formatter);
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(SENDER_EMAIL, senderName));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(RECIPIENT_LIST));
-            message.setSubject("[" + automationStatus + "] Automation Report " + module + " Module");
+            message.setSubject("[" + automationStatus + "] " + module + " Module Automation Report. UTC " + formattedTime);
 
             BodyPart messageBodyPart = new MimeBodyPart();
             messageBodyPart.setText("Module: " + module + " Tests Completed.\n\n" +
