@@ -90,9 +90,9 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
             try{
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[@data-testid=\"Subtotal\"]")));
-                String reAppliedCoupon = driver.findElement(By.xpath("//h6[contains(@data-testid,'Coupon')]")).getText();
+                String reAppliedCoupon = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]"))).getAttribute("data-testid");
                 System.out.println("CASE PASS: " + reAppliedCoupon + " was Re-Applied Manually");
-            } catch (NoSuchElementException e){
+            } catch (TimeoutException e){
                 System.out.println("CASE FAIL: Automatic Coupon was NOT Re-Applied!");
             }
 
@@ -130,7 +130,7 @@ public class automaticLocationSpecificSetPriceCheapestItem extends browserSetup 
                 System.out.println("CASE Failed: Set Price Coupon on 2 Cheapest Items was not Calculated Successfully");
             }
             new placeOrder();
-        } catch (NoSuchElementException | TimeoutException ignored){
+        } catch (NoSuchElementException | TimeoutException e){
             System.out.println("CASE FAIL: Automatic Coupon Was Not Applied Automatically!");
         }
     }
