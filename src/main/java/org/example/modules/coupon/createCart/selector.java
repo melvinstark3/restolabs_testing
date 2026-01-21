@@ -65,16 +65,15 @@ public class selector extends browserSetup {
                 // for now we are going ahead with this Experimental Approach until Further Discussion. Till Then, It's Recommended to
                 // Not Use Pickup Map Feature when Running the Automation Suite
                 Thread.sleep(10000);
-                WebElement location = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']")));
-                js.executeScript("arguments[0].scrollIntoView();", location);
-                location.click();
+                js.executeScript("arguments[0].scrollIntoView();", wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))));
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
                 driver.findElement(By.xpath("//button[@class=\"px-3 py-1 font-bold text-white border-2 text-xs md:text-sm rounded-md w-full select-button\"]")).click();
                 System.out.println("Confirming Location");
             } catch (NoSuchElementException | TimeoutException e){
                 System.out.println("Selecting Pickup Location from the List");
             }
         }
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']")));
+        js.executeScript("arguments[0].scrollIntoView();", wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[normalize-space()='" + Location + "']"))));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//h5[normalize-space()='" + Location + "']"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"deliveryTitle\"]")));
         js.executeScript("window.scrollBy(0,2000)", "");
