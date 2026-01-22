@@ -60,9 +60,9 @@ public class combinableCoupon extends browserSetup {
                 } catch (TimeoutException e){
                     wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]")));
                     List<WebElement> appliedCoupons = driver.findElements(By.xpath("//h6[contains(@data-testid,'Coupon')]"));
+                    System.out.println("CASE: Whitelisted Coupon Combination: Names of Simultaneously Applied Coupons are as Follows: ");
                     for (WebElement coupon: appliedCoupons){
                         String displayedCoupon = coupon.getAttribute("data-testid");
-                        System.out.println("CASE: Whitelisted Coupon Combination: Names of Simultaneously Applied Coupons are as Follows: ");
                         System.out.println(displayedCoupon);
                     }
                     new placeOrder();
@@ -72,9 +72,9 @@ public class combinableCoupon extends browserSetup {
             } catch (NoSuchElementException | TimeoutException e){
                 wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h6[contains(@data-testid,'Coupon')]")));
                 List<WebElement> appliedCoupons = driver.findElements(By.xpath("//h6[contains(@data-testid,'Coupon')]"));
+                System.out.println("Names of Simultaneously Applied Coupons are as Follows: ");
                 for (WebElement coupon: appliedCoupons){
                     String displayedCoupon = coupon.getAttribute("data-testid");
-                    System.out.println("Names of Simultaneously Applied Coupons are as Follows: ");
                     System.out.println(displayedCoupon);
                     if (displayedCoupon.equalsIgnoreCase("Coupon - Fixed Discount, Time Specific")){
                         System.out.println("CASE FAIL: Non Whitelisted Coupon Combination was Applied Simultaneously");
