@@ -22,10 +22,6 @@ public class Main extends browserSetup {
             String currentModule = args[0];
             String server = args[1];
 
-            for (int i = 0; i < args.length; i++) {
-                System.out.println("args[" + i + "] = [" + args[i] + "]");
-            }
-
             System.setProperty("module", currentModule);
 
             moduleSelector module = new moduleSelector();
