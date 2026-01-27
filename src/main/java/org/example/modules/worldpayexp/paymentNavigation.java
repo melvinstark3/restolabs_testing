@@ -57,6 +57,7 @@ public class paymentNavigation extends org.example.commonUtils.payment.paymentNa
         String selectedPaymentMode = driver.findElement(By.xpath("//input[contains(@aria-label,'Selected')]")).getAttribute("data-testid");
         System.out.println("Selected Payment Mode is " + selectedPaymentMode);
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]"))).click();
+        driver.findElement(By.xpath("//span[@data-testid=\"continue_order\"]")).click();
 
         // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
         Thread.sleep(5000);
