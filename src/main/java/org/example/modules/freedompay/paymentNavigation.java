@@ -51,7 +51,8 @@ public class paymentNavigation extends org.example.commonUtils.payment.paymentNa
             System.out.println("Privacy Policy and Terms and Conditions Checkbox is Not Displayed");
         }
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@data-testid=\"orderTotal\"]")));
-        driver.findElement(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]")));
+        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//input[@data-testid=\""+readProperty("OnlinePaymentMode")+"\"]"))).click();
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@data-testid=\"continue_order\"]")));
         wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[@data-testid=\"continue_order\"]")));
         String selectedPaymentMode = driver.findElement(By.xpath("//input[contains(@aria-label,'Selected')]")).getAttribute("data-testid");
