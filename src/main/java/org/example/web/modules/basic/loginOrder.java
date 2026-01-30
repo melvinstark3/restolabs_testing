@@ -1,0 +1,79 @@
+package org.example.web.modules.basic;
+
+import org.example.web.commonUtils.payment.checkSavedOrNew;
+import org.example.web.commonUtils.payment.deleteCard;
+import org.example.core.browserSetup;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+public class loginOrder extends browserSetup {
+    public loginOrder(String orderType) throws InterruptedException {
+        wait = new WebDriverWait(driver, 30);
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        boolean loggedIn = true;
+        driver.navigate().to("https://" + readProperty("shortcode") + "." + System.getProperty("server"));
+        try{
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[contains(@class, 'user_login_btn rounded-md px-1 text-base text-colorTitle font-bold uppercase cursor-pointer')]")));
+            System.out.println("User is Already Logged In!");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("User is not Logged in. Attempting Login!");
+            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\"Login\"]//span"))).click();
+            driver.findElement(By.id("email")).sendKeys(readProperty("loginUserEmail"));
+            driver.findElement(By.id("password")).sendKeys(readProperty("loginUserPassword"));
+            driver.findElement(By.xpath("//button[@data-testid=\"login\"]")).click();
+
+        }
+        String orderItem;
+        String orderMode;
+        if (orderType.equalsIgnoreCase("comboOrder")){
+            orderItem = readProperty("comboOrderItem");
+            orderMode = "Dine In";
+        } else {
+            orderItem = readProperty("onlineOrderItem");
+            orderMode = orderType;
+        }
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")));
+        driver.findElement(By.xpath("//button[@aria-label=\""+ orderMode +"\"]")).click();
+        System.out.println("Creating Cart");
+        new createCart(orderMode, readProperty("loginLocation"),loggedIn,readProperty("loginOrderTime"),readProperty("preOrderTime"),orderItem);
+        new checkout(orderMode, loggedIn);
+        // There no Dynamic Xpath for the Saved Successfully Container hence using Thread.sleep
+        Thread.sleep(5000);
+        try {
+            try {
+                wait = new WebDriverWait(driver, 5);
+                wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//button[@data-testid=\"closeBillAddressDialog\"])[2]"))).click();
+            } catch (NoSuchElementException | TimeoutException e) {
+                System.out.println("Pre-Saved Billing Dialog wasn't Displayed.");
+            }
+            wait = new WebDriverWait(driver, 30);
+            wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//button[@data-testid=\"placeOrderStripe\"]"))).click();
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("Billing Details Page wasn't Displayed");
+        }
+        System.out.println("Proceeding for Payment!");
+        System.out.print("For Logged In Order: ");
+        if(orderType.equalsIgnoreCase("comboOrder")){
+            deleteCard deleteCardAction = getModule.currentModuleClass("deleteCard", deleteCard.class);
+            deleteCardAction.deleteCard();
+        }
+        Thread.sleep(3000);
+        checkSavedOrNew checkSavedOrNew = getModule.currentModuleClass("checkSavedOrNew",org.example.web.commonUtils.payment.checkSavedOrNew.class);
+        checkSavedOrNew.checkSavedOrNew(readProperty("cardNumber"),loggedIn);
+        try {
+            wait = new WebDriverWait(driver, 60);
+            String orderIDwithHash = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='pl-1']"))).getText();
+            String OrderID = orderIDwithHash.replace("#", "");
+            System.out.println("CASE 2: PASS: Order Placed by Logged In User Successfully. Order ID : " + OrderID);
+            System.out.println("CASE 8: PASS: Pre-Order (Later) Order was Placed Successfully.");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant/Size) Order was Placed Successfully");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant's -> Checkbox) Order was Placed Successfully");
+        } catch (NoSuchElementException | TimeoutException e){
+            System.out.println("CASE 2: FAIL: Order wasn't Posted in Time. Please Check the Case Manually");
+            System.out.println("CASE 8: PASS: Pre-Order (Later) Order wasn't Posted in Time.");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant/Size) Order wasn't Posted in Time");
+            System.out.println("CASE 17: PASS: Customizable Item (Variant's -> Checkbox) Order wasn't Posted in Time");
+        }
+    }
+}

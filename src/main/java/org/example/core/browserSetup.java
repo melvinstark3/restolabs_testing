@@ -1,6 +1,7 @@
 package org.example.core;
 
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -77,7 +78,19 @@ public class browserSetup {
         options.setExperimentalOption("prefs", prefs);
 
         driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
+        String platform = System.getProperty("platform");
+
+        if (platform.equalsIgnoreCase("web")) {
+
+            driver.manage().window().maximize();
+            System.out.println("Platform = WEB → Maximized window");
+
+        } else if (platform.equalsIgnoreCase("mobile")) {
+
+            driver.manage().window().setSize(new Dimension(1206, 2622));
+            System.out.println("Platform = MOBILE → iPhone 17 Pro (1206x2622)");
+
+        }
     }
 
     public static void quitBrowser() {
