@@ -15,7 +15,7 @@ public class Main extends browserSetup {
             if (args.length < 3) {
                 System.err.println("Error: Missing Module / Server / Platform");
                 System.err.println("Please Pass Arguments in the Format of \"module server platform\"");
-                System.err.println("Example: -Dexec.args=\"stripe prod desktop\"");
+                System.err.println("Example: -Dexec.args=\"stripe prod web\"");
                 System.exit(1);
             }
 
